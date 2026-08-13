@@ -1,224 +1,27 @@
-/* Global Reset & Typography */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background: #f4f7f6; color: #333; line-height: 1.6; }
+.container { width: 85%; max-width: 1200px; margin: auto; }
 
-body {
-    font-family: 'Inter', sans-serif;
-    color: #333;
-    background-color: #f8f9fa;
-    line-height: 1.6;
-}
+/* Navbar */
+.navbar { background: #0b1d3a; padding: 20px 0; color: white; }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-weight: 700; font-size: 1.5rem; letter-spacing: 1px; }
+.logo span { color: #38bdf8; }
+.navbar nav a { color: white; margin-left: 20px; text-decoration: none; font-weight: 400; }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
+/* Hero */
+.hero { 
+    height: 80vh; background: linear-gradient(rgba(11,29,58,0.8), rgba(11,29,58,0.8)), url('airplane.jpg'); 
+    background-size: cover; background-position: center; display: flex; align-items: center; text-align: center; color: white; 
 }
+.hero h1 { font-size: 3.5rem; margin-bottom: 20px; }
+.hero h1 span { color: #38bdf8; }
+.tracking-card { background: white; padding: 40px; border-radius: 12px; color: #333; width: 100%; max-width: 600px; margin: 30px auto 0; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+.input-group { display: flex; gap: 10px; margin-top: 20px; }
+.input-group input { flex: 1; padding: 15px; border: 1px solid #ccc; border-radius: 6px; }
+.input-group button { padding: 15px 30px; background: #0b1d3a; color: white; border: none; border-radius: 6px; cursor: pointer; }
 
-/* Header & Navigation */
-.site-header {
-    background-color: #0b1d3a;
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo-img {
-    height: 45px;
-    width: auto;
-    object-fit: contain;
-}
-
-.logo-text {
-    color: #ffffff;
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.logo-text span {
-    color: #38bdf8;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.nav-links a {
-    color: #cbd5e1;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover, .nav-links a.active {
-    color: #38bdf8;
-}
-
-.btn-cta {
-    background-color: #0284c7;
-    color: #fff !important;
-    padding: 10px 20px;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-cta:hover {
-    background-color: #0369a1;
-}
-
-/* Hero Section with Sharp Background Image */
-.hero-section {
-    position: relative;
-    background-image: linear-gradient(rgba(11, 29, 58, 0.5), rgba(11, 29, 58, 0.7)), url('airplane.jpg');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    min-height: 85vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #fff;
-    padding: 60px 20px;
-}
-
-.hero-content {
-    max-width: 800px;
-    z-index: 2;
-}
-
-.hero-content h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    letter-spacing: -0.5px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    color: #e2e8f0;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-}
-
-/* Tracking Box Widget */
-.tracking-box {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-    text-align: left;
-}
-
-.tracking-box h3 {
-    color: #0b1d3a;
-    margin-bottom: 15px;
-    font-size: 1.25rem;
-}
-
-.tracking-form {
-    display: flex;
-    gap: 10px;
-}
-
-.tracking-form input {
-    flex: 1;
-    padding: 14px 16px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 1rem;
-    outline: none;
-}
-
-.tracking-form input:focus {
-    border-color: #0284c7;
-    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-}
-
-.btn-track {
-    background-color: #0b1d3a;
-    color: #fff;
-    border: none;
-    padding: 0 25px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-track:hover {
-    background-color: #1e3a8a;
-}
-
-/* Services Section */
-.services-section {
-    padding: 80px 0;
-    background-color: #ffffff;
-}
-
-.services-section h2 {
-    text-align: center;
-    font-size: 2.25rem;
-    color: #0b1d3a;
-    margin-bottom: 50px;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.service-card {
-    background: #f8f9fa;
-    padding: 35px 30px;
-    border-radius: 8px;
-    border-top: 4px solid #0284c7;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-}
-
-.service-card h3 {
-    color: #0b1d3a;
-    margin-bottom: 15px;
-    font-size: 1.25rem;
-}
-
-.service-card p {
-    color: #64748b;
-    font-size: 0.95rem;
-}
-
-/* Footer */
-.site-footer {
-    background-color: #0b1d3a;
-    color: #94a3b8;
-    text-align: center;
-    padding: 25px 0;
-    font-size: 0.9rem;
-}
+/* Features */
+.features { padding: 80px 0; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.card { background: white; padding: 30px; border-radius: 10px; border-top: 4px solid #38bdf8; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
