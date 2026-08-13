@@ -5,45 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Shipment | Reliance Transit</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Header / Navigation -->
-    <header class="site-header">
-        <div class="container nav-container">
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="container nav-flex">
             <div class="logo-wrapper">
-                <img src="logo.png" alt="Reliance Transit Logo" class="logo-img">
-                <span class="logo-text">RELIANCE <span>TRANSIT</span></span>
+                <div class="logo">RELIANCE <span>TRANSIT</span></div>
             </div>
-            <nav class="nav-links">
+            <nav>
                 <a href="index.html">Home</a>
                 <a href="tracking.html" class="active">Track Shipment</a>
             </nav>
         </div>
     </header>
 
-    <!-- Tracking Results Section -->
-    <section class="tracking-page-section">
-        <div class="container tracking-container">
-            <h2>Real-Time Shipment Tracking</h2>
-            <p>Enter your unique tracking code below to check the live status of your cargo.</p>
+    <!-- Tracking Main Section -->
+    <section class="section-padding">
+        <div class="container" style="max-width: 800px;">
+            <h2 class="section-title">Real-Time Shipment Tracking</h2>
+            <p class="section-subtitle">Enter your tracking code below to pull live status details from our database.</p>
             
-            <div class="tracking-search-box">
-                <input type="text" id="search-code" placeholder="Enter tracking number (e.g. RT-1001)...">
-                <button onclick="fetchShipmentDetails()" class="btn-track">Track</button>
+            <div class="tracking-card">
+                <h3>Enter Waybill Number</h3>
+                <div class="input-group">
+                    <input type="text" id="search-code" placeholder="e.g. RT-1001">
+                    <button onclick="fetchShipmentDetails()" class="btn-primary">Search</button>
+                </div>
             </div>
 
-            <!-- Result Display Card (Hidden by default until searched) -->
+            <!-- Result Display Card -->
             <div id="result-container" class="result-card" style="display: none;">
-                <h3>Shipment Status Details</h3>
+                <h3 style="color: #0b1d3a; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Waybill Status Summary</h3>
                 <div class="result-grid">
-                    <p><strong>Tracking Number:</strong> <span id="res-track"></span></p>
-                    <p><strong>Current Status:</strong> <span id="res-status" class="status-badge"></span></p>
-                    <p><strong>Current Location:</strong> <span id="res-location"></span></p>
-                    <p><strong>Origin:</strong> <span id="res-origin"></span></p>
-                    <p><strong>Destination:</strong> <span id="res-destination"></span></p>
-                    <p><strong>Estimated Delivery:</strong> <span id="res-delivery"></span></p>
+                    <p><strong>Tracking Number:</strong> <br><span id="res-track" style="color: #0284c7; font-weight: 600;"></span></p>
+                    <p><strong>Current Status:</strong> <br><span id="res-status" style="font-weight: 600;"></span></p>
+                    <p><strong>Current Location:</strong> <br><span id="res-location"></span></p>
+                    <p><strong>Origin Hub:</strong> <br><span id="res-origin"></span></p>
+                    <p><strong>Destination Hub:</strong> <br><span id="res-destination"></span></p>
+                    <p><strong>Estimated Delivery:</strong> <br><span id="res-delivery"></span></p>
                 </div>
             </div>
         </div>
@@ -56,11 +58,20 @@
         </div>
     </footer>
 
-    <!-- Supabase JavaScript SDK -->
+    <!-- Supabase JS & Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Your Client Connection File -->
     <script src="supabaseClient.js"></script>
-    <!-- Tracking Query Logic -->
     <script src="tracking.js"></script>
+    <script>
+        // Auto-run search if user passed ID via URL from homepage
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const shipmentId = urlParams.get('id');
+            if(shipmentId) {
+                document.getElementById('search-code').value = shipmentId;
+                fetchShipmentDetails();
+            }
+        });
+    </script>
 </body>
 </html>
