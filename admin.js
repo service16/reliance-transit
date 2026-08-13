@@ -12,7 +12,7 @@ async function createNewShipment(event) {
     const currentLocation = document.getElementById('curr-loc').value.trim();
     const estimatedDelivery = document.getElementById('est-deliv').value.trim();
 
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
         .from('shipments')
         .insert([{
             tracking_number: trackingNumber,
@@ -39,7 +39,7 @@ async function loadAdminShipments() {
     const tableBody = document.getElementById('shipments-table-body');
     if (!tableBody) return;
 
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
         .from('shipments')
         .select('*')
         .order('tracking_number', { ascending: false });
@@ -78,7 +78,7 @@ async function updateStatusPrompt(trackingNumber) {
 
     if (!newStatus || !newLocation) return;
 
-    const { error } = await supabase
+    const { error } = await window.supabaseClient
         .from('shipments')
         .update({ status: newStatus, current_location: newLocation })
         .eq('tracking_number', trackingNumber);
