@@ -7,7 +7,6 @@ async function fetchShipmentDetails() {
         return;
     }
 
-    // Query Supabase for the tracking number
     const { data, error } = await supabase
         .from('shipments')
         .select('*')
@@ -20,7 +19,6 @@ async function fetchShipmentDetails() {
         return;
     }
 
-    // Populate data into the HTML elements
     document.getElementById('res-track').innerText = data.tracking_number;
     document.getElementById('res-status').innerText = data.status;
     document.getElementById('res-location').innerText = data.current_location;
@@ -28,6 +26,5 @@ async function fetchShipmentDetails() {
     document.getElementById('res-destination').innerText = data.destination;
     document.getElementById('res-delivery').innerText = data.estimated_delivery;
 
-    // Show the result card
     resultCard.style.display = 'block';
 }
