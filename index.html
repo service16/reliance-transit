@@ -3,45 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reliance Transit | Professional Logistics Solutions</title>
+    <title>Reliance Transit | Global Logistics & Cargo</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <!-- Header Navigation -->
     <header class="navbar">
         <div class="container nav-flex">
-            <div class="logo">RELIANCE <span>TRANSIT</span></div>
+            <div class="logo-wrapper">
+                <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+                <div class="logo">RELIANCE <span>TRANSIT</span></div>
+            </div>
             <nav>
-                <a href="index.html">Home</a>
+                <a href="index.html" class="active">Home</a>
+                <a href="#about">About Us</a>
                 <a href="tracking.html">Track Shipment</a>
-                <a href="admin.html">Admin</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#contact">Contact</a>
             </nav>
         </div>
     </header>
 
+    <!-- Hero Section with Tracking Box -->
     <section class="hero">
         <div class="container hero-content">
-            <h1>Global Logistics. <br><span>Delivered with Precision.</span></h1>
-            <p>Fast, secure, and reliable courier services for individuals and businesses worldwide.</p>
+            <h1>Global Logistics. <span>Delivered with Precision.</span></h1>
+            <p>Fast, secure, and fully tracked air and ground courier services worldwide.</p>
             
             <div class="tracking-card">
-                <h3>Track Your Shipment</h3>
+                <h3>Quick Shipment Tracker</h3>
                 <div class="input-group">
-                    <input type="text" id="search-code" placeholder="Enter Tracking Number">
-                    <button onclick="window.location.href='tracking.html?id=' + document.getElementById('search-code').value">Track Now</button>
+                    <input type="text" id="quick-track-input" placeholder="Enter Tracking Number (e.g. RT-1001)">
+                    <button class="btn-primary" onclick="quickTrack()">Track Now</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="features">
-        <div class="container grid">
-            <div class="card"><h3>Fast Air Freight</h3><p>Next-day delivery options across major global hubs.</p></div>
-            <div class="card"><h3>Secure Handling</h3><p>End-to-end tracking for sensitive and high-value cargo.</p></div>
-            <div class="card"><h3>24/7 Support</h3><p>Dedicated logistics experts available around the clock.</p></div>
+    <!-- Services Section -->
+    <section class="section-padding bg-white">
+        <div class="container">
+            <h2 class="section-title">Our Core Services</h2>
+            <p class="section-subtitle">Tailored logistics solutions built for speed, safety, and scale.</p>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Air Freight Logistics</h3>
+                    <p>Expedited global flight cargo routing ensuring your critical packages arrive safely on schedule.</p>
+                </div>
+                <div class="card">
+                    <h3>Secure Warehousing</h3>
+                    <p>Climate-controlled and heavily guarded storage facilities across major transit hubs.</p>
+                </div>
+                <div class="card">
+                    <h3>Express Ground Delivery</h3>
+                    <p>Last-mile door-to-door courier distribution handled by certified professional drivers.</p>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- About Us Section -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">About Reliance Transit</h2>
+            <p class="section-subtitle">Pioneering trust and efficiency in international shipping since 2015.</p>
+            <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                <div>
+                    <h3 style="color: #0b1d3a; font-size: 1.5rem; margin-bottom: 15px;">Your Trusted Global Shipping Partner</h3>
+                    <p style="color: #64748b; margin-bottom: 15px;">Reliance Transit operates at the cutting edge of international logistics. We combine state-of-the-art automated tracking infrastructure with a dedicated team of global logistics coordinators.</p>
+                    <p style="color: #64748b;">Whether shipping corporate freight or urgent personal parcels, our unwavering commitment ensures complete transparency and secure handling from origin to final destination.</p>
+                </div>
+                <div style="background: #0b1d3a; color: white; padding: 30px; border-radius: 8px; text-align: center;">
+                    <h4 style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 5px;">99.8%</h4>
+                    <p style="margin-bottom: 20px;">On-Time Delivery Success Rate</p>
+                    <hr style="border-color: rgba(255,255,255,0.1); margin-bottom: 20px;">
+                    <h4 style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 5px;">150+</h4>
+                    <p>International Cargo Hubs Connected</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section id="reviews" class="section-padding bg-white">
+        <div class="container">
+            <h2 class="section-title">Customer Reviews</h2>
+            <p class="section-subtitle">See what our corporate partners and everyday clients say about our service.</p>
+            <div class="grid-3">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Reliance Transit handled our delicate medical equipment shipment seamlessly across borders. The live tracking gave us complete peace of mind."</p>
+                    <div class="client-info">— Sarah Jenkins, Operations Director</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Incredible delivery speed! The package cleared customs and arrived 5 hours ahead of schedule. Truly professional team."</p>
+                    <div class="client-info">— Marcus Vance, Global Imports Inc.</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Their admin dashboard and tracking accuracy are top-tier. Hands down the best courier service we've used for our e-commerce store."</p>
+                    <div class="client-info">— Elena Rostova, Retail Founder</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rate Our Service Interactive Widget -->
+    <section class="container">
+        <div class="rating-widget">
+            <h3 style="margin-bottom: 10px; font-size: 1.5rem;">Rate Your Experience With Us</h3>
+            <p style="color: #94a3b8; margin-bottom: 20px; font-size: 0.95rem;">Click a star to share your feedback instantly</p>
+            <div class="rating-stars" id="star-container">
+                <span onclick="rateApp(1)">★</span>
+                <span onclick="rateApp(2)">★</span>
+                <span onclick="rateApp(3)">★</span>
+                <span onclick="rateApp(4)">★</span>
+                <span onclick="rateApp(5)">★</span>
+            </div>
+            <p id="rating-feedback" style="margin-top: 15px; color: #38bdf8; font-weight: 600;"></p>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Have questions or need custom corporate shipping quotes? Reach out today.</p>
+            <div class="contact-grid">
+                <div>
+                    <h3 style="color: #0b1d3a; margin-bottom: 15px;">Corporate Headquarters</h3>
+                    <p style="color: #64748b; margin-bottom: 10px;"><strong>Address:</strong> 450 Aviation Parkway, Suite 300, New York, NY</p>
+                    <p style="color: #64748b; margin-bottom: 10px;"><strong>Email:</strong> support@reliancetransit.com</p>
+                    <p style="color: #64748b; margin-bottom: 20px;"><strong>Phone:</strong> +1 (800) 555-TRANSIT</p>
+                    <p style="color: #64748b;">Our support hotline is open 24 hours a day, 7 days a week to assist you with active shipments and freight bookings.</p>
+                </div>
+                <div class="contact-form">
+                    <form onsubmit="submitContact(event)">
+                        <input type="text" placeholder="Your Full Name" required>
+                        <input type="email" placeholder="Your Email Address" required>
+                        <textarea placeholder="How can we help you?" required></textarea>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 Reliance Transit Courier & Logistics. All rights reserved. | <a href="admin.html" style="color: #38bdf8; text-decoration: none;">Admin Portal Access</a></p>
+        </div>
+    </footer>
+
+    <script>
+        function quickTrack() {
+            const code = document.getElementById('quick-track-input').value.trim();
+            if(!code) { alert('Please enter a tracking number.'); return; }
+            window.location.href = 'tracking.html?id=' + encodeURIComponent(code);
+        }
+        function rateApp(stars) {
+            const feedback = document.getElementById('rating-feedback');
+            feedback.innerText = `Thank you for rating us ${stars} out of 5 stars! We appreciate your feedback.`;
+        }
+        function submitContact(e) {
+            e.preventDefault();
+            alert('Thank you! Your message has been sent successfully. Our support team will respond shortly.');
+            e.target.reset();
+        }
+    </script>
 </body>
 </html>
