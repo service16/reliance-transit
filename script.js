@@ -13,9 +13,8 @@ function trackShipment(event) {
     }
 
     // Simulate a database lookup for the shipment
-    // (You can later connect this to a real backend database API)
     alert(`🔍 Tracking Lookup: ${trackingInput}\n\nStatus: IN TRANSIT ✈️\nLocation: Air Cargo Hub / En Route\nEstimated Delivery: Within 48 Hours`);
     
-    // Optional: clear the input field after searching
+    // Clear the input field after searching
     document.getElementById('tracking-input').value = "";
 }
