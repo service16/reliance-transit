@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Reliance Transit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+
+    <div class="admin-header">
+        <h2>Reliance Transit - Admin Portal</h2>
+        <button onclick="logoutAdmin()" class="btn-logout">Logout</button>
+    </div>
+
+    <div class="container admin-container">
+        <!-- Create Shipment Form -->
+        <div class="admin-card">
+            <h3>Create New Shipment</h3>
+            <form id="create-shipment-form" onsubmit="createNewShipment(event)">
+                <input type="text" id="track-no" placeholder="Tracking Number (e.g. RT-1002)" required>
+                <input type="text" id="sender" placeholder="Sender Name & City" required>
+                <input type="text" id="receiver" placeholder="Receiver Name & City" required>
+                <input type="text" id="origin" placeholder="Origin Hub" required>
+                <input type="text" id="destination" placeholder="Destination Hub" required>
+                <select id="status">
+                    <option value="Order Created">Order Created</option>
+                    <option value="Picked Up">Picked Up</option>
+                    <option value="In Air Transit">In Air Transit</option>
+                    <option value="Out for Delivery">Out for Delivery</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+                <input type="text" id="curr-loc" placeholder="Current Location" required>
+                <input type="text" id="est-deliv" placeholder="Estimated Delivery Date" required>
+                <button type="submit" class="btn-track">Create Shipment</button>
+            </form>
+        </div>
+
+        <!-- Manage / View All Shipments Table -->
+        <div class="admin-card full-width">
+            <h3>Active Shipments Management</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Tracking #</th>
+                        <th>Receiver</th>
+                        <th>Status</th>
+                        <th>Current Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="shipments-table-body">
+                    <!-- Data populated dynamically via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
