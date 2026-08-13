@@ -3,26 +3,31 @@ document.addEventListener('DOMContentLoaded', loadAdminShipments);
 async function createNewShipment(event) {
     event.preventDefault();
 
-    const newShipment = {
-        tracking_number: document.getElementById('track-no').value.trim(),
-        sender_name: document.getElementById('sender').value.trim(),
-        receiver_name: document.getElementById('receiver').value.trim(),
-        origin: document.getElementById('origin').value.trim(),
-        destination: document.getElementById('destination').value.trim(),
-        status: document.getElementById('status').value,
-        current_location: document.getElementById('curr-loc').value.trim(),
-        estimated_delivery: document.getElementById('est-deliv').value.trim()
-    };
-
-    console.log("Submitting shipment:", newShipment);
+    const trackingNumber = document.getElementById('track-no').value.trim();
+    const senderName = document.getElementById('sender').value.trim();
+    const receiverName = document.getElementById('receiver').value.trim();
+    const origin = document.getElementById('origin').value.trim();
+    const destination = document.getElementById('destination').value.trim();
+    const status = document.getElementById('status').value;
+    const currentLocation = document.getElementById('curr-loc').value.trim();
+    const estimatedDelivery = document.getElementById('est-deliv').value.trim();
 
     const { data, error } = await supabase
         .from('shipments')
-        .insert([newShipment]);
+        .insert([{
+            tracking_number: trackingNumber,
+            sender_name: senderName,
+            receiver_name: receiverName,
+            origin: origin,
+            destination: destination,
+            status: status,
+            current_location: currentLocation,
+            estimated_delivery: estimatedDelivery
+        }]);
 
     if (error) {
-        alert("Database Error: " + error.message);
-        console.error("Supabase insert error:", error);
+        alert("Failed to save: " + error.message);
+        console.error("Supabase Error Details:", error);
     } else {
         alert("Shipment created successfully!");
         document.getElementById('create-shipment-form').reset();
@@ -60,7 +65,7 @@ async function loadAdminShipments() {
                 <td style="padding: 12px;"><span style="background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">${shipment.status}</span></td>
                 <td style="padding: 12px;">${shipment.current_location}</td>
                 <td style="padding: 12px;">
-                    <button onclick="updateStatusPrompt('${shipment.tracking_number}')" style="background: #0284c7; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Update</button>
+                    <button type="button" onclick="updateStatusPrompt('${shipment.tracking_number}')" style="background: #0284c7; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Update</button>
                 </td>
             </tr>
         `;
