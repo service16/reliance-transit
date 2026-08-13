@@ -5,36 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Shipment | Reliance Transit</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Header / Navigation -->
     <header class="site-header">
         <div class="container nav-container">
-            <a href="index.html" class="logo-text">RELIANCE <span>TRANSIT</span></a>
+            <div class="logo-wrapper">
+                <img src="logo.png" alt="Reliance Transit Logo" class="logo-img">
+                <span class="logo-text">RELIANCE <span>TRANSIT</span></span>
+            </div>
             <nav class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="tracking.html" class="active">Track</a>
+                <a href="tracking.html" class="active">Track Shipment</a>
             </nav>
         </div>
     </header>
 
-    <div class="container tracking-results-page">
-        <h2>Shipment Status Lookup</h2>
-        <div class="search-box-inline">
-            <input type="text" id="search-code" placeholder="Enter Tracking Number...">
-            <button onclick="fetchShipmentDetails()">Search</button>
-        </div>
+    <!-- Tracking Results Section -->
+    <section class="tracking-page-section">
+        <div class="container tracking-container">
+            <h2>Real-Time Shipment Tracking</h2>
+            <p>Enter your unique tracking code below to check the live status of your cargo.</p>
+            
+            <div class="tracking-search-box">
+                <input type="text" id="search-code" placeholder="Enter tracking number (e.g. RT-1001)...">
+                <button onclick="fetchShipmentDetails()" class="btn-track">Track</button>
+            </div>
 
-        <div id="result-container" class="result-card" style="display: none;">
-            <h3>Shipment Details</h3>
-            <p><strong>Status:</strong> <span id="res-status"></span></p>
-            <p><strong>Current Location:</strong> <span id="res-location"></span></p>
-            <p><strong>Destination:</strong> <span id="res-destination"></span></p>
-            <p><strong>Estimated Delivery:</strong> <span id="res-delivery"></span></p>
+            <!-- Result Display Card (Hidden by default until searched) -->
+            <div id="result-container" class="result-card" style="display: none;">
+                <h3>Shipment Status Details</h3>
+                <div class="result-grid">
+                    <p><strong>Tracking Number:</strong> <span id="res-track"></span></p>
+                    <p><strong>Current Status:</strong> <span id="res-status" class="status-badge"></span></p>
+                    <p><strong>Current Location:</strong> <span id="res-location"></span></p>
+                    <p><strong>Origin:</strong> <span id="res-origin"></span></p>
+                    <p><strong>Destination:</strong> <span id="res-destination"></span></p>
+                    <p><strong>Estimated Delivery:</strong> <span id="res-delivery"></span></p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Include Supabase JS SDK to fetch data live -->
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 Reliance Transit Courier & Logistics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Supabase JavaScript SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Your Client Connection File -->
+    <script src="supabaseClient.js"></script>
+    <!-- Tracking Query Logic -->
     <script src="tracking.js"></script>
 </body>
 </html>
