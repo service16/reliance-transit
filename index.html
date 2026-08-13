@@ -1,77 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reliance Transit | Global Courier & Logistics</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <!-- Header / Navigation -->
-    <header class="site-header">
-        <div class="container nav-container">
-            <div class="logo-wrapper">
-                <!-- Replace with your actual logo file name once saved in your repo -->
-                <img src="logo.png" alt="Reliance Transit Logo" class="logo-img">
-                <span class="logo-text">RELIANCE <span>TRANSIT</span></span>
-            </div>
-            <nav class="nav-links">
-                <a href="index.html" class="active">Home</a>
-                <a href="#services">Services</a>
-                <a href="#tracking">Track Shipment</a>
-                <a href="#contact" class="btn-cta">Get a Quote</a>
-            </nav>
+<section class="quick-actions">
+    <div class="container action-grid">
+        <div class="action-card">
+            <h3>Get a Quote</h3>
+            <p>Calculate shipping rates for your domestic or international parcels.</p>
         </div>
-    </header>
-
-    <!-- Hero Section with Background Image -->
-    <section class="hero-section" style="background-image: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.6)), url('background.jpg');">
-        <div class="container hero-content">
-            <h1>Global Logistics & Fast Air Freight</h1>
-            <p>Reliable, secure, and lightning-fast courier solutions tailored for your business and personal shipping needs.</p>
-            
-            <!-- Tracking Box Widget -->
-            <div class="tracking-box" id="tracking">
-                <h3>Track Your Shipment</h3>
-                <form class="tracking-form" onsubmit="trackShipment(event)">
-                    <input type="text" id="tracking-input" placeholder="Enter your tracking number (e.g., RT-98421)..." required>
-                    <button type="submit" class="btn-track">Track Now</button>
-                </form>
-            </div>
+        <div class="action-card">
+            <h3>Schedule Pickup</h3>
+            <p>Book a courier to collect your package from your home or office.</p>
         </div>
-    </section>
-
-    <!-- Services Section Preview -->
-    <section id="services" class="services-section">
-        <div class="container">
-            <h2>Our Core Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>Air Cargo Freight</h3>
-                    <p>Expedited global flight logistics ensuring your cargo reaches international destinations on schedule.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Express Courier</h3>
-                    <p>Same-day and next-day local delivery services with real-time route optimization.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Corporate Supply Chain</h3>
-                    <p>End-to-end warehousing, inventory management, and B2B shipping solutions.</p>
-                </div>
-            </div>
+        <div class="action-card">
+            <h3>Find Locations</h3>
+            <p>Locate our nearest drop-off centers and service hubs.</p>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 Reliance Transit Courier & Logistics. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    </div>
+</section>
