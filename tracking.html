@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Shipment | Reliance Transit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-text">RELIANCE <span>TRANSIT</span></a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="tracking.html" class="active">Track</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container tracking-results-page">
+        <h2>Shipment Status Lookup</h2>
+        <div class="search-box-inline">
+            <input type="text" id="search-code" placeholder="Enter Tracking Number...">
+            <button onclick="fetchShipmentDetails()">Search</button>
+        </div>
+
+        <div id="result-container" class="result-card" style="display: none;">
+            <h3>Shipment Details</h3>
+            <p><strong>Status:</strong> <span id="res-status"></span></p>
+            <p><strong>Current Location:</strong> <span id="res-location"></span></p>
+            <p><strong>Destination:</strong> <span id="res-destination"></span></p>
+            <p><strong>Estimated Delivery:</strong> <span id="res-delivery"></span></p>
+        </div>
+    </div>
+
+    <!-- Include Supabase JS SDK to fetch data live -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="tracking.js"></script>
+</body>
+</html>
