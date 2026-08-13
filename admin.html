@@ -34,7 +34,7 @@
                     <input type="text" id="curr-loc" placeholder="Current Location Description" required style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
                     <input type="text" id="est-deliv" placeholder="Estimated Delivery Date" required style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
                 </div>
-                <button type="submit" class="btn-primary" style="width: 100%; padding: 14px; font-weight: 600; background: #0b1d3a; color: white; border: none; border-radius: 6px; cursor: pointer;">Save & Create Shipment</button>
+                <button type="submit" style="width: 100%; padding: 14px; font-weight: 600; background: #0b1d3a; color: white; border: none; border-radius: 6px; cursor: pointer;">Save & Create Shipment</button>
             </form>
         </div>
 
@@ -60,9 +60,17 @@
         </div>
     </div>
 
-    <!-- Supabase CDN & Admin Scripts with Cache Busters -->
+    <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabaseClient.js?v=99"></script>
+    
+    <!-- Initialize Supabase Directly -->
+    <script>
+        const SUPABASE_URL = 'https://cefgmttlrudmfcpgrdsi.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_GgKaaMJOUZjr8ELi2g7G2A_RyCKOL6f';
+        window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+
+    <!-- Admin JS -->
     <script src="admin.js?v=99"></script>
 </body>
 </html>
