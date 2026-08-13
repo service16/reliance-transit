@@ -1,6 +1,6 @@
 // Supabase Configuration
 const SUPABASE_URL = 'https://cefgmttlrudmfcpgrdsi.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlZmdydHRscnVkbWZjcGdyZHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2NTEwNTgsImV4cCI6MjEwMjIyNzA1OH0.u7X_hNhXMTw1R3dJOhA6BckKrQrscsbPknpWVVtxLqc';
+const SUPABASE_ANON_KEY = 'sb_publishable_GgKaaMJOUZjr8ELi2g7G2A_RyCKOL6f';
 
 // Safe global initialization to prevent duplicate declaration errors
 if (typeof window.supabaseClient === 'undefined') {
