@@ -20,7 +20,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #0b131f; color: #ffffff; }
         
-        /* Login Overlay */
         #login-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #0b131f; z-index: 9999; display: flex;
@@ -57,7 +56,6 @@
 </head>
 <body>
 
-    <!-- Login Overlay Screen -->
     <div id="login-overlay">
         <div class="login-card">
             <h2>Admin Login</h2>
@@ -115,14 +113,17 @@
                         <label>Package Status</label>
                         <select id="status" required>
                             <option value="Order Created / Label Generated">Order Created / Label Generated</option>
-                            <option value="Package Received at Origin Facility">Package Received at Origin Facility</option>
-                            <option value="In Air Transit">In Air Transit</option>
-                            <option value="Customs Clearance Processing">Customs Clearance Processing</option>
-                            <option value="Held at Customs">Held at Customs</option>
-                            <option value="Arrived at Destination Hub">Arrived at Destination Hub</option>
+                            <option value="Picked Up by Courier">Picked Up by Courier</option>
+                            <option value="Departed Origin Facility">Departed Origin Facility</option>
+                            <option value="Arrived at Transit Hub">Arrived at Transit Hub</option>
+                            <option value="In Transit - Flight Departed">In Transit - Flight Departed</option>
+                            <option value="Arrived at Destination Country">Arrived at Destination Country</option>
+                            <option value="Customs Clearance in Progress">Customs Clearance in Progress</option>
+                            <option value="Released from Customs">Released from Customs</option>
                             <option value="Out for Delivery">Out for Delivery</option>
-                            <option value="Delivery Attempted - Rescheduling">Delivery Attempted - Rescheduling</option>
+                            <option value="Delivery Attempted - Recipient Unavailable">Delivery Attempted - Recipient Unavailable</option>
                             <option value="Delivered">Delivered</option>
+                            <option value="Exception / Held at Facility">Exception / Held at Facility</option>
                             <option value="Return to Sender">Return to Sender</option>
                         </select>
                     </div>
@@ -161,14 +162,13 @@
     <script>
         let logoutTimer;
 
-        // Reset the 2-minute countdown whenever there is user activity
         function resetLogoutTimer() {
             clearTimeout(logoutTimer);
             logoutTimer = setTimeout(() => {
                 sessionStorage.removeItem('isAdminLoggedIn');
                 alert('Session expired due to 2 minutes of inactivity. Logging you out.');
                 location.reload();
-            }, 120000); // 120,000 ms = 2 minutes
+            }, 120000);
         }
 
         function setupActivityListeners() {
@@ -193,7 +193,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if already authenticated within the current browser session
             if (sessionStorage.getItem('isAdminLoggedIn') === 'true') {
                 document.getElementById('login-overlay').style.display = 'none';
                 initPortal();
@@ -208,7 +207,6 @@
             loadTable();
 
             const adminForm = document.getElementById('admin-form');
-            // Prevent duplicate event listeners if initialized multiple times
             adminForm.onsubmit = function(e) {
                 e.preventDefault();
                 
@@ -242,16 +240,14 @@
                     sendUpdateEmail(newShipment);
                 } else {
                     shipments.unshift(newShipment);
+                    localStorage.setItem('rt_shipments', JSON.stringify(shipments));
                     alert("Shipment registered successfully!");
+                    this.reset();
+                    document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
+                    document.getElementById('form-title').innerText = "Create New Shipment Waybill";
+                    document.getElementById('submit-btn-text').innerText = "Save & Register Waybill";
+                    loadTable();
                 }
-
-                localStorage.setItem('rt_shipments', JSON.stringify(shipments));
-                
-                this.reset();
-                document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
-                document.getElementById('form-title').innerText = "Create New Shipment Waybill";
-                document.getElementById('submit-btn-text').innerText = "Save & Register Waybill";
-                loadTable();
             };
         }
 
@@ -267,14 +263,28 @@
                 est_deliv: data.est_deliv
             };
 
-            emailjs.send('default_service', 'template_0uwd9qs', templateParams)
+            // Using your EmailJS Service ID (service_ms3se37) and Template ID (template_0uwd9qs)
+            emailjs.send('service_ms3se37', 'template_0uwd9qs', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS! Email sent.', response.status, response.text);
                     alert('Package updated and professional status email notification sent to client!');
+                    finalizeFormReset();
                 }, function(error) {
-                    console.log('FAILED...', error);
-                    alert('Package updated locally, but email notification failed to send.');
+                    console.error('EMAILJS ERROR DETAILS:', error);
+                    alert('Package updated locally, but email failed. Check browser F12 Console for details.');
+                    finalizeFormReset();
                 });
+        }
+
+        function finalizeFormReset() {
+            const form = document.getElementById('admin-form');
+            let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
+            localStorage.setItem('rt_shipments', JSON.stringify(shipments));
+            form.reset();
+            document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('form-title').innerText = "Create New Shipment Waybill";
+            document.getElementById('submit-btn-text').innerText = "Save & Register Waybill";
+            loadTable();
         }
 
         function loadTable() {
