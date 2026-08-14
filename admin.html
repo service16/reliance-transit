@@ -19,6 +19,20 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #0b131f; color: #ffffff; }
+        
+        /* Login Overlay */
+        #login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0b131f; z-index: 9999; display: flex;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .login-card {
+            background: #1e293b; padding: 40px; border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05); width: 100%; max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;
+        }
+        .login-card h2 { margin-bottom: 20px; color: #ffffff; font-size: 1.5rem; }
+        
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0b131f; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-box { background: #0284c7; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
@@ -42,6 +56,20 @@
     </style>
 </head>
 <body>
+
+    <!-- Login Overlay Screen -->
+    <div id="login-overlay">
+        <div class="login-card">
+            <h2>Admin Login</h2>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label>Password</label>
+                    <input type="password" id="login-pass" placeholder="Enter admin password" required>
+                </div>
+                <button type="submit" class="btn-submit">Login</button>
+            </form>
+        </div>
+    </div>
 
     <nav>
         <div class="logo-area">
@@ -131,11 +159,57 @@
     </div>
 
     <script>
+        let logoutTimer;
+
+        // Reset the 2-minute countdown whenever there is user activity
+        function resetLogoutTimer() {
+            clearTimeout(logoutTimer);
+            logoutTimer = setTimeout(() => {
+                sessionStorage.removeItem('isAdminLoggedIn');
+                alert('Session expired due to 2 minutes of inactivity. Logging you out.');
+                location.reload();
+            }, 120000); // 120,000 ms = 2 minutes
+        }
+
+        function setupActivityListeners() {
+            ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(evt => {
+                window.addEventListener(evt, resetLogoutTimer);
+            });
+            resetLogoutTimer();
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const passwordInput = document.getElementById('login-pass').value;
+
+            if (passwordInput === 'Fridayboy1@') {
+                sessionStorage.setItem('isAdminLoggedIn', 'true');
+                document.getElementById('login-overlay').style.display = 'none';
+                initPortal();
+                setupActivityListeners();
+            } else {
+                alert('Incorrect password! Access denied.');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Check if already authenticated within the current browser session
+            if (sessionStorage.getItem('isAdminLoggedIn') === 'true') {
+                document.getElementById('login-overlay').style.display = 'none';
+                initPortal();
+                setupActivityListeners();
+            } else {
+                document.getElementById('login-overlay').style.display = 'flex';
+            }
+        });
+
+        function initPortal() {
             document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
             loadTable();
 
-            document.getElementById('admin-form').addEventListener('submit', function(e) {
+            const adminForm = document.getElementById('admin-form');
+            // Prevent duplicate event listeners if initialized multiple times
+            adminForm.onsubmit = function(e) {
                 e.preventDefault();
                 
                 const trackingNumber = document.getElementById('track-no').value.trim();
@@ -164,11 +238,9 @@
                 const existingIndex = shipments.findIndex(s => s.tracking_number === trackingNumber);
 
                 if (existingIndex !== -1) {
-                    // Update existing shipment and fire EmailJS notification
                     shipments[existingIndex] = newShipment;
                     sendUpdateEmail(newShipment);
                 } else {
-                    // New entry
                     shipments.unshift(newShipment);
                     alert("Shipment registered successfully!");
                 }
@@ -180,8 +252,8 @@
                 document.getElementById('form-title').innerText = "Create New Shipment Waybill";
                 document.getElementById('submit-btn-text').innerText = "Save & Register Waybill";
                 loadTable();
-            });
-        });
+            };
+        }
 
         function sendUpdateEmail(data) {
             const templateParams = {
@@ -195,7 +267,6 @@
                 est_deliv: data.est_deliv
             };
 
-            // Using your Email Service ID and Template ID (template_0uwd9qs)
             emailjs.send('default_service', 'template_0uwd9qs', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS! Email sent.', response.status, response.text);
