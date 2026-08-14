@@ -72,9 +72,15 @@
                         <label>Initial Status</label>
                         <select id="status" required>
                             <option value="Order Created / Label Generated">Order Created / Label Generated</option>
+                            <option value="Package Received at Origin Facility">Package Received at Origin Facility</option>
                             <option value="In Air Transit">In Air Transit</option>
+                            <option value="Customs Clearance Processing">Customs Clearance Processing</option>
+                            <option value="Held at Customs">Held at Customs</option>
+                            <option value="Arrived at Destination Hub">Arrived at Destination Hub</option>
                             <option value="Out for Delivery">Out for Delivery</option>
+                            <option value="Delivery Attempted - Rescheduling">Delivery Attempted - Rescheduling</option>
                             <option value="Delivered">Delivered</option>
+                            <option value="Return to Sender">Return to Sender</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -111,7 +117,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Set random default tracking ID
             document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
             loadTable();
 
@@ -130,14 +135,12 @@
                 const newShipment = { tracking_number: trackingNumber, sender, receiver, origin, destination, status, curr_loc, est_deliv };
 
                 let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-                
-                // Remove if already exists to update, otherwise insert
                 shipments = shipments.filter(s => s.tracking_number !== trackingNumber);
                 shipments.unshift(newShipment);
 
                 localStorage.setItem('rt_shipments', JSON.stringify(shipments));
                 
-                alert("Shipment saved successfully to local database!");
+                alert("Shipment saved successfully!");
                 this.reset();
                 document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
                 loadTable();
