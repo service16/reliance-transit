@@ -63,10 +63,11 @@
     <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <!-- Initialize Supabase & Logic Inline -->
+    <!-- Initialize Supabase & Admin Logic -->
     <script>
         const SUPABASE_URL = 'https://cefgmttlrudmfcpgrdsi.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_GgKaaMJOUZjr8ELi2g7G2A_RyCKOL6f';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlZmdydHRscnVkbWZjcGdyZHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2NTEwNTgsImV4cCI6MjEwMjIyNzA1OH0.u7X_hNhXMTw1R3dJOhA6BckKrQrscsbPknpWVVtxLqc';
+        
         window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         document.addEventListener('DOMContentLoaded', loadAdminShipments);
