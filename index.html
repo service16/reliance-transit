@@ -10,7 +10,7 @@
         body { background: #0b131f; color: #ffffff; }
         
         /* Navbar */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0b131f; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0b131f; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-img { height: 42px; width: auto; object-fit: contain; border-radius: 6px; }
         .logo-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; }
@@ -71,28 +71,39 @@
         .client-details h4 { font-size: 0.95rem; font-weight: 700; color: #0f172a; }
         .client-details p { font-size: 0.8rem; color: #64748b; margin: 0; font-style: normal; }
 
-        /* Comprehensive Professional Footer */
+        /* Comprehensive Footer */
         footer { background: #070b12; color: #94a3b8; padding: 70px 8% 30px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
         .footer-col h4 { color: #ffffff; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
         .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-        .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.88rem; }
-        .footer-col ul li a:hover { color: #38bdf8; }
+        .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.88rem; cursor: pointer; }
+        .footer-col ul li a:hover { color: #38bdf8; text-decoration: underline; }
         
-        .region-select { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; padding: 10px 15px; border-radius: 6px; width: 100%; font-size: 0.85rem; outline: none; margin-top: 10px; }
+        .region-select { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; padding: 10px 15px; border-radius: 6px; width: 100%; font-size: 0.85rem; outline: none; margin-top: 10px; cursor: pointer; }
         
         .footer-social-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 25px 0; margin-bottom: 25px; flex-wrap: wrap; gap: 20px; }
         .social-title { color: #ffffff; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         .social-icons { display: flex; gap: 12px; }
-        .social-btn { width: 38px; height: 38px; background: #111c2e; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #cbd5e1; text-decoration: none; font-size: 0.85rem; transition: 0.3s; }
-        .social-btn:hover { background: #0284c7; color: #ffffff; border-color: #0284c7; }
+        .social-btn { width: 38px; height: 38px; background: #111c2e; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #cbd5e1; text-decoration: none; font-size: 0.85rem; transition: 0.3s; font-weight: bold; }
+        .social-btn:hover { background: #0284c7; color: #ffffff; border-color: #0284c7; transform: translateY(-2px); }
 
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-size: 0.82rem; color: #64748b; }
         .footer-bottom-left { display: flex; align-items: center; gap: 10px; color: #cbd5e1; }
         .footer-bottom-left span { background: #0284c7; color: #fff; width: 24px; height: 24px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; }
         .footer-bottom-links { display: flex; gap: 20px; }
-        .footer-bottom-links a { color: #64748b; text-decoration: none; transition: 0.3s; }
+        .footer-bottom-links a { color: #64748b; text-decoration: none; transition: 0.3s; cursor: pointer; }
         .footer-bottom-links a:hover { color: #38bdf8; }
+
+        /* Universal Content Modal Overlay */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-card { background: #1e293b; color: #ffffff; padding: 40px; border-radius: 16px; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1); position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .modal-close { position: absolute; top: 20px; right: 20px; background: #0f172a; color: #94a3b8; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .modal-close:hover { background: #ef4444; color: #ffffff; }
+        .modal-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #38bdf8; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .modal-card p, .modal-card ul { color: #cbd5e1; font-size: 0.95rem; line-height: 1.7; margin-bottom: 15px; }
+        .modal-card ul { padding-left: 20px; }
+        .modal-btn { background: #0284c7; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .modal-btn:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
@@ -111,6 +122,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#track">Track Shipment</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="javascript:void(0)" onclick="openPage('contact')" style="color: #38bdf8;">Contact Us</a></li>
         </ul>
     </nav>
 
@@ -203,40 +215,41 @@
         </div>
     </section>
 
-    <!-- Detailed Footer matching screenshot layout -->
+    <!-- Detailed Footer -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>Our Company</h4>
                 <ul>
-                    <li><a href="#">About Reliance Transit</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Transportation Contracting Opportunities</a></li>
+                    <li><a onclick="openPage('about')">About Reliance Transit</a></li>
+                    <li><a onclick="openPage('careers')">Careers</a></li>
+                    <li><a onclick="openPage('contracting')">Transportation Contracting Opportunities</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>More From Reliance</h4>
                 <ul>
-                    <li><a href="#">Compatible Logistics</a></li>
-                    <li><a href="#">Global Logistics</a></li>
-                    <li><a href="#">Corporate Responsibility</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a onclick="openPage('compatible')">Compatible Logistics</a></li>
+                    <li><a href="#services">Global Logistics</a></li>
+                    <li><a onclick="openPage('responsibility')">Corporate Responsibility</a></li>
+                    <li><a onclick="openPage('contact')">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Policy Center</h4>
                 <ul>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privacy & Security</a></li>
+                    <li><a onclick="openPage('terms')">Terms of Use</a></li>
+                    <li><a onclick="openPage('privacy')">Privacy & Security</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Global Region</h4>
                 <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 5px;">🌐 United States / Global</p>
-                <select class="region-select">
+                <select class="region-select" onchange="alert('Language preference updated to ' + this.options[this.selectedIndex].text)">
                     <option value="en">English</option>
                     <option value="es">Español</option>
                     <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
                 </select>
             </div>
         </div>
@@ -244,11 +257,11 @@
         <div class="footer-social-row">
             <div class="social-title">Follow Reliance Transit</div>
             <div class="social-icons">
-                <a href="#" class="social-btn">f</a>
-                <a href="#" class="social-btn">X</a>
-                <a href="#" class="social-btn">in</a>
-                <a href="#" class="social-btn">yt</a>
-                <a href="#" class="social-btn">pin</a>
+                <a href="https://facebook.com" target="_blank" class="social-btn">f</a>
+                <a href="https://x.com" target="_blank" class="social-btn">X</a>
+                <a href="https://linkedin.com" target="_blank" class="social-btn">in</a>
+                <a href="https://youtube.com" target="_blank" class="social-btn">yt</a>
+                <a href="https://pinterest.com" target="_blank" class="social-btn">pin</a>
             </div>
         </div>
 
@@ -258,13 +271,22 @@
             </div>
             <div>© 1995-2026 Reliance Transit. All rights reserved.</div>
             <div class="footer-bottom-links">
-                <a href="#">Site Map</a>
-                <a href="#">Cookie Consent</a>
+                <a onclick="openPage('sitemap')">Site Map</a>
+                <a onclick="openPage('cookie')">Cookie Consent</a>
             </div>
         </div>
     </footer>
 
+    <!-- Interactive Modal Container -->
+    <div class="modal-overlay" id="info-modal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modal-body-content"></div>
+        </div>
+    </div>
+
     <script>
+        // Track shipment script
         function trackShipment() {
             const query = document.getElementById('tracking-input').value.trim();
             const container = document.getElementById('result-container');
@@ -309,6 +331,103 @@
             `;
             container.scrollIntoView({ behavior: 'smooth' });
         }
+
+        // Interactive Footer Page Modals
+        function openPage(pageKey) {
+            const modal = document.getElementById('info-modal');
+            const body = document.getElementById('modal-body-content');
+
+            const pages = {
+                'about': `
+                    <h3>About Reliance Transit</h3>
+                    <p>Established in 1995, Reliance Transit has grown into a premier global supply chain and express courier provider. Serving over 220 countries and territories, we specialize in high-priority air cargo, customs brokerage, and door-to-door express parcel delivery.</p>
+                    <p>Our global infrastructure guarantees seamless visibility, rapid transit times, and maximum security for every shipment.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close Window</button>
+                `,
+                'careers': `
+                    <h3>Join Our Global Team</h3>
+                    <p>Reliance Transit is constantly seeking talented professionals to join our worldwide logistics network.</p>
+                    <ul>
+                        <li><strong>Global Logistics Dispatcher</strong> - New York Hub</li>
+                        <li><strong>Air Cargo Freight Coordinator</strong> - London Heathrow</li>
+                        <li><strong>Customs Compliance Specialist</strong> - Regional Operations</li>
+                    </ul>
+                    <p>Send your resume directly to <strong>careers@reliancetransit.com</strong> to apply.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'contracting': `
+                    <h3>Contracting Opportunities</h3>
+                    <p>We partner with independent owner-operators, freight carriers, and regional fleet owners worldwide to expand our middle-mile and last-mile transit networks.</p>
+                    <p>Benefits of contracting with Reliance Transit:</p>
+                    <ul>
+                        <li>Guaranteed consistent freight volume</li>
+                        <li>Competitive bi-weekly payout structures</li>
+                        <li>Dedicated regional dispatch support 24/7</li>
+                    </ul>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'compatible': `
+                    <h3>Compatible Logistics Integration</h3>
+                    <p>Our advanced API allows e-commerce platforms, Shopify merchants, and enterprise ERP systems to automatically generate waybills, print shipping labels, and relay real-time tracking data directly to buyers.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'responsibility': `
+                    <h3>Corporate Responsibility & Green Transit</h3>
+                    <p>Reliance Transit is committed to achieving net-zero carbon emissions across our international air and ground transportation fleet by 2040.</p>
+                    <p>We invest heavily in sustainable aviation fuel (SAF), electric last-mile delivery vans, and eco-friendly packaging materials.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'contact': `
+                    <h3>Contact Reliance Transit Support</h3>
+                    <p>Need assistance with your package or corporate account? Our support team is available 24 hours a day, 7 days a week.</p>
+                    <p><strong>Hotline:</strong> +1 (800) 555-TRANSIT</p>
+                    <p><strong>Support Email:</strong> support@reliancetransit.com</p>
+                    <p><strong>Headquarters:</strong> 500 Transit Way, New York, NY 10001</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'terms': `
+                    <h3>Terms of Use</h3>
+                    <p>By utilizing the Reliance Transit website and tracking system, you agree to comply with our international transportation guidelines, liability limits under the Warsaw/Montreal Convention, and customs declarations protocols.</p>
+                    <p>All waybill declarations must accurately represent package contents, weight, and valuation.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'privacy': `
+                    <h3>Privacy & Security Policy</h3>
+                    <p>Your data security is paramount. Reliance Transit complies with GDPR, CCPA, and international data protection standards. Sender and receiver contact info is encrypted and strictly used for shipping and delivery verification.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'sitemap': `
+                    <h3>Site Map</h3>
+                    <ul>
+                        <li><a href="index.html" style="color: #38bdf8;">Home Page & Tracking</a></li>
+                        <li><a href="#services" onclick="closeModal()" style="color: #38bdf8;">Services Overview</a></li>
+                        <li><a href="#testimonials" onclick="closeModal()" style="color: #38bdf8;">Client Testimonials</a></li>
+                        <li><a href="admin.html" style="color: #38bdf8;">Admin Waybill Portal</a></li>
+                    </ul>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'cookie': `
+                    <h3>Cookie Preferences & Privacy Consent</h3>
+                    <p>We use essential cookies to maintain user tracking sessions and improve site performance. Non-essential analytical cookies are strictly optional.</p>
+                    <button class="modal-btn" onclick="alert('Cookie preferences saved successfully!'); closeModal();">Accept All Cookies</button>
+                `
+            };
+
+            body.innerHTML = pages[pageKey] || '<p>Content coming soon.</p>';
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('info-modal').style.display = 'none';
+        }
+
+        // Close modal if user clicks outside content card
+        window.onclick = function(event) {
+            const modal = document.getElementById('info-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
     </script>
 </body>
 </html>
