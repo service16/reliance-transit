@@ -3,176 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reliance Transit | Global Logistics & Cargo</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Reliance Transit | Global Logistics & Express Delivery</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #0b131f; color: #ffffff; }
+        
+        /* Navbar */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0b131f; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-box { background: #0284c7; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+        .logo-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; }
+        .logo-text p { font-size: 0.75rem; color: #94a3b8; letter-spacing: 1px; }
+        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; }
+
+        /* Hero Section */
+        .hero { padding: 90px 8%; background: linear-gradient(rgba(11,19,31,0.85), rgba(11,19,31,0.95)), url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80') center/cover; text-align: left; }
+        .hero span { background: rgba(2,132,199,0.2); color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .hero h1 { font-size: 3.2rem; font-weight: 700; margin: 20px 0; max-width: 700px; line-height: 1.2; }
+        .hero p { color: #94a3b8; font-size: 1rem; max-width: 600px; margin-bottom: 40px; }
+
+        /* Tracking Box */
+        .tracking-card { background: #ffffff; padding: 15px; border-radius: 12px; display: flex; max-width: 650px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .tracking-card input { flex: 1; border: none; padding: 15px; font-size: 1rem; outline: none; color: #0f172a; }
+        .tracking-card button { background: #2563eb; color: white; border: none; padding: 0 30px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .tracking-card button:hover { background: #1d4ed8; }
+
+        /* Features Section */
+        .features { padding: 80px 8%; background: #0f172a; }
+        .section-tag { color: #38bdf8; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
+        .section-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 50px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-box { background: #1e293b; padding: 40px 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+        .feature-box h3 { font-size: 1.3rem; margin-bottom: 15px; color: #ffffff; }
+        .feature-box p { color: #94a3b8; font-size: 0.95kr; line-height: 1.6; }
+
+        /* Tracking Result Modal / Container */
+        #result-container { padding: 40px 8%; background: #0b131f; display: none; }
+        .result-box { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 800px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.1); }
+        .result-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; }
+
+        /* Footer */
+        footer { padding: 60px 8% 30px; background: #070b12; border-top: 1px solid rgba(255,255,255,0.05); color: #64748b; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
+    </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <header class="navbar">
-        <div class="container nav-flex">
-            <div class="logo-wrapper">
-                <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
-                <div class="logo">RELIANCE <span>TRANSIT</span></div>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo-area">
+            <div class="logo-box">RT</div>
+            <div class="logo-text">
+                <h1>RELIANCE TRANSIT</h1>
+                <p>GLOBAL LOGISTICS</p>
             </div>
-            <nav>
-                <a href="index.html" class="active">Home</a>
-                <a href="#about">About Us</a>
-                <a href="tracking.html">Track Shipment</a>
-                <a href="#reviews">Reviews</a>
-                <a href="#contact">Contact</a>
-            </nav>
         </div>
-    </header>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#track">Track Shipment</a></li>
+            <li><a href="admin.html" style="color: #38bdf8;">Admin Portal</a></li>
+        </ul>
+    </nav>
 
-    <!-- Hero Section with Tracking Box -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>Global Logistics. <span>Delivered with Precision.</span></h1>
-            <p>Fast, secure, and fully tracked air and ground courier services worldwide.</p>
-            
-            <div class="tracking-card">
-                <h3>Quick Shipment Tracker</h3>
-                <div class="input-group">
-                    <input type="text" id="quick-track-input" placeholder="Enter Tracking Number (e.g. RT-1001)">
-                    <button class="btn-primary" onclick="quickTrack()">Track Now</button>
-                </div>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero" id="track">
+        <span>World-Class Express Delivery</span>
+        <h1>Fast, Secure & Reliable Global Shipping</h1>
+        <p>From local parcel delivery to international cargo freight, Reliance Transit ensures your shipments arrive safely and on time.</p>
+        
+        <div class="tracking-card">
+            <input type="text" id="tracking-input" placeholder="Enter Tracking Number (e.g. RT-1001)">
+            <button onclick="trackShipment()">Track Package</button>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="section-padding bg-white">
-        <div class="container">
-            <h2 class="section-title">Our Core Services</h2>
-            <p class="section-subtitle">Tailored logistics solutions built for speed, safety, and scale.</p>
-            <div class="grid-3">
-                <div class="card">
-                    <h3>Air Freight Logistics</h3>
-                    <p>Expedited global flight cargo routing ensuring your critical packages arrive safely on schedule.</p>
-                </div>
-                <div class="card">
-                    <h3>Secure Warehousing</h3>
-                    <p>Climate-controlled and heavily guarded storage facilities across major transit hubs.</p>
-                </div>
-                <div class="card">
-                    <h3>Express Ground Delivery</h3>
-                    <p>Last-mile door-to-door courier distribution handled by certified professional drivers.</p>
-                </div>
-            </div>
+    <!-- Tracking Results Section -->
+    <div id="result-container">
+        <div class="result-box" id="result-content">
+            <!-- Dynamic search results inject here -->
         </div>
-    </section>
+    </div>
 
-    <!-- About Us Section -->
-    <section id="about" class="section-padding">
-        <div class="container">
-            <h2 class="section-title">About Reliance Transit</h2>
-            <p class="section-subtitle">Pioneering trust and efficiency in international shipping since 2015.</p>
-            <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
-                <div>
-                    <h3 style="color: #0b1d3a; font-size: 1.5rem; margin-bottom: 15px;">Your Trusted Global Shipping Partner</h3>
-                    <p style="color: #64748b; margin-bottom: 15px;">Reliance Transit operates at the cutting edge of international logistics. We combine state-of-the-art automated tracking infrastructure with a dedicated team of global logistics coordinators.</p>
-                    <p style="color: #64748b;">Whether shipping corporate freight or urgent personal parcels, our unwavering commitment ensures complete transparency and secure handling from origin to final destination.</p>
-                </div>
-                <div style="background: #0b1d3a; color: white; padding: 30px; border-radius: 8px; text-align: center;">
-                    <h4 style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 5px;">99.8%</h4>
-                    <p style="margin-bottom: 20px;">On-Time Delivery Success Rate</p>
-                    <hr style="border-color: rgba(255,255,255,0.1); margin-bottom: 20px;">
-                    <h4 style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 5px;">150+</h4>
-                    <p>International Cargo Hubs Connected</p>
-                </div>
+    <!-- Features Section -->
+    <section class="features" id="services">
+        <span class="section-tag">Excellence in Motion</span>
+        <h2 class="section-title">Why Choose Reliance Transit?</h2>
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>Express Air Freight</h3>
+                <p>Lightning-fast international shipping options designed to get your critical parcels across borders in record time.</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Customer Reviews Section -->
-    <section id="reviews" class="section-padding bg-white">
-        <div class="container">
-            <h2 class="section-title">Customer Reviews</h2>
-            <p class="section-subtitle">See what our corporate partners and everyday clients say about our service.</p>
-            <div class="grid-3">
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Reliance Transit handled our delicate medical equipment shipment seamlessly across borders. The live tracking gave us complete peace of mind."</p>
-                    <div class="client-info">— Sarah Jenkins, Operations Director</div>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Incredible delivery speed! The package cleared customs and arrived 5 hours ahead of schedule. Truly professional team."</p>
-                    <div class="client-info">— Marcus Vance, Global Imports Inc.</div>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Their admin dashboard and tracking accuracy are top-tier. Hands down the best courier service we've used for our e-commerce store."</p>
-                    <div class="client-info">— Elena Rostova, Retail Founder</div>
-                </div>
+            <div class="feature-box">
+                <h3>Secure Handling</h3>
+                <p>End-to-end encryption and physical security measures ensuring sensitive or valuable packages are protected.</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Rate Our Service Interactive Widget -->
-    <section class="container">
-        <div class="rating-widget">
-            <h3 style="margin-bottom: 10px; font-size: 1.5rem;">Rate Your Experience With Us</h3>
-            <p style="color: #94a3b8; margin-bottom: 20px; font-size: 0.95rem;">Click a star to share your feedback instantly</p>
-            <div class="rating-stars" id="star-container">
-                <span onclick="rateApp(1)">★</span>
-                <span onclick="rateApp(2)">★</span>
-                <span onclick="rateApp(3)">★</span>
-                <span onclick="rateApp(4)">★</span>
-                <span onclick="rateApp(5)">★</span>
-            </div>
-            <p id="rating-feedback" style="margin-top: 15px; color: #38bdf8; font-weight: 600;"></p>
-        </div>
-    </section>
-
-    <!-- Contact Us Section -->
-    <section id="contact" class="section-padding">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="section-subtitle">Have questions or need custom corporate shipping quotes? Reach out today.</p>
-            <div class="contact-grid">
-                <div>
-                    <h3 style="color: #0b1d3a; margin-bottom: 15px;">Corporate Headquarters</h3>
-                    <p style="color: #64748b; margin-bottom: 10px;"><strong>Address:</strong> 450 Aviation Parkway, Suite 300, New York, NY</p>
-                    <p style="color: #64748b; margin-bottom: 10px;"><strong>Email:</strong> support@reliancetransit.com</p>
-                    <p style="color: #64748b; margin-bottom: 20px;"><strong>Phone:</strong> +1 (800) 555-TRANSIT</p>
-                    <p style="color: #64748b;">Our support hotline is open 24 hours a day, 7 days a week to assist you with active shipments and freight bookings.</p>
-                </div>
-                <div class="contact-form">
-                    <form onsubmit="submitContact(event)">
-                        <input type="text" placeholder="Your Full Name" required>
-                        <input type="email" placeholder="Your Email Address" required>
-                        <textarea placeholder="How can we help you?" required></textarea>
-                        <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
-                    </form>
-                </div>
+            <div class="feature-box">
+                <h3>Real-Time Milestone Tracking</h3>
+                <p>Monitor every single scan event, location change, and customs update live through our customer tracking portal.</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 Reliance Transit Courier & Logistics. All rights reserved. | <a href="admin.html" style="color: #38bdf8; text-decoration: none;">Admin Portal Access</a></p>
-        </div>
+    <footer>
+        <p>© 1995-2026 Reliance Transit Worldwide. All rights reserved.</p>
+        <p>Secure Global Logistics Network</p>
     </footer>
 
     <script>
-        function quickTrack() {
-            const code = document.getElementById('quick-track-input').value.trim();
-            if(!code) { alert('Please enter a tracking number.'); return; }
-            window.location.href = 'tracking.html?id=' + encodeURIComponent(code);
-        }
-        function rateApp(stars) {
-            const feedback = document.getElementById('rating-feedback');
-            feedback.innerText = `Thank you for rating us ${stars} out of 5 stars! We appreciate your feedback.`;
-        }
-        function submitContact(e) {
-            e.preventDefault();
-            alert('Thank you! Your message has been sent successfully. Our support team will respond shortly.');
-            e.target.reset();
+        function trackShipment() {
+            const query = document.getElementById('tracking-input').value.trim();
+            const container = document.getElementById('result-container');
+            const content = document.getElementById('result-content');
+
+            if (!query) {
+                alert("Please enter a tracking number.");
+                return;
+            }
+
+            // Retrieve shipments from browser storage
+            const shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
+            const found = shipments.find(s => s.tracking_number.toLowerCase() === query.toLowerCase());
+
+            container.style.display = 'block';
+
+            if (!found) {
+                content.innerHTML = `
+                    <h3 style="color: #f87171; margin-bottom: 10px;">Shipment Not Found</h3>
+                    <p style="color: #94a3b8;">No tracking record matches <strong>${query}</strong>. Please verify your tracking number and try again.</p>
+                `;
+                return;
+            }
+
+            content.innerHTML = `
+                <div class="result-header">
+                    <div>
+                        <span style="color: #38bdf8; font-size: 0.8rem; text-transform: uppercase; font-weight: 600;">Tracking Number</span>
+                        <h3 style="font-size: 1.4rem; color: #ffffff;">${found.tracking_number}</h3>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="background: rgba(14, 165, 233, 0.2); color: #38bdf8; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem;">${found.status}</span>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; font-size: 0.95rem;">
+                    <div><strong style="color: #94a3b8;">Sender:</strong> <span style="color: #fff;">${found.sender}</span></div>
+                    <div><strong style="color: #94a3b8;">Receiver:</strong> <span style="color: #fff;">${found.receiver}</span></div>
+                    <div><strong style="color: #94a3b8;">Origin:</strong> <span style="color: #fff;">${found.origin}</span></div>
+                    <div><strong style="color: #94a3b8;">Destination:</strong> <span style="color: #fff;">${found.destination}</span></div>
+                    <div><strong style="color: #94a3b8;">Current Location:</strong> <span style="color: #38bdf8; font-weight: 600;">${found.current_loc}</span></div>
+                    <div><strong style="color: #94a3b8;">Est. Delivery:</strong> <span style="color: #fff;">${found.est_deliv}</span></div>
+                </div>
+            `;
+            container.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
