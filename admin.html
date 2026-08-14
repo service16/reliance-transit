@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Portal | Reliance Transit</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init({
+            publicKey: "RZcgvK1w-8bfxOetA",
+          });
+       })();
+    </script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #0b131f; color: #ffffff; }
@@ -45,7 +56,7 @@
 
     <div class="main-container">
         <div class="card">
-            <h3>Create New Shipment Waybill</h3>
+            <h3 id="form-title">Create New Shipment Waybill</h3>
             <form id="admin-form">
                 <div class="form-grid">
                     <div class="form-group">
@@ -53,12 +64,16 @@
                         <input type="text" id="track-no" required>
                     </div>
                     <div class="form-group">
-                        <label>Sender Name & City</label>
-                        <input type="text" id="sender" placeholder="e.g. John Doe, New York" required>
+                        <label>Client / Receiver Email (For Auto-Updates)</label>
+                        <input type="email" id="client-email" placeholder="client@example.com" required>
                     </div>
                     <div class="form-group">
-                        <label>Receiver Name & City</label>
-                        <input type="text" id="receiver" placeholder="e.g. Jane Smith, London" required>
+                        <label>Sender Name</label>
+                        <input type="text" id="sender" placeholder="e.g. John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Receiver Name</label>
+                        <input type="text" id="receiver" placeholder="e.g. Jane Smith" required>
                     </div>
                     <div class="form-group">
                         <label>Origin Hub</label>
@@ -69,7 +84,7 @@
                         <input type="text" id="destination" placeholder="e.g. London Heathrow" required>
                     </div>
                     <div class="form-group">
-                        <label>Initial Status</label>
+                        <label>Package Status</label>
                         <select id="status" required>
                             <option value="Order Created / Label Generated">Order Created / Label Generated</option>
                             <option value="Package Received at Origin Facility">Package Received at Origin Facility</option>
@@ -92,7 +107,7 @@
                         <input type="text" id="est-deliv" placeholder="e.g. 20 OCT 2026" required>
                     </div>
                 </div>
-                <button type="submit" class="btn-submit">Save & Register Waybill</button>
+                <button type="submit" class="btn-submit" id="submit-btn-text">Save & Register Waybill</button>
             </form>
         </div>
 
@@ -103,7 +118,7 @@
                     <thead>
                         <tr>
                             <th>Tracking #</th>
-                            <th>Receiver</th>
+                            <th>Receiver & Email</th>
                             <th>Status</th>
                             <th>Current Location</th>
                             <th>Actions</th>
@@ -124,6 +139,7 @@
                 e.preventDefault();
                 
                 const trackingNumber = document.getElementById('track-no').value.trim();
+                const client_email = document.getElementById('client-email').value.trim();
                 const sender = document.getElementById('sender').value.trim();
                 const receiver = document.getElementById('receiver').value.trim();
                 const origin = document.getElementById('origin').value.trim();
@@ -132,20 +148,63 @@
                 const curr_loc = document.getElementById('curr-loc').value.trim();
                 const est_deliv = document.getElementById('est-deliv').value.trim();
 
-                const newShipment = { tracking_number: trackingNumber, sender, receiver, origin, destination, status, curr_loc, est_deliv };
+                const newShipment = { 
+                    tracking_number: trackingNumber, 
+                    client_email, 
+                    sender, 
+                    receiver, 
+                    origin, 
+                    destination, 
+                    status, 
+                    curr_loc, 
+                    est_deliv 
+                };
 
                 let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-                shipments = shipments.filter(s => s.tracking_number !== trackingNumber);
-                shipments.unshift(newShipment);
+                const existingIndex = shipments.findIndex(s => s.tracking_number === trackingNumber);
+
+                if (existingIndex !== -1) {
+                    // Update existing shipment and fire EmailJS notification
+                    shipments[existingIndex] = newShipment;
+                    sendUpdateEmail(newShipment);
+                } else {
+                    // New entry
+                    shipments.unshift(newShipment);
+                    alert("Shipment registered successfully!");
+                }
 
                 localStorage.setItem('rt_shipments', JSON.stringify(shipments));
                 
-                alert("Shipment saved successfully!");
                 this.reset();
                 document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
+                document.getElementById('form-title').innerText = "Create New Shipment Waybill";
+                document.getElementById('submit-btn-text').innerText = "Save & Register Waybill";
                 loadTable();
             });
         });
+
+        function sendUpdateEmail(data) {
+            const templateParams = {
+                client_name: data.receiver,
+                client_email: data.client_email,
+                tracking_number: data.tracking_number,
+                sender: data.sender,
+                receiver: data.receiver,
+                status: data.status,
+                curr_loc: data.curr_loc,
+                est_deliv: data.est_deliv
+            };
+
+            // Using your Email Service ID and Template ID (template_0uwd9qs)
+            emailjs.send('default_service', 'template_0uwd9qs', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS! Email sent.', response.status, response.text);
+                    alert('Package updated and professional status email notification sent to client!');
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Package updated locally, but email notification failed to send.');
+                });
+        }
 
         function loadTable() {
             const tbody = document.getElementById('admin-table-body');
@@ -157,11 +216,11 @@
             }
 
             tbody.innerHTML = '';
-            shipments.forEach((s, index) => {
+            shipments.forEach((s) => {
                 tbody.innerHTML += `
                     <tr>
                         <td style="font-weight: 600; color: #38bdf8;">${s.tracking_number}</td>
-                        <td>${s.receiver}</td>
+                        <td>${s.receiver}<br><span style="font-size:0.75rem; color:#38bdf8;">${s.client_email || 'No email provided'}</span></td>
                         <td><span style="background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${s.status}</span></td>
                         <td>${s.curr_loc}</td>
                         <td>
@@ -179,6 +238,7 @@
             if (!s) return;
 
             document.getElementById('track-no').value = s.tracking_number;
+            document.getElementById('client-email').value = s.client_email || '';
             document.getElementById('sender').value = s.sender;
             document.getElementById('receiver').value = s.receiver;
             document.getElementById('origin').value = s.origin;
@@ -186,6 +246,9 @@
             document.getElementById('status').value = s.status;
             document.getElementById('curr-loc').value = s.curr_loc;
             document.getElementById('est-deliv').value = s.est_deliv;
+
+            document.getElementById('form-title').innerText = "Update Existing Waybill (Will Email Client)";
+            document.getElementById('submit-btn-text').innerText = "Save Changes & Email Client";
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
