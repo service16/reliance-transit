@@ -8,30 +8,21 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #0b131f; color: #ffffff; }
-
-        /* Navbar */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0b131f; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-box { background: #0284c7; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
         .logo-text h1 { font-size: 1.1rem; font-weight: 700; }
         .logo-text p { font-size: 0.75rem; color: #94a3b8; letter-spacing: 1px; }
-
         .main-container { padding: 40px 8%; max-width: 1200px; margin: 0 auto; }
-        
-        /* Form Card */
         .card { background: #1e293b; padding: 35px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .card h3 { font-size: 1.3rem; margin-bottom: 20px; color: #ffffff; }
-        
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
         .form-group { display: flex; flex-direction: column; gap: 8px; }
         .form-group label { font-size: 0.85rem; color: #94a3b8; font-weight: 500; }
         .form-group input, .form-group select { padding: 12px 15px; background: #0f172a; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #ffffff; font-size: 0.95rem; outline: none; }
         .form-group input:focus, .form-group select:focus { border-color: #0284c7; }
-
         .btn-submit { background: #0284c7; color: white; border: none; padding: 14px; width: 100%; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 1rem; }
-        .btn-submit:hover { background: #0284c7; opacity: 0.9; }
-
-        /* Table Section */
+        .btn-submit:hover { opacity: 0.9; }
         table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; }
         th { padding: 14px; color: #94a3b8; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
         td { padding: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
@@ -41,7 +32,6 @@
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav>
         <div class="logo-area">
             <div class="logo-box">RT</div>
@@ -54,14 +44,13 @@
     </nav>
 
     <div class="main-container">
-        <!-- Create Shipment Card -->
         <div class="card">
             <h3>Create New Shipment Waybill</h3>
-            <form id="admin-form" onsubmit="saveShipment(event)">
+            <form id="admin-form">
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Tracking Number</label>
-                        <input type="text" id="track-no" required value="RT-808306">
+                        <input type="text" id="track-no" required>
                     </div>
                     <div class="form-group">
                         <label>Sender Name & City</label>
@@ -101,7 +90,6 @@
             </form>
         </div>
 
-        <!-- Database Management Card -->
         <div class="card">
             <h3>Active Shipments Database</h3>
             <div style="overflow-x: auto;">
@@ -115,57 +103,50 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="admin-table-body">
-                        <!-- Dynamically populated -->
-                    </tbody>
+                    <tbody id="admin-table-body"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
     <script>
-        // Generate random track number prefix on load
         document.addEventListener('DOMContentLoaded', () => {
-            const randomId = 'RT-' + Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('track-no').value = randomId;
-            loadAdminTable();
+            // Set random default tracking ID
+            document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
+            loadTable();
+
+            document.getElementById('admin-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const trackingNumber = document.getElementById('track-no').value.trim();
+                const sender = document.getElementById('sender').value.trim();
+                const receiver = document.getElementById('receiver').value.trim();
+                const origin = document.getElementById('origin').value.trim();
+                const destination = document.getElementById('destination').value.trim();
+                const status = document.getElementById('status').value;
+                const curr_loc = document.getElementById('curr-loc').value.trim();
+                const est_deliv = document.getElementById('est-deliv').value.trim();
+
+                const newShipment = { tracking_number: trackingNumber, sender, receiver, origin, destination, status, curr_loc, est_deliv };
+
+                let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
+                
+                // Remove if already exists to update, otherwise insert
+                shipments = shipments.filter(s => s.tracking_number !== trackingNumber);
+                shipments.unshift(newShipment);
+
+                localStorage.setItem('rt_shipments', JSON.stringify(shipments));
+                
+                alert("Shipment saved successfully to local database!");
+                this.reset();
+                document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
+                loadTable();
+            });
         });
 
-        function saveShipment(e) {
-            e.preventDefault();
-            
-            const newShipment = {
-                tracking_number: document.getElementById('track-no').value.trim(),
-                sender: document.getElementById('sender').value.trim(),
-                receiver: document.getElementById('receiver').value.trim(),
-                origin: document.getElementById('origin').value.trim(),
-                destination: document.getElementById('destination').value.trim(),
-                status: document.getElementById('status').value,
-                current_loc: document.getElementById('curr-loc').value.trim(),
-                est_deliv: document.getElementById('est-deliv').value.trim()
-            };
-
-            let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-            
-            // Check if tracking number already exists, update or push new
-            const existingIndex = shipments.findIndex(s => s.tracking_number === newShipment.tracking_number);
-            if (existingIndex >= 0) {
-                shipments[existingIndex] = newShipment;
-            } else {
-                shipments.unshift(newShipment);
-            }
-
-            localStorage.setItem('rt_shipments', JSON.stringify(shipments));
-            alert("Shipment saved successfully!");
-            
-            document.getElementById('admin-form').reset();
-            document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
-            loadAdminTable();
-        }
-
-        function loadAdminTable() {
+        function loadTable() {
             const tbody = document.getElementById('admin-table-body');
-            let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
+            const shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
 
             if (shipments.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8; padding: 20px;">No shipments registered yet.</td></tr>`;
@@ -179,19 +160,20 @@
                         <td style="font-weight: 600; color: #38bdf8;">${s.tracking_number}</td>
                         <td>${s.receiver}</td>
                         <td><span style="background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${s.status}</span></td>
-                        <td>${s.current_loc}</td>
+                        <td>${s.curr_loc}</td>
                         <td>
-                            <button class="action-btn" onclick="editShipment(${index})">Edit</button>
-                            <button class="delete-btn" onclick="deleteShipment(${index})">Delete</button>
+                            <button class="action-btn" type="button" onclick="editItem('${s.tracking_number}')">Edit</button>
+                            <button class="delete-btn" type="button" onclick="deleteItem('${s.tracking_number}')">Delete</button>
                         </td>
                     </tr>
                 `;
             });
         }
 
-        function editShipment(index) {
-            let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-            const s = shipments[index];
+        function editItem(trackingNo) {
+            const shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
+            const s = shipments.find(item => item.tracking_number === trackingNo);
+            if (!s) return;
 
             document.getElementById('track-no').value = s.tracking_number;
             document.getElementById('sender').value = s.sender;
@@ -199,18 +181,18 @@
             document.getElementById('origin').value = s.origin;
             document.getElementById('destination').value = s.destination;
             document.getElementById('status').value = s.status;
-            document.getElementById('curr-loc').value = s.current_loc;
+            document.getElementById('curr-loc').value = s.curr_loc;
             document.getElementById('est-deliv').value = s.est_deliv;
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function deleteShipment(index) {
+        function deleteItem(trackingNo) {
             if (confirm("Are you sure you want to delete this shipment?")) {
                 let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-                shipments.splice(index, 1);
+                shipments = shipments.filter(s => s.tracking_number !== trackingNo);
                 localStorage.setItem('rt_shipments', JSON.stringify(shipments));
-                loadAdminTable();
+                loadTable();
             }
         }
     </script>
