@@ -8,8 +8,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #0b131f; color: #ffffff; }
-        
-        /* Navbar */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0b131f; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-box { background: #0284c7; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
@@ -18,40 +16,29 @@
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
         .nav-links a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
         .nav-links a:hover, .nav-links a.active { color: #ffffff; }
-
-        /* Hero Section */
         .hero { padding: 90px 8%; background: linear-gradient(rgba(11,19,31,0.85), rgba(11,19,31,0.95)), url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80') center/cover; text-align: left; }
         .hero span { background: rgba(2,132,199,0.2); color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         .hero h1 { font-size: 3.2rem; font-weight: 700; margin: 20px 0; max-width: 700px; line-height: 1.2; }
         .hero p { color: #94a3b8; font-size: 1rem; max-width: 600px; margin-bottom: 40px; }
-
-        /* Tracking Box */
         .tracking-card { background: #ffffff; padding: 15px; border-radius: 12px; display: flex; max-width: 650px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .tracking-card input { flex: 1; border: none; padding: 15px; font-size: 1rem; outline: none; color: #0f172a; }
         .tracking-card button { background: #2563eb; color: white; border: none; padding: 0 30px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s; }
         .tracking-card button:hover { background: #1d4ed8; }
-
-        /* Features Section */
         .features { padding: 80px 8%; background: #0f172a; }
         .section-tag { color: #38bdf8; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
         .section-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 50px; }
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .feature-box { background: #1e293b; padding: 40px 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
         .feature-box h3 { font-size: 1.3rem; margin-bottom: 15px; color: #ffffff; }
-        .feature-box p { color: #94a3b8; font-size: 0.95kr; line-height: 1.6; }
-
-        /* Tracking Result Modal / Container */
+        .feature-box p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
         #result-container { padding: 40px 8%; background: #0b131f; display: none; }
         .result-box { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 800px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.1); }
         .result-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; }
-
-        /* Footer */
         footer { padding: 60px 8% 30px; background: #070b12; border-top: 1px solid rgba(255,255,255,0.05); color: #64748b; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav>
         <div class="logo-area">
             <div class="logo-box">RT</div>
@@ -68,7 +55,6 @@
         </ul>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero" id="track">
         <span>World-Class Express Delivery</span>
         <h1>Fast, Secure & Reliable Global Shipping</h1>
@@ -80,14 +66,10 @@
         </div>
     </section>
 
-    <!-- Tracking Results Section -->
     <div id="result-container">
-        <div class="result-box" id="result-content">
-            <!-- Dynamic search results inject here -->
-        </div>
+        <div class="result-box" id="result-content"></div>
     </div>
 
-    <!-- Features Section -->
     <section class="features" id="services">
         <span class="section-tag">Excellence in Motion</span>
         <h2 class="section-title">Why Choose Reliance Transit?</h2>
@@ -107,7 +89,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>© 1995-2026 Reliance Transit Worldwide. All rights reserved.</p>
         <p>Secure Global Logistics Network</p>
@@ -124,7 +105,6 @@
                 return;
             }
 
-            // Retrieve shipments from browser storage
             const shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
             const found = shipments.find(s => s.tracking_number.toLowerCase() === query.toLowerCase());
 
@@ -153,7 +133,7 @@
                     <div><strong style="color: #94a3b8;">Receiver:</strong> <span style="color: #fff;">${found.receiver}</span></div>
                     <div><strong style="color: #94a3b8;">Origin:</strong> <span style="color: #fff;">${found.origin}</span></div>
                     <div><strong style="color: #94a3b8;">Destination:</strong> <span style="color: #fff;">${found.destination}</span></div>
-                    <div><strong style="color: #94a3b8;">Current Location:</strong> <span style="color: #38bdf8; font-weight: 600;">${found.current_loc}</span></div>
+                    <div><strong style="color: #94a3b8;">Current Location:</strong> <span style="color: #38bdf8; font-weight: 600;">${found.curr_loc}</span></div>
                     <div><strong style="color: #94a3b8;">Est. Delivery:</strong> <span style="color: #fff;">${found.est_deliv}</span></div>
                 </div>
             `;
