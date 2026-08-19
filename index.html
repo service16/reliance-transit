@@ -48,27 +48,32 @@
         .result-box { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 800px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.1); }
         .result-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
 
-        /* Document and Parcel Shipping Section */
+        /* Document and Parcel Shipping Section (DHL Style & Dark Blue Theme) */
         .shipping-info { 
-            padding: 80px 8%; 
-            background: #ffffff; 
-            color: #0f172a; 
+            padding: 90px 8%; 
+            background: #0f172a; 
+            color: #ffffff; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
-            gap: 40px; 
+            gap: 50px; 
             flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        .shipping-text { flex: 1; min-width: 300px; }
-        .shipping-text h2 { font-size: 2.5rem; margin-bottom: 10px; color: #0f172a; }
-        .shipping-text p { color: #475569; margin-bottom: 25px; }
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-        .service-item { background: #f1f5f9; padding: 15px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; color: #1e293b; border-left: 4px solid #2563eb; }
-        .shipping-img { flex: 1; min-width: 300px; border-radius: 16px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .shipping-img img { width: 100%; height: auto; display: block; }
+        .shipping-text { flex: 1; min-width: 320px; }
+        .shipping-text .section-tag { color: #38bdf8; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: block; text-align: left; }
+        .shipping-text h2 { font-size: 2.8rem; margin-bottom: 15px; color: #ffffff; font-weight: 700; line-height: 1.2; }
+        .shipping-text p { color: #94a3b8; font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; }
+        
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 35px; }
+        .service-item { background: #1e293b; padding: 18px 20px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; color: #f8fafc; border-left: 4px solid #38bdf8; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        
+        .shipping-img { flex: 1; min-width: 320px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); background: #1e293b; }
+        .shipping-img img { width: 100%; height: 380px; object-fit: cover; display: block; transition: transform 0.5s ease; }
+        .shipping-img img:hover { transform: scale(1.03); }
 
         /* Features Section */
-        .features { padding: 80px 8%; background: #0f172a; }
+        .features { padding: 90px 8%; background: #0b131f; }
         .section-tag { color: #38bdf8; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; text-align: center; }
         .section-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 15px; text-align: center; }
         .section-desc { color: #94a3b8; text-align: center; max-width: 600px; margin: 0 auto 50px auto; font-size: 0.95rem; }
@@ -127,7 +132,7 @@
         .modal-btn { background: #0284c7; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: 0.3s; }
         .modal-btn:hover { opacity: 0.9; }
 
-        /* Responsive Mobile Styling for Navbar */
+        /* Responsive Mobile Styling for Navbar & Sections */
         @media (max-width: 768px) {
             nav { padding: 15px 5%; flex-wrap: wrap; }
             .menu-toggle { display: block; }
@@ -135,7 +140,9 @@
             .nav-links.active { display: flex; }
             .hero h1 { font-size: 2.2rem; }
             .shipping-info { flex-direction: column; text-align: center; }
+            .shipping-text .section-tag { text-align: center; }
             .services-grid { grid-template-columns: 1fr; }
+            .shipping-img img { height: 250px; }
         }
     </style>
 </head>
@@ -177,10 +184,10 @@
         <div class="result-box" id="result-content"></div>
     </div>
 
-    <!-- Document and Parcel Shipping Section (Inserted Here) -->
+    <!-- Document and Parcel Shipping Section (Dark Blue DHL-Style) -->
     <section class="shipping-info">
         <div class="shipping-text">
-            <span class="section-tag" style="color: #2563eb; display: block; margin-bottom: 10px; text-align: left;">For All Shippers</span>
+            <span class="section-tag">For All Shippers</span>
             <h2>Document and Parcel Shipping</h2>
             <p>Learn about Reliance Transit – the undisputed leader in your international express shipping needs.</p>
             
@@ -193,7 +200,7 @@
             <button class="modal-btn" onclick="openPage('about')">Explore Our Services</button>
         </div>
         <div class="shipping-img">
-            <img src="parcel.png" alt="Document and Parcel Shipping">
+            <img src="parcel.png" alt="Document and Parcel Shipping" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'">
         </div>
     </section>
 
