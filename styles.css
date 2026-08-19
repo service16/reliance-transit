@@ -52,7 +52,16 @@ body { background: #f8fafc; color: #1e293b; line-height: 1.6; }
 /* Reviews Carousel/Grid */
 .review-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: relative; }
 .stars { color: #f59e0b; margin-bottom: 10px; font-size: 1.1rem; }
-.client-info { margin-top: 20px; font-weight: 600; color: #0b1d3a; font-size: 0.9rem; }
+.client-info { display: flex; align-items: center; gap: 15px; margin-top: 20px; font-weight: 600; color: #0b1d3a; font-size: 0.9rem; }
+
+/* Customer Review Photos Styling */
+.client-photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0284c7;
+}
 
 /* Rating Widget */
 .rating-widget { background: #0b1d3a; color: white; padding: 50px; border-radius: 12px; text-align: center; margin: 40px auto; max-width: 700px; }
