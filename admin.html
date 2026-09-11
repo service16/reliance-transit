@@ -90,7 +90,7 @@
                         <input type="text" id="track-no" required>
                     </div>
                     <div class="form-group">
-                        <label>Client / Receiver Email (For Auto-Updates)</label>
+                        <label>Receiver Email (For Auto-Updates)</label>
                         <input type="email" id="client-email" placeholder="client@example.com" required>
                     </div>
                     <div class="form-group">
@@ -98,19 +98,23 @@
                         <input type="text" id="sender" placeholder="e.g. John Doe" required>
                     </div>
                     <div class="form-group">
+                        <label>Sender Country</label>
+                        <input type="text" id="sender-country" placeholder="e.g. United States" required>
+                    </div>
+                    <div class="form-group">
                         <label>Receiver Name</label>
                         <input type="text" id="receiver" placeholder="e.g. Jane Smith" required>
                     </div>
                     <div class="form-group">
-                        <label>Origin Hub</label>
-                        <input type="text" id="origin" placeholder="e.g. New York Hub" required>
+                        <label>Receiver Country</label>
+                        <input type="text" id="receiver-country" placeholder="e.g. United Kingdom" required>
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Receiver House Address</label>
+                        <input type="text" id="house-address" placeholder="e.g. 123 Baker Street, Apt 4B" required>
                     </div>
                     <div class="form-group">
-                        <label>Destination Hub</label>
-                        <input type="text" id="destination" placeholder="e.g. London Heathrow" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Package Status</label>
+                        <label>Current Status</label>
                         <select id="status" required>
                             <option value="Order Created / Label Generated">Order Created / Label Generated</option>
                             <option value="Picked Up by Courier">Picked Up by Courier</option>
@@ -128,12 +132,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Current Location Description</label>
-                        <input type="text" id="curr-loc" placeholder="e.g. Main Hub - Central Sorting" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Estimated Delivery Date</label>
-                        <input type="text" id="est-deliv" placeholder="e.g. 20 OCT 2026" required>
+                        <label>Current Stage Number (1 to 5)</label>
+                        <input type="number" id="stage" min="1" max="5" placeholder="e.g. 3" required>
                     </div>
                 </div>
                 <button type="submit" class="btn-submit" id="submit-btn-text">Save & Register Waybill</button>
@@ -149,7 +149,7 @@
                             <th>Tracking #</th>
                             <th>Receiver & Email</th>
                             <th>Status</th>
-                            <th>Current Location</th>
+                            <th>Stage</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -213,23 +213,23 @@
                 const trackingNumber = document.getElementById('track-no').value.trim();
                 const client_email = document.getElementById('client-email').value.trim();
                 const sender = document.getElementById('sender').value.trim();
+                const sender_country = document.getElementById('sender-country').value.trim();
                 const receiver = document.getElementById('receiver').value.trim();
-                const origin = document.getElementById('origin').value.trim();
-                const destination = document.getElementById('destination').value.trim();
+                const receiver_country = document.getElementById('receiver-country').value.trim();
+                const house_address = document.getElementById('house-address').value.trim();
                 const status = document.getElementById('status').value;
-                const curr_loc = document.getElementById('curr-loc').value.trim();
-                const est_deliv = document.getElementById('est-deliv').value.trim();
+                const stage = document.getElementById('stage').value.trim();
 
                 const newShipment = { 
                     tracking_number: trackingNumber, 
                     client_email, 
                     sender, 
+                    sender_country,
                     receiver, 
-                    origin, 
-                    destination, 
+                    receiver_country,
+                    house_address,
                     status, 
-                    curr_loc, 
-                    est_deliv 
+                    stage
                 };
 
                 let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
@@ -237,21 +237,17 @@
 
                 if (existingIndex !== -1) {
                     shipments[existingIndex] = newShipment;
+                    localStorage.setItem('rt_shipments', JSON.stringify(shipments));
                     sendUpdateEmail(newShipment);
                 } else {
                     shipments.unshift(newShipment);
                     localStorage.setItem('rt_shipments', JSON.stringify(shipments));
-                    alert("Shipment registered successfully!");
-                    this.reset();
-                    document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
-                    document.getElementById('form-title').innerText = "Create New Shipment Waybill";
-                    document.getElementById('submit-btn-text').innerText = "Save & Register Waybill";
-                    loadTable();
+                    sendUpdateEmail(newShipment, true);
                 }
             };
         }
 
-        function sendUpdateEmail(data) {
+        function sendUpdateEmail(data, isNew = false) {
             const templateParams = {
                 client_name: data.receiver,
                 client_email: data.client_email,
@@ -259,15 +255,13 @@
                 sender: data.sender,
                 receiver: data.receiver,
                 status: data.status,
-                curr_loc: data.curr_loc,
-                est_deliv: data.est_deliv
+                stage: data.stage
             };
 
-            // Using your EmailJS Service ID (service_ms3se37) and Template ID (template_0uwd9qs)
             emailjs.send('service_ms3se37', 'template_0uwd9qs', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS! Email sent.', response.status, response.text);
-                    alert('Package updated and professional status email notification sent to client!');
+                    alert(isNew ? 'Shipment registered and notification email sent!' : 'Package updated and professional status email notification sent to client!');
                     finalizeFormReset();
                 }, function(error) {
                     console.error('EMAILJS ERROR DETAILS:', error);
@@ -278,8 +272,6 @@
 
         function finalizeFormReset() {
             const form = document.getElementById('admin-form');
-            let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-            localStorage.setItem('rt_shipments', JSON.stringify(shipments));
             form.reset();
             document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
             document.getElementById('form-title').innerText = "Create New Shipment Waybill";
@@ -303,7 +295,7 @@
                         <td style="font-weight: 600; color: #38bdf8;">${s.tracking_number}</td>
                         <td>${s.receiver}<br><span style="font-size:0.75rem; color:#38bdf8;">${s.client_email || 'No email provided'}</span></td>
                         <td><span style="background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${s.status}</span></td>
-                        <td>${s.curr_loc}</td>
+                        <td>Stage ${s.stage || '1'}</td>
                         <td>
                             <button class="action-btn" type="button" onclick="editItem('${s.tracking_number}')">Edit</button>
                             <button class="delete-btn" type="button" onclick="deleteItem('${s.tracking_number}')">Delete</button>
@@ -320,13 +312,13 @@
 
             document.getElementById('track-no').value = s.tracking_number;
             document.getElementById('client-email').value = s.client_email || '';
-            document.getElementById('sender').value = s.sender;
-            document.getElementById('receiver').value = s.receiver;
-            document.getElementById('origin').value = s.origin;
-            document.getElementById('destination').value = s.destination;
-            document.getElementById('status').value = s.status;
-            document.getElementById('curr-loc').value = s.curr_loc;
-            document.getElementById('est-deliv').value = s.est_deliv;
+            document.getElementById('sender').value = s.sender || '';
+            document.getElementById('sender-country').value = s.sender_country || '';
+            document.getElementById('receiver').value = s.receiver || '';
+            document.getElementById('receiver-country').value = s.receiver_country || '';
+            document.getElementById('house-address').value = s.house_address || '';
+            document.getElementById('status').value = s.status || '';
+            document.getElementById('stage').value = s.stage || '1';
 
             document.getElementById('form-title').innerText = "Update Existing Waybill (Will Email Client)";
             document.getElementById('submit-btn-text').innerText = "Save Changes & Email Client";
