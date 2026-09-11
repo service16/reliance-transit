@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
     projectId: "reliance-transit"
@@ -19,17 +19,35 @@ window.fetchShipmentDetails = async function() {
     }
 
     try {
+        let data = null;
+
+        // Method 1: Check if the tracking input is the direct Document ID
         const docRef = doc(db, "shipments", trackingInput);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            const data = docSnap.data();
-            
+            data = docSnap.data();
+        } else {
+            // Method 2: If not found by ID, query by field names (trackingNumber or waybill)
+            const q1 = query(collection(db, "shipments"), where("trackingNumber", "==", trackingInput));
+            let querySnapshot = await getDocs(q1);
+
+            if (querySnapshot.empty) {
+                const q2 = query(collection(db, "shipments"), where("waybill", "==", trackingInput));
+                querySnapshot = await getDocs(q2);
+            }
+
+            if (!querySnapshot.empty) {
+                data = querySnapshot.docs[0].data();
+            }
+        }
+
+        if (data) {
             document.getElementById('res-track').innerText = trackingInput;
-            document.getElementById('res-status').innerText = data.status || "N/A";
-            document.getElementById('res-location').innerText = `${data.current_city_country || "N/A"} - Facility: ${data.current_facility || "N/A"}`;
-            document.getElementById('res-origin').innerText = data.sender_country || "N/A";
-            document.getElementById('res-destination').innerText = data.receiver_country || "N/A";
+            document.getElementById('res-status').innerText = data.status || data.currentStatus || "N/A";
+            document.getElementById('res-location').innerText = `${data.current_city_country || data.currentLocation || "N/A"} - Facility: ${data.current_facility || "N/A"}`;
+            document.getElementById('res-origin').innerText = data.sender_country || data.originHub || "N/A";
+            document.getElementById('res-destination').innerText = data.receiver_country || data.destinationHub || "N/A";
             document.getElementById('res-delivery').innerText = "Standard Transit (Stage " + (data.stage || "1") + ")";
 
             if (resultContainer) resultContainer.style.display = 'block';
