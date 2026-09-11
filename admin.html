@@ -135,6 +135,14 @@
                         <label>Current Stage Number (1 to 5)</label>
                         <input type="number" id="stage" min="1" max="5" placeholder="e.g. 3" required>
                     </div>
+                    <div class="form-group">
+                        <label>Current City & Country</label>
+                        <input type="text" id="current-city-country" placeholder="e.g. London, United Kingdom" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Current Airport / Sorting Facility</label>
+                        <input type="text" id="current-facility" placeholder="e.g. Heathrow Airport (LHR) / Sorting Hub A" required>
+                    </div>
                 </div>
                 <button type="submit" class="btn-submit" id="submit-btn-text">Save & Register Waybill</button>
             </form>
@@ -149,7 +157,7 @@
                             <th>Tracking #</th>
                             <th>Receiver & Email</th>
                             <th>Status</th>
-                            <th>Stage</th>
+                            <th>Current Location / Facility</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -219,6 +227,8 @@
                 const house_address = document.getElementById('house-address').value.trim();
                 const status = document.getElementById('status').value;
                 const stage = document.getElementById('stage').value.trim();
+                const current_city_country = document.getElementById('current-city-country').value.trim();
+                const current_facility = document.getElementById('current-facility').value.trim();
 
                 const newShipment = { 
                     tracking_number: trackingNumber, 
@@ -229,7 +239,9 @@
                     receiver_country,
                     house_address,
                     status, 
-                    stage
+                    stage,
+                    current_city_country,
+                    current_facility
                 };
 
                 let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
@@ -255,7 +267,9 @@
                 sender: data.sender,
                 receiver: data.receiver,
                 status: data.status,
-                stage: data.stage
+                stage: data.stage,
+                current_city_country: data.current_city_country,
+                current_facility: data.current_facility
             };
 
             emailjs.send('service_ms3se37', 'template_0uwd9qs', templateParams)
@@ -295,7 +309,7 @@
                         <td style="font-weight: 600; color: #38bdf8;">${s.tracking_number}</td>
                         <td>${s.receiver}<br><span style="font-size:0.75rem; color:#38bdf8;">${s.client_email || 'No email provided'}</span></td>
                         <td><span style="background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${s.status}</span></td>
-                        <td>Stage ${s.stage || '1'}</td>
+                        <td>${s.current_city_country || 'N/A'}<br><span style="font-size:0.75rem; color:#94a3b8;">${s.current_facility || ''}</span></td>
                         <td>
                             <button class="action-btn" type="button" onclick="editItem('${s.tracking_number}')">Edit</button>
                             <button class="delete-btn" type="button" onclick="deleteItem('${s.tracking_number}')">Delete</button>
@@ -319,6 +333,8 @@
             document.getElementById('house-address').value = s.house_address || '';
             document.getElementById('status').value = s.status || '';
             document.getElementById('stage').value = s.stage || '1';
+            document.getElementById('current-city-country').value = s.current_city_country || '';
+            document.getElementById('current-facility').value = s.current_facility || '';
 
             document.getElementById('form-title').innerText = "Update Existing Waybill (Will Email Client)";
             document.getElementById('submit-btn-text').innerText = "Save Changes & Email Client";
