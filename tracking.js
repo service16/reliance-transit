@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
     projectId: "reliance-transit"
@@ -11,7 +11,7 @@ const db = getFirestore(app);
 window.fetchShipmentDetails = async function() {
     const trackingInput = document.getElementById('search-code').value.trim();
     const resultContainer = document.getElementById('result-container');
-    const notFoundContainer = document.getElementById('not-found-container'); // if present in your HTML
+    const notFoundContainer = document.getElementById('not-found-container');
 
     if (!trackingInput) {
         alert("Please enter a valid tracking number.");
@@ -19,26 +19,24 @@ window.fetchShipmentDetails = async function() {
     }
 
     try {
-        const q = query(collection(db, "shipments"), where("trackingNumber", "==", trackingInput));
-        const querySnapshot = await getDocs(q);
+        const docRef = doc(db, "shipments", trackingInput);
+        const docSnap = await getDoc(docRef);
 
-        if (!querySnapshot.empty) {
-            const docSnap = querySnapshot.docs[0];
+        if (docSnap.exists()) {
             const data = docSnap.data();
             
-            document.getElementById('res-track').innerText = data.trackingNumber || trackingInput;
-            document.getElementById('res-status').innerText = data.currentStatus || "N/A";
-            document.getElementById('res-location').innerText = data.currentLocation || "N/A";
-            document.getElementById('res-origin').innerText = data.originHub || "N/A";
-            document.getElementById('res-destination').innerText = data.destinationHub || "N/A";
-            document.getElementById('res-delivery').innerText = data.estimatedDelivery || "N/A";
+            document.getElementById('res-track').innerText = trackingInput;
+            document.getElementById('res-status').innerText = data.status || "N/A";
+            document.getElementById('res-location').innerText = `${data.current_city_country || "N/A"} - Facility: ${data.current_facility || "N/A"}`;
+            document.getElementById('res-origin').innerText = data.sender_country || "N/A";
+            document.getElementById('res-destination').innerText = data.receiver_country || "N/A";
+            document.getElementById('res-delivery').innerText = "Standard Transit (Stage " + (data.stage || "1") + ")";
 
             if (resultContainer) resultContainer.style.display = 'block';
             if (notFoundContainer) notFoundContainer.style.display = 'none';
         } else {
             if (resultContainer) resultContainer.style.display = 'none';
             if (notFoundContainer) notFoundContainer.style.display = 'block';
-            else alert("No shipment found with this tracking number.");
         }
     } catch (error) {
         console.error("Firestore Error:", error);
