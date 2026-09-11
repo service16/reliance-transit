@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
     projectId: "reliance-transit"
@@ -11,6 +11,7 @@ const db = getFirestore(app);
 window.fetchShipmentDetails = async function() {
     const trackingInput = document.getElementById('search-code').value.trim();
     const resultContainer = document.getElementById('result-container');
+    const notFoundContainer = document.getElementById('not-found-container'); // if present in your HTML
 
     if (!trackingInput) {
         alert("Please enter a valid tracking number.");
@@ -18,10 +19,11 @@ window.fetchShipmentDetails = async function() {
     }
 
     try {
-        const docRef = doc(db, "shipments", trackingInput);
-        const docSnap = await getDoc(docRef);
+        const q = query(collection(db, "shipments"), where("trackingNumber", "==", trackingInput));
+        const querySnapshot = await getDocs(q);
 
-        if (docSnap.exists()) {
+        if (!querySnapshot.empty) {
+            const docSnap = querySnapshot.docs[0];
             const data = docSnap.data();
             
             document.getElementById('res-track').innerText = data.trackingNumber || trackingInput;
@@ -31,10 +33,12 @@ window.fetchShipmentDetails = async function() {
             document.getElementById('res-destination').innerText = data.destinationHub || "N/A";
             document.getElementById('res-delivery').innerText = data.estimatedDelivery || "N/A";
 
-            resultContainer.style.display = 'block';
+            if (resultContainer) resultContainer.style.display = 'block';
+            if (notFoundContainer) notFoundContainer.style.display = 'none';
         } else {
-            resultContainer.style.display = 'none';
-            alert("No shipment found with this tracking number. Please check the ID and try again.");
+            if (resultContainer) resultContainer.style.display = 'none';
+            if (notFoundContainer) notFoundContainer.style.display = 'block';
+            else alert("No shipment found with this tracking number.");
         }
     } catch (error) {
         console.error("Firestore Error:", error);
