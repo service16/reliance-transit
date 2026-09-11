@@ -31,7 +31,7 @@
             <div class="tracking-card">
                 <h3>Enter Waybill Number</h3>
                 <div class="input-group">
-                    <input type="text" id="search-code" placeholder="e.g. RT-1001">
+                    <input type="text" id="search-code" placeholder="e.g. RT263850">
                     <button onclick="fetchShipmentDetails()" class="btn-primary">Search</button>
                 </div>
             </div>
@@ -58,10 +58,8 @@
         </div>
     </footer>
 
-    <!-- Supabase JS & Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabaseClient.js"></script>
-    <script src="tracking.js"></script>
+    <!-- Firebase SDKs & Script -->
+    <script type="module" src="tracking.js"></script>
     <script>
         // Auto-run search if user passed ID via URL from homepage
         window.addEventListener('DOMContentLoaded', () => {
@@ -69,7 +67,9 @@
             const shipmentId = urlParams.get('id');
             if(shipmentId) {
                 document.getElementById('search-code').value = shipmentId;
-                fetchShipmentDetails();
+                if(typeof fetchShipmentDetails === 'function') {
+                    fetchShipmentDetails();
+                }
             }
         });
     </script>
