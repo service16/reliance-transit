@@ -16,10 +16,225 @@
        })();
     </script>
 
+    <!-- Firebase SDKs & Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+        // Your Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBTBGEI8d_f8Ti4TI7hW9ASC4PEdf5la4A",
+            authDomain: "reliance-transit.firebaseapp.com",
+            projectId: "reliance-transit",
+            storageBucket: "reliance-transit.firebasestorage.app",
+            messagingSenderId: "1074202809376",
+            appId: "1:1074202809376:web:19cfad7b2a4fb8a4245845",
+            measurementId: "G-2Y0TD1DV59"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let logoutTimer;
+
+        function resetLogoutTimer() {
+            clearTimeout(logoutTimer);
+            logoutTimer = setTimeout(() => {
+                sessionStorage.removeItem('isAdminLoggedIn');
+                alert('Session expired due to 2 minutes of inactivity. Logging you out.');
+                location.reload();
+            }, 120000);
+        }
+
+        function setupActivityListeners() {
+            ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(evt => {
+                window.addEventListener(evt, resetLogoutTimer);
+            });
+            resetLogoutTimer();
+        }
+
+        window.handleLogin = function(e) {
+            e.preventDefault();
+            const passwordInput = document.getElementById('login-pass').value;
+
+            if (passwordInput === 'Fridayboy1@') {
+                sessionStorage.setItem('isAdminLoggedIn', 'true');
+                document.getElementById('login-overlay').style.display = 'none';
+                initPortal();
+                setupActivityListeners();
+            } else {
+                alert('Incorrect password! Access denied.');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('isAdminLoggedIn') === 'true') {
+                document.getElementById('login-overlay').style.display = 'none';
+                initPortal();
+                setupActivityListeners();
+            } else {
+                document.getElementById('login-overlay').style.display = 'flex';
+            }
+        });
+
+        function initPortal() {
+            document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
+            loadTable();
+
+            const adminForm = document.getElementById('admin-form');
+            adminForm.onsubmit = async function(e) {
+                e.preventDefault();
+                
+                const trackingNumber = document.getElementById('track-no').value.trim();
+                const client_email = document.getElementById('client-email').value.trim();
+                const sender = document.getElementById('sender').value.trim();
+                const sender_country = document.getElementById('sender-country').value.trim();
+                const receiver = document.getElementById('receiver').value.trim();
+                const receiver_country = document.getElementById('receiver-country').value.trim();
+                const house_address = document.getElementById('house-address').value.trim();
+                const status = document.getElementById('status').value;
+                const stage = document.getElementById('stage').value.trim();
+                const current_city_country = document.getElementById('current-city-country').value.trim();
+                const current_facility = document.getElementById('current-facility').value.trim();
+
+                const newShipment = { 
+                    tracking_number: trackingNumber, 
+                    client_email: client_email, 
+                    receiver_email: client_email, 
+                    sender, 
+                    sender_country,
+                    receiver, 
+                    receiver_country,
+                    house_address,
+                    status, 
+                    stage,
+                    current_city_country,
+                    current_facility
+                };
+
+                try {
+                    // Save document to Firestore cloud database using tracking number as ID
+                    await setDoc(doc(db, "shipments", trackingNumber), newShipment);
+                    sendUpdateEmail(newShipment);
+                } catch (error) {
+                    console.error("Firestore Error:", error);
+                    alert("Failed to save to Firebase cloud. Check console for details.");
+                }
+            };
+        }
+
+        function sendUpdateEmail(data) {
+            const templateParams = {
+                client_name: data.receiver,
+                client_email: data.client_email,
+                tracking_number: data.tracking_number,
+                sender: data.sender,
+                sender_country: data.sender_country,
+                receiver: data.receiver,
+                receiver_country: data.receiver_country,
+                house_address: data.house_address,
+                status: data.status,
+                stage: data.stage,
+                current_city_country: data.current_city_country,
+                current_facility: data.current_facility
+            };
+
+            emailjs.send('service_ms3se37', 'template_0uwd9qs', templateParams)
+                .then(function(response) {
+                    alert('Shipment saved to cloud and email notification sent!');
+                    finalizeFormReset();
+                }, function(error) {
+                    console.error('EMAILJS ERROR DETAILS:', error);
+                    alert('Saved to cloud database, but email sending failed.');
+                    finalizeFormReset();
+                });
+        }
+
+        function finalizeFormReset() {
+            const form = document.getElementById('admin-form');
+            form.reset();
+            document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('form-title').innerText = "Create New Shipment Waybill";
+            document.getElementById('submit-btn-text').innerText = "Save & Register Waybill";
+            loadTable();
+        }
+
+        async function loadTable() {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8; padding: 20px;">Loading from cloud...</td></tr>`;
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "shipments"));
+                if (querySnapshot.empty) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8; padding: 20px;">No shipments registered yet.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                querySnapshot.forEach((docSnap) => {
+                    const s = docSnap.data();
+                    const displayEmail = s.client_email || s.receiver_email || 'No email provided';
+                    tbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: 600; color: #38bdf8;">${s.tracking_number}</td>
+                            <td>${s.receiver}<br><span style="font-size:0.75rem; color:#38bdf8;">${displayEmail}</span></td>
+                            <td><span style="background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${s.status}</span></td>
+                            <td>${s.current_city_country || 'N/A'}<br><span style="font-size:0.75rem; color:#94a3b8;">${s.current_facility || ''}</span></td>
+                            <td>
+                                <button class="action-btn" type="button" onclick="window.editItem('${s.tracking_number}')">Edit</button>
+                                <button class="delete-btn" type="button" onclick="window.deleteItem('${s.tracking_number}')">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error loading table:", error);
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ef4444; padding: 20px;">Error loading cloud data.</td></tr>`;
+            }
+        }
+
+        window.editItem = async function(trackingNo) {
+            const querySnapshot = await getDocs(collection(db, "shipments"));
+            let s = null;
+            querySnapshot.forEach(docSnap => {
+                if(docSnap.data().tracking_number === trackingNo) s = docSnap.data();
+            });
+            if (!s) return;
+
+            document.getElementById('track-no').value = s.tracking_number;
+            document.getElementById('client-email').value = s.client_email || s.receiver_email || '';
+            document.getElementById('sender').value = s.sender || '';
+            document.getElementById('sender-country').value = s.sender_country || '';
+            document.getElementById('receiver').value = s.receiver || '';
+            document.getElementById('receiver-country').value = s.receiver_country || '';
+            document.getElementById('house-address').value = s.house_address || '';
+            document.getElementById('status').value = s.status || '';
+            document.getElementById('stage').value = s.stage || '1';
+            document.getElementById('current-city-country').value = s.current_city_country || '';
+            document.getElementById('current-facility').value = s.current_facility || '';
+
+            document.getElementById('form-title').innerText = "Update Existing Waybill (Will Email Client)";
+            document.getElementById('submit-btn-text').innerText = "Save Changes & Email Client";
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.deleteItem = async function(trackingNo) {
+            if (confirm("Are you sure you want to delete this shipment from the cloud?")) {
+                try {
+                    await deleteDoc(doc(db, "shipments", trackingNo));
+                    loadTable();
+                } catch (error) {
+                    console.error("Error deleting:", error);
+                    alert("Failed to delete from cloud.");
+                }
+            }
+        };
+    </script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #0b131f; color: #ffffff; }
-        
         #login-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #0b131f; z-index: 9999; display: flex;
@@ -31,7 +246,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;
         }
         .login-card h2 { margin-bottom: 20px; color: #ffffff; font-size: 1.5rem; }
-        
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0b131f; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-box { background: #0284c7; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
@@ -166,193 +380,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        let logoutTimer;
-
-        function resetLogoutTimer() {
-            clearTimeout(logoutTimer);
-            logoutTimer = setTimeout(() => {
-                sessionStorage.removeItem('isAdminLoggedIn');
-                alert('Session expired due to 2 minutes of inactivity. Logging you out.');
-                location.reload();
-            }, 120000);
-        }
-
-        function setupActivityListeners() {
-            ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(evt => {
-                window.addEventListener(evt, resetLogoutTimer);
-            });
-            resetLogoutTimer();
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const passwordInput = document.getElementById('login-pass').value;
-
-            if (passwordInput === 'Fridayboy1@') {
-                sessionStorage.setItem('isAdminLoggedIn', 'true');
-                document.getElementById('login-overlay').style.display = 'none';
-                initPortal();
-                setupActivityListeners();
-            } else {
-                alert('Incorrect password! Access denied.');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('isAdminLoggedIn') === 'true') {
-                document.getElementById('login-overlay').style.display = 'none';
-                initPortal();
-                setupActivityListeners();
-            } else {
-                document.getElementById('login-overlay').style.display = 'flex';
-            }
-        });
-
-        function initPortal() {
-            document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
-            loadTable();
-
-            const adminForm = document.getElementById('admin-form');
-            adminForm.onsubmit = function(e) {
-                e.preventDefault();
-                
-                const trackingNumber = document.getElementById('track-no').value.trim();
-                const client_email = document.getElementById('client-email').value.trim();
-                const sender = document.getElementById('sender').value.trim();
-                const sender_country = document.getElementById('sender-country').value.trim();
-                const receiver = document.getElementById('receiver').value.trim();
-                const receiver_country = document.getElementById('receiver-country').value.trim();
-                const house_address = document.getElementById('house-address').value.trim();
-                const status = document.getElementById('status').value;
-                const stage = document.getElementById('stage').value.trim();
-                const current_city_country = document.getElementById('current-city-country').value.trim();
-                const current_facility = document.getElementById('current-facility').value.trim();
-
-                const newShipment = { 
-                    tracking_number: trackingNumber, 
-                    client_email, 
-                    sender, 
-                    sender_country,
-                    receiver, 
-                    receiver_country,
-                    house_address,
-                    status, 
-                    stage,
-                    current_city_country,
-                    current_facility
-                };
-
-                let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-                const existingIndex = shipments.findIndex(s => s.tracking_number === trackingNumber);
-
-                if (existingIndex !== -1) {
-                    shipments[existingIndex] = newShipment;
-                    localStorage.setItem('rt_shipments', JSON.stringify(shipments));
-                    sendUpdateEmail(newShipment);
-                } else {
-                    shipments.unshift(newShipment);
-                    localStorage.setItem('rt_shipments', JSON.stringify(shipments));
-                    sendUpdateEmail(newShipment, true);
-                }
-            };
-        }
-
-        function sendUpdateEmail(data, isNew = false) {
-            const templateParams = {
-                client_name: data.receiver,
-                client_email: data.client_email,
-                tracking_number: data.tracking_number,
-                sender: data.sender,
-                sender_country: data.sender_country,
-                receiver: data.receiver,
-                receiver_country: data.receiver_country,
-                house_address: data.house_address,
-                status: data.status,
-                stage: data.stage,
-                current_city_country: data.current_city_country,
-                current_facility: data.current_facility
-            };
-
-            emailjs.send('service_ms3se37', 'template_0uwd9qs', templateParams)
-                .then(function(response) {
-                    console.log('SUCCESS! Email sent.', response.status, response.text);
-                    alert(isNew ? 'Shipment registered and notification email sent!' : 'Package updated and professional status email notification sent to client!');
-                    finalizeFormReset();
-                }, function(error) {
-                    console.error('EMAILJS ERROR DETAILS:', error);
-                    alert('Package updated locally, but email failed. Check browser F12 Console for details.');
-                    finalizeFormReset();
-                });
-        }
-
-        function finalizeFormReset() {
-            const form = document.getElementById('admin-form');
-            form.reset();
-            document.getElementById('track-no').value = 'RT-' + Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('form-title').innerText = "Create New Shipment Waybill";
-            document.getElementById('submit-btn-text').innerText = "Save & Register Waybill";
-            loadTable();
-        }
-
-        function loadTable() {
-            const tbody = document.getElementById('admin-table-body');
-            const shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-
-            if (shipments.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8; padding: 20px;">No shipments registered yet.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = '';
-            shipments.forEach((s) => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td style="font-weight: 600; color: #38bdf8;">${s.tracking_number}</td>
-                        <td>${s.receiver}<br><span style="font-size:0.75rem; color:#38bdf8;">${s.client_email || 'No email provided'}</span></td>
-                        <td><span style="background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${s.status}</span></td>
-                        <td>${s.current_city_country || 'N/A'}<br><span style="font-size:0.75rem; color:#94a3b8;">${s.current_facility || ''}</span></td>
-                        <td>
-                            <button class="action-btn" type="button" onclick="editItem('${s.tracking_number}')">Edit</button>
-                            <button class="delete-btn" type="button" onclick="deleteItem('${s.tracking_number}')">Delete</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        function editItem(trackingNo) {
-            const shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-            const s = shipments.find(item => item.tracking_number === trackingNo);
-            if (!s) return;
-
-            document.getElementById('track-no').value = s.tracking_number;
-            document.getElementById('client-email').value = s.client_email || '';
-            document.getElementById('sender').value = s.sender || '';
-            document.getElementById('sender-country').value = s.sender_country || '';
-            document.getElementById('receiver').value = s.receiver || '';
-            document.getElementById('receiver-country').value = s.receiver_country || '';
-            document.getElementById('house-address').value = s.house_address || '';
-            document.getElementById('status').value = s.status || '';
-            document.getElementById('stage').value = s.stage || '1';
-            document.getElementById('current-city-country').value = s.current_city_country || '';
-            document.getElementById('current-facility').value = s.current_facility || '';
-
-            document.getElementById('form-title').innerText = "Update Existing Waybill (Will Email Client)";
-            document.getElementById('submit-btn-text').innerText = "Save Changes & Email Client";
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function deleteItem(trackingNo) {
-            if (confirm("Are you sure you want to delete this shipment?")) {
-                let shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-                shipments = shipments.filter(s => s.tracking_number !== trackingNo);
-                localStorage.setItem('rt_shipments', JSON.stringify(shipments));
-                loadTable();
-            }
-        }
-    </script>
 </body>
 </html>
