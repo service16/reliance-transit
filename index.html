@@ -435,14 +435,14 @@
                         </div>
                     </div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; font-size: 0.95rem;">
-                        <div><strong style="color: #94a3b8;">Current Facility:</strong> <span style="color: #38bdf8; font-weight: 600;">${found.current_facility || 'N/A'}</span></div>
-                        <div><strong style="color: #94a3b8;">Current Location:</strong> <span style="color: #fff;">${found.current_city_country || 'N/A'}</span></div>
-                        <div><strong style="color: #94a3b8;">Sender Name:</strong> <span style="color: #fff;">${found.sender_name || 'N/A'}</span></div>
+                        <div><strong style="color: #94a3b8;">Current Facility:</strong> <span style="color: #38bdf8; font-weight: 600;">${found.current_facility || found.facility || 'N/A'}</span></div>
+                        <div><strong style="color: #94a3b8;">Current Location:</strong> <span style="color: #fff;">${found.current_city_country || found.location || 'N/A'}</span></div>
+                        <div><strong style="color: #94a3b8;">Sender Name:</strong> <span style="color: #fff;">${found.sender_name || found.sender || found.shipper_name || 'N/A'}</span></div>
                         <div><strong style="color: #94a3b8;">Sender Country:</strong> <span style="color: #fff;">${found.sender_country || 'N/A'}</span></div>
-                        <div><strong style="color: #94a3b8;">Receiver Name:</strong> <span style="color: #fff;">${found.receiver_name || 'N/A'}</span></div>
-                        <div><strong style="color: #94a3b8;">Receiver Email:</strong> <span style="color: #fff;">${found.client_email || 'N/A'}</span></div>
+                        <div><strong style="color: #94a3b8;">Receiver Name:</strong> <span style="color: #fff;">${found.receiver_name || found.receiver || found.recipient_name || 'N/A'}</span></div>
+                        <div><strong style="color: #94a3b8;">Receiver Email:</strong> <span style="color: #fff;">${found.client_email || found.receiver_email || 'N/A'}</span></div>
                         <div><strong style="color: #94a3b8;">Receiver Country:</strong> <span style="color: #fff;">${found.receiver_country || 'N/A'}</span></div>
-                        <div><strong style="color: #94a3b8;">House Address:</strong> <span style="color: #fff;">${found.house_address || 'N/A'}</span></div>
+                        <div><strong style="color: #94a3b8;">House Address:</strong> <span style="color: #fff;">${found.house_address || found.address || 'N/A'}</span></div>
                     </div>
                 `;
             }, 1000);
