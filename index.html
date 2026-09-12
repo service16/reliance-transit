@@ -6,317 +6,73 @@
     <title>Reliance Transit | Global Logistics & Tracking</title>
     <style>
         /* Base & Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            line-height: 1.6;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-            cursor: pointer;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; line-height: 1.6; }
+        a { color: inherit; text-decoration: none; cursor: pointer; }
 
         /* Navigation */
-        header {
-            background-color: #1e293b;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #334155;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #38bdf8;
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-        .nav-links a:hover {
-            color: #38bdf8;
-        }
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            color: #f8fafc;
-            cursor: pointer;
-        }
+        header { background-color: #1e293b; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #38bdf8; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a:hover { color: #38bdf8; }
+        .menu-toggle { display: none; font-size: 1.5rem; background: none; border: none; color: #f8fafc; cursor: pointer; }
 
         /* Hero & Tracking Section */
-        .hero {
-            text-align: center;
-            padding: 80px 5%;
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-        .hero p {
-            color: #94a3b8;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        .tracking-box {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            background: #1e293b;
-            border-radius: 8px;
-            padding: 10px;
-            border: 1px solid #334155;
-        }
-        .tracking-box input {
-            flex: 1;
-            padding: 12px 15px;
-            border: none;
-            background: transparent;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-        }
-        .tracking-box button {
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .tracking-box button:hover {
-            background: #0ea5e9;
-        }
-
-        /* Services */
-        .services {
-            padding: 60px 5%;
-        }
+        .hero { text-align: center; padding: 80px 5%; background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .hero p { color: #94a3b8; margin-bottom: 30px; font-size: 1.1rem; }
+        .tracking-box { max-width: 600px; margin: 0 auto; display: flex; background: #1e293b; border-radius: 8px; padding: 10px; border: 1px solid #334155; }
+        .tracking-box input { flex: 1; padding: 12px 15px; border: none; background: transparent; color: #fff; font-size: 1rem; outline: none; }
+        .tracking-box button { background: #38bdf8; color: #0f172a; border: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+        .tracking-box button:hover { background: #0ea5e9; }
         
-        /* Testimonials (User's Second Half Styles) */
-        .testimonials {
-            padding: 60px 5%;
-            background-color: #1e293b;
-            text-align: center;
-        }
-        .section-tag {
-            color: #38bdf8;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        .section-title {
-            font-size: 2rem;
-            margin: 10px 0;
-        }
-        .section-desc {
-            color: #94a3b8;
-            margin-bottom: 40px;
-        }
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            text-align: left;
-        }
-        .testimonial-card {
-            background: #0f172a;
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid #334155;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .stars {
-            color: #fbbf24;
-            margin-bottom: 10px;
-        }
-        .client-info {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
-            gap: 15px;
-        }
-        .client-photo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .client-details h4 {
-            font-size: 1rem;
-        }
-        .client-details p {
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
+        /* Loading Container */
+        #result-container { display: none; max-width: 800px; margin: 30px auto; background: #1e293b; border-radius: 10px; padding: 30px; border: 1px solid #334155; }
+
+        /* Services & Testimonials */
+        .services { padding: 60px 5%; }
+        .testimonials { padding: 60px 5%; background-color: #1e293b; text-align: center; }
+        .section-tag { color: #38bdf8; font-size: 0.9rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        .section-title { font-size: 2rem; margin: 10px 0; }
+        .section-desc { color: #94a3b8; margin-bottom: 40px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; text-align: left; }
+        .testimonial-card { background: #0f172a; padding: 25px; border-radius: 10px; border: 1px solid #334155; display: flex; flex-direction: column; justify-content: space-between; }
+        .stars { color: #fbbf24; margin-bottom: 10px; }
+        .client-info { display: flex; align-items: center; margin-top: 20px; gap: 15px; }
+        .client-photo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        .client-details h4 { font-size: 1rem; }
+        .client-details p { font-size: 0.8rem; color: #94a3b8; }
 
         /* Footer */
-        footer {
-            background: #020617;
-            padding: 60px 5% 20px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        .footer-col h4 {
-            margin-bottom: 20px;
-            color: #f8fafc;
-        }
-        .footer-col ul {
-            list-style: none;
-        }
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-        .footer-col ul li a {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-        .footer-col ul li a:hover {
-            color: #38bdf8;
-        }
-        .region-select {
-            background: #1e293b;
-            color: #fff;
-            border: 1px solid #334155;
-            padding: 8px;
-            border-radius: 4px;
-            width: 100%;
-        }
-        .footer-social-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #1e293b;
-            margin-bottom: 20px;
-        }
-        .social-icons {
-            display: flex;
-            gap: 10px;
-        }
-        .social-btn {
-            background: #1e293b;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: #94a3b8;
-            font-weight: bold;
-        }
-        .social-btn:hover {
-            background: #38bdf8;
-            color: #0f172a;
-        }
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: #64748b;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .footer-bottom-left span {
-            color: #38bdf8;
-            font-weight: bold;
-            margin-right: 5px;
-        }
-        .footer-bottom-links a {
-            margin-left: 15px;
-        }
-        .footer-bottom-links a:hover {
-            color: #38bdf8;
-        }
+        footer { background: #020617; padding: 60px 5% 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { margin-bottom: 20px; color: #f8fafc; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: #38bdf8; }
+        .region-select { background: #1e293b; color: #fff; border: 1px solid #334155; padding: 8px; border-radius: 4px; width: 100%; }
+        .footer-social-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #1e293b; margin-bottom: 20px; }
+        .social-icons { display: flex; gap: 10px; }
+        .social-btn { background: #1e293b; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #94a3b8; font-weight: bold; }
+        .social-btn:hover { background: #38bdf8; color: #0f172a; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #64748b; flex-wrap: wrap; gap: 15px; }
+        .footer-bottom-left span { color: #38bdf8; font-weight: bold; margin-right: 5px; }
+        .footer-bottom-links a { margin-left: 15px; }
+        .footer-bottom-links a:hover { color: #38bdf8; }
 
         /* Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-card {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-            border: 1px solid #334155;
-        }
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        .modal-btn {
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            margin-top: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-card { background: #1e293b; padding: 30px; border-radius: 8px; max-width: 500px; width: 90%; position: relative; border: 1px solid #334155; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: #94a3b8; font-size: 1.5rem; cursor: pointer; }
+        .modal-btn { background: #38bdf8; color: #0f172a; border: none; padding: 10px 20px; border-radius: 4px; margin-top: 20px; cursor: pointer; font-weight: bold; }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #1e293b;
-                padding: 20px;
-                text-align: center;
-            }
-            .nav-links.active {
-                display: flex;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #1e293b; padding: 20px; text-align: center; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .footer-bottom { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -343,14 +99,10 @@
             <input type="text" id="tracking-input" placeholder="e.g. RT123456789">
             <button onclick="trackShipment()">Track Package</button>
         </div>
-    </section>
 
-    <!-- Services Section Placeholder -->
-    <section class="services" id="services">
-        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-            <span class="section-tag">Our Services</span>
-            <h2 class="section-title">Worldwide Logistics Solutions</h2>
-            <p class="section-desc">From time-critical air freight to efficient last-mile delivery, Reliance Transit delivers absolute reliability.</p>
+        <!-- Result Container for Loading Animation -->
+        <div id="result-container">
+            <div id="result-content"></div>
         </div>
     </section>
 
@@ -482,18 +234,33 @@
             menu.classList.toggle('active');
         }
 
-        // FIXED SCRIPT: Redirects to the new Firebase tracking page instead of querying localStorage
+        // Track shipment script updated with requested fields and 2-second delay
         function trackShipment() {
             const query = document.getElementById('tracking-input').value.trim();
-            
+            const container = document.getElementById('result-container');
+            const content = document.getElementById('result-content');
+
             if (!query) {
                 alert("Please enter a tracking number.");
                 return;
             }
 
-            // REDIRECT TO FIREBASE TRACKING PAGE
-            // Ensure your tracking page is named 'track.html' (or update the filename below)
-            window.location.href = `track.html?tracking_number=${encodeURIComponent(query)}`;
+            // Show container and loading state immediately
+            if(container && content) {
+                container.style.display = 'block';
+                content.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <p style="color: #38bdf8; font-weight: 600;">Searching tracking record for <strong>${query}</strong>...</p>
+                    </div>
+                `;
+                container.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Introduce a 2000ms (2 seconds) delay, then redirect to the Firebase tracking page
+            setTimeout(() => {
+                // Change 'track.html' if your Firebase tracking page is named differently
+                window.location.href = 'track.html?tracking_number=' + encodeURIComponent(query);
+            }, 2000); 
         }
 
         // Interactive Footer Page Modals
