@@ -330,6 +330,7 @@
                     <div class="form-group">
                         <label>Current Status</label>
                         <select id="status" required>
+                            <!-- Original Options -->
                             <option value="Order Created / Label Generated">Order Created / Label Generated</option>
                             <option value="Picked Up by Courier">Picked Up by Courier</option>
                             <option value="Departed Origin Facility">Departed Origin Facility</option>
@@ -343,6 +344,30 @@
                             <option value="Delivered">Delivered</option>
                             <option value="Exception / Held at Facility">Exception / Held at Facility</option>
                             <option value="Return to Sender">Return to Sender</option>
+
+                            <!-- Newly Added Tracking & Hold Updates -->
+                            <option value="Your order has been packed and ready to be shipped out">Your order has been packed and ready to be shipped out</option>
+                            <option value="Order Shipped">Order Shipped</option>
+                            <option value="Export Customs Clearance Success">Export Customs Clearance Success</option>
+                            <option value="The package is on its way to the airport warehouse">The package is on its way to the airport warehouse</option>
+                            <option value="Package arrived at airport, awaiting flight">Package arrived at airport, awaiting flight</option>
+                            <option value="Air freight loading">Air freight loading</option>
+                            <option value="Flight departure">Flight departure</option>
+                            <option value="Package arrived at airport">Package arrived at airport</option>
+                            <option value="Notify the customs clearance company to pick-up">Notify the customs clearance company to pick-up</option>
+                            <option value="Being checked at customs">Being checked at customs</option>
+                            <option value="Customs clearance completed">Customs clearance completed</option>
+                            <option value="Picked up by customs clearance company">Picked up by customs clearance company</option>
+                            <option value="Being handed over by customs">Being handed over by customs</option>
+                            <option value="Arrive at sorting warehouse">Arrive at sorting warehouse</option>
+                            <option value="Package received at last-mile hub">Package received at last-mile hub</option>
+                            
+                            <!-- Custom Hold Reasons -->
+                            <option value="On Hold: Customs Inspection / Clearance Delay">On Hold: Customs Inspection / Clearance Delay</option>
+                            <option value="On Hold: Customer Request / Vacation Hold">On Hold: Customer Request / Vacation Hold</option>
+                            <option value="On Hold: Incorrect or Incomplete Receiver Address">On Hold: Incorrect or Incomplete Receiver Address</option>
+                            <option value="On Hold: Outstanding Import Duties / Taxes Unpaid">On Hold: Outstanding Import Duties / Taxes Unpaid</option>
+                            <option value="On Hold: Security Screening or Documentation Verification Required">On Hold: Security Screening or Documentation Verification Required</option>
                         </select>
                     </div>
                     <div class="form-group">
