@@ -346,6 +346,29 @@
         </div>
     </div>
 
+    <!-- Firebase SDK Setup -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            databaseURL: "YOUR_DATABASE_URL",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        window.firebaseDb = db;
+        window.dbRef = ref(db);
+        window.get = get;
+        window.child = child;
+    </script>
+
     <script>
         // Mobile menu toggle
         function toggleMenu() {
@@ -353,8 +376,8 @@
             menu.classList.toggle('active');
         }
 
-        // Track shipment script updated with requested fields and 2-second delay
-        function trackShipment() {
+        // Track shipment script updated with Firebase and local storage fallback
+        async function trackShipment() {
             const query = document.getElementById('tracking-input').value.trim();
             const container = document.getElementById('result-container');
             const content = document.getElementById('result-content');
@@ -374,9 +397,28 @@
             container.scrollIntoView({ behavior: 'smooth' });
 
             // Introduce a 2000ms (2 seconds) delay before displaying the actual result
-            setTimeout(() => {
-                const shipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
-                const found = shipments.find(s => s.tracking_number.toLowerCase() === query.toLowerCase());
+            setTimeout(async () => {
+                let found = null;
+
+                try {
+                    if (window.firebaseDb) {
+                        const snapshot = await window.get(window.child(window.dbRef, 'shipments'));
+                        if (snapshot.exists()) {
+                            const data = snapshot.val();
+                            // Data can be stored as an array or object in Firebase
+                            const shipmentsList = Array.isArray(data) ? data : Object.values(data);
+                            found = shipmentsList.find(s => s && s.tracking_number && s.tracking_number.toLowerCase() === query.toLowerCase());
+                        }
+                    }
+                } catch (err) {
+                    console.error("Firebase fetch error:", err);
+                }
+
+                // Fallback to local storage if not found in Firebase
+                if (!found) {
+                    const localShipments = JSON.parse(localStorage.getItem('rt_shipments')) || [];
+                    found = localShipments.find(s => s.tracking_number.toLowerCase() === query.toLowerCase());
+                }
 
                 if (!found) {
                     content.innerHTML = `
