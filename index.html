@@ -351,15 +351,18 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            databaseURL: "YOUR_DATABASE_URL",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+    
+            const firebaseConfig = {
+            apiKey: "AIzaSyBTBGEI8d_f8Ti4TI7hW9ASC4PEdf5la4A",
+            authDomain: "reliance-transit.firebaseapp.com",
+            databaseURL: "https://reliance-transit-default-rtdb.firebaseio.com",
+            projectId: "reliance-transit",
+            storageBucket: "reliance-transit.firebasestorage.app",
+            messagingSenderId: "1074202809376",
+            appId: "1:1074202809376:web:19cfad7b2a4fb8a4245845",
+            measurementId: "G-2Y0TD1DV59"
         };
+
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
