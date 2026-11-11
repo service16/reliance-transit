@@ -1,1516 +1,501 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reliance Transit | Global Logistics & Express Delivery</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-html { scroll-behavior:smooth; }
-
-body {
-    background:#0b131f;
-    color:#fff;
-    overflow-x:hidden;
-}
-
-nav {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-    background:#0b131f;
-    border-bottom:1px solid rgba(255,255,255,.1);
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-
-.logo-area {
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.logo-img {
-    height:42px;
-    width:auto;
-    object-fit:contain;
-    border-radius:6px;
-}
-
-.logo-text h1 {
-    font-size:1.1rem;
-    font-weight:700;
-    letter-spacing:.5px;
-}
-
-.logo-text p {
-    font-size:.75rem;
-    color:#94a3b8;
-    letter-spacing:1px;
-}
-
-.nav-links {
-    display:flex;
-    gap:30px;
-    list-style:none;
-    align-items:center;
-}
-
-.nav-links a {
-    color:#cbd5e1;
-    text-decoration:none;
-    font-size:.9rem;
-    font-weight:500;
-    transition:.3s;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    color:#38bdf8;
-}
-
-.menu-toggle {
-    display:none;
-    background:none;
-    border:none;
-    color:white;
-    font-size:1.8rem;
-    cursor:pointer;
-}
-
-/* HERO */
-
-.hero {
-    padding:100px 8%;
-    background:
-    linear-gradient(rgba(11,19,31,.65),rgba(11,19,31,.88)),
-    url('airplane.jpg') no-repeat center center/cover;
-    min-height:80vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.hero span {
-    background:rgba(2,132,199,.3);
-    color:#38bdf8;
-    padding:7px 15px;
-    border-radius:20px;
-    font-size:.8rem;
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    display:inline-block;
-    width:fit-content;
-}
-
-.hero h1 {
-    font-size:3.2rem;
-    font-weight:700;
-    margin:22px 0 15px;
-    max-width:750px;
-    line-height:1.2;
-    text-shadow:0 2px 10px rgba(0,0,0,.5);
-}
-
-.hero p {
-    color:#cbd5e1;
-    font-size:1.05rem;
-    max-width:600px;
-    margin-bottom:35px;
-    line-height:1.7;
-}
-
-.tracking-card {
-    background:white;
-    padding:12px;
-    border-radius:12px;
-    display:flex;
-    max-width:650px;
-    width:100%;
-    box-shadow:0 10px 30px rgba(0,0,0,.4);
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.tracking-card input {
-    flex:1;
-    border:none;
-    padding:14px;
-    font-size:1rem;
-    outline:none;
-    color:#0f172a;
-    background:transparent;
-    min-width:200px;
-}
-
-.tracking-card button {
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:13px 30px;
-    font-weight:600;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.tracking-card button:hover {
-    background:#1d4ed8;
-    transform:translateY(-2px);
-}
-
-.tracking-note {
-    color:#cbd5e1;
-    font-size:.8rem;
-    margin-top:13px;
-}
-
-/* SHIPPING */
-
-.shipping-info {
-    padding:90px 8%;
-    background:#0f172a;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:50px;
-    flex-wrap:wrap;
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.shipping-text {
-    flex:1;
-    min-width:300px;
-}
-
-.section-tag {
-    color:#38bdf8;
-    font-size:.85rem;
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin-bottom:12px;
-    display:block;
-}
-
-.shipping-text h2 {
-    font-size:2.8rem;
-    margin-bottom:15px;
-    font-weight:700;
-    line-height:1.2;
-}
-
-.shipping-text p {
-    color:#94a3b8;
-    font-size:1.05rem;
-    margin-bottom:30px;
-    line-height:1.7;
-}
-
-.services-grid {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-    margin-bottom:35px;
-}
-
-.service-item {
-    background:#1e293b;
-    padding:18px 20px;
-    border-radius:10px;
-    font-weight:600;
-    font-size:.95rem;
-    color:#f8fafc;
-    border:1px solid rgba(255,255,255,.05);
-    border-left:4px solid #38bdf8;
-}
-
-.shipping-img {
-    flex:1;
-    min-width:300px;
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:0 20px 40px rgba(0,0,0,.5);
-    border:1px solid rgba(255,255,255,.1);
-}
-
-.shipping-img img {
-    width:100%;
-    height:380px;
-    object-fit:cover;
-    display:block;
-}
-
-/* BUTTONS */
-
-.modal-btn {
-    background:#0284c7;
-    color:white;
-    border:none;
-    padding:13px 25px;
-    border-radius:8px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.modal-btn:hover {
-    background:#0369a1;
-    transform:translateY(-2px);
-}
-
-/* FEATURES */
-
-.features {
-    padding:90px 8%;
-    background:#0b131f;
-}
-
-.section-title {
-    font-size:2.2rem;
-    font-weight:700;
-    margin-bottom:15px;
-    text-align:center;
-}
-
-.section-desc {
-    color:#94a3b8;
-    text-align:center;
-    max-width:600px;
-    margin:0 auto 50px;
-    font-size:.95rem;
-    line-height:1.7;
-}
-
-.feature-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-}
-
-.feature-box {
-    background:#1e293b;
-    padding:40px 30px;
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,.05);
-    transition:.3s;
-}
-
-.feature-box:hover {
-    transform:translateY(-5px);
-    border-color:rgba(56,189,248,.4);
-}
-
-.feature-box h3 {
-    font-size:1.3rem;
-    margin-bottom:15px;
-}
-
-.feature-box p {
-    color:#94a3b8;
-    font-size:.95rem;
-    line-height:1.7;
-}
-
-/* TESTIMONIALS */
-
-.testimonials {
-    padding:90px 8%;
-    background:#f8fafc;
-    color:#0f172a;
-}
-
-.testimonials .section-tag {
-    color:#2563eb;
-    text-align:center;
-}
-
-.testimonials .section-title {
-    color:#0f172a;
-}
-
-.testimonials .section-desc {
-    color:#64748b;
-}
-
-.testimonial-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-    max-width:1200px;
-    margin:auto;
-}
-
-.testimonial-card {
-    background:white;
-    padding:35px;
-    border-radius:16px;
-    border:1px solid #e2e8f0;
-    box-shadow:0 10px 25px rgba(0,0,0,.03);
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-}
-
-.stars {
-    color:#f59e0b;
-    font-size:1.1rem;
-    margin-bottom:20px;
-    letter-spacing:2px;
-}
-
-.testimonial-card > div:first-child p {
-    color:#334155;
-    font-size:.95rem;
-    line-height:1.7;
-    margin-bottom:30px;
-    font-style:italic;
-}
-
-.client-info {
-    display:flex;
-    align-items:center;
-    gap:15px;
-    border-top:1px solid #f1f5f9;
-    padding-top:20px;
-}
-
-.client-photo {
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    object-fit:cover;
-}
-
-.client-details h4 {
-    font-size:.95rem;
-    color:#0f172a;
-}
-
-.client-details p {
-    font-size:.8rem;
-    color:#64748b;
-}
-
-/* FOOTER */
-
-footer {
-    background:#070b12;
-    color:#94a3b8;
-    padding:70px 8% 30px;
-    border-top:1px solid rgba(255,255,255,.08);
-    font-size:.9rem;
-}
-
-.footer-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:40px;
-    margin-bottom:50px;
-}
-
-.footer-col h4 {
-    color:white;
-    font-size:.95rem;
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin-bottom:20px;
-}
-
-.footer-col ul {
-    list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.footer-col ul li a {
-    color:#94a3b8;
-    text-decoration:none;
-    transition:.3s;
-    font-size:.88rem;
-    cursor:pointer;
-}
-
-.footer-col ul li a:hover {
-    color:#38bdf8;
-}
-
-.region-select {
-    background:#0f172a;
-    border:1px solid rgba(255,255,255,.1);
-    color:white;
-    padding:10px 15px;
-    border-radius:6px;
-    width:100%;
-    font-size:.85rem;
-    margin-top:10px;
-    cursor:pointer;
-}
-
-.footer-social-row {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-top:1px solid rgba(255,255,255,.08);
-    border-bottom:1px solid rgba(255,255,255,.08);
-    padding:25px 0;
-    margin-bottom:25px;
-    flex-wrap:wrap;
-    gap:20px;
-}
-
-.social-title {
-    color:white;
-    font-size:.95rem;
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-.social-icons {
-    display:flex;
-    gap:12px;
-}
-
-.social-btn {
-    width:38px;
-    height:38px;
-    background:#111c2e;
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#cbd5e1;
-    text-decoration:none;
-    font-size:.85rem;
-    font-weight:bold;
-    transition:.3s;
-}
-
-.social-btn:hover {
-    background:#0284c7;
-    color:white;
-}
-
-.footer-bottom {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:15px;
-    font-size:.82rem;
-    color:#64748b;
-}
-
-.footer-bottom-left {
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:#cbd5e1;
-}
-
-.footer-bottom-left span {
-    background:#0284c7;
-    color:white;
-    width:24px;
-    height:24px;
-    border-radius:4px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    font-size:.75rem;
-    font-weight:bold;
-}
-
-.footer-bottom-links {
-    display:flex;
-    gap:20px;
-}
-
-.footer-bottom-links a {
-    color:#64748b;
-    text-decoration:none;
-    cursor:pointer;
-}
-
-.footer-bottom-links a:hover {
-    color:#38bdf8;
-}
-
-/* MODAL */
-
-.modal-overlay {
-    display:none;
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.8);
-    backdrop-filter:blur(5px);
-    z-index:1000;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
-
-.modal-card {
-    background:#1e293b;
-    color:white;
-    padding:40px;
-    border-radius:16px;
-    max-width:650px;
-    width:100%;
-    max-height:85vh;
-    overflow-y:auto;
-    border:1px solid rgba(255,255,255,.1);
-    position:relative;
-    box-shadow:0 20px 50px rgba(0,0,0,.6);
-}
-
-.modal-close {
-    position:absolute;
-    top:20px;
-    right:20px;
-    background:#0f172a;
-    color:#94a3b8;
-    border:none;
-    width:32px;
-    height:32px;
-    border-radius:50%;
-    font-size:1.2rem;
-    cursor:pointer;
-}
-
-.modal-close:hover {
-    background:#ef4444;
-    color:white;
-}
-
-.modal-card h3 {
-    font-size:1.5rem;
-    margin-bottom:15px;
-    color:#38bdf8;
-    border-bottom:1px solid rgba(255,255,255,.1);
-    padding-bottom:10px;
-}
-
-.modal-card p,
-.modal-card ul {
-    color:#cbd5e1;
-    font-size:.95rem;
-    line-height:1.8;
-    margin-bottom:15px;
-}
-
-.modal-card ul {
-    padding-left:20px;
-}
-
-.chat-btn {
-    display:inline-flex;
-    align-items:center;
-    gap:9px;
-    background:#16a34a;
-    color:white;
-    border:none;
-    padding:13px 22px;
-    border-radius:8px;
-    font-weight:600;
-    cursor:pointer;
-    margin-top:10px;
-    transition:.3s;
-}
-
-.chat-btn:hover {
-    background:#15803d;
-}
-
-/* MOBILE */
-
-@media(max-width:768px) {
-    nav {
-        padding:15px 5%;
-        flex-wrap:wrap;
-    }
-
-    .menu-toggle {
-        display:block;
-    }
-
-    .nav-links {
-        display:none;
-        width:100%;
-        flex-direction:column;
-        background:#0b131f;
-        padding:20px 0;
-        border-top:1px solid rgba(255,255,255,.1);
-        margin-top:15px;
-        gap:20px;
-        text-align:center;
-    }
-
-    .nav-links.active {
-        display:flex;
-    }
-
-    .hero {
-        padding:80px 5%;
-        min-height:70vh;
-    }
-
-    .hero h1 {
-        font-size:2.2rem;
-    }
-
-    .hero p {
-        font-size:.95rem;
-    }
-
-    .tracking-card {
-        flex-direction:column;
-    }
-
-    .tracking-card input {
-        width:100%;
-        min-width:0;
-    }
-
-    .tracking-card button {
-        width:100%;
-    }
-
-    .shipping-info {
-        flex-direction:column;
-        text-align:center;
-        padding:70px 5%;
-    }
-
-    .shipping-text .section-tag {
-        text-align:center;
-    }
-
-    .shipping-text h2 {
-        font-size:2.1rem;
-    }
-
-    .shipping-text,
-    .shipping-img {
-        width:100%;
-        min-width:0;
-    }
-
-    .services-grid {
-        grid-template-columns:1fr;
-    }
-
-    .shipping-img img {
-        height:250px;
-    }
-
-    .features,
-    .testimonials {
-        padding:70px 5%;
-    }
-
-    .section-title {
-        font-size:1.8rem;
-    }
-
-    footer {
-        padding:60px 5% 25px;
-    }
-
-    .footer-bottom {
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .modal-card {
-        padding:30px 22px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reliance Transit | Global Logistics & Express Delivery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #0b131f; color: #ffffff; overflow-x: hidden; }
+
+        /* Navbar */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0b131f; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 42px; width: auto; object-fit: contain; border-radius: 6px; }
+        .logo-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; }
+        .logo-text p { font-size: 0.75rem; color: #94a3b8; letter-spacing: 1px; }
+
+        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; }
+        /* Mobile Hamburger Toggle */
+        .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; }
+
+        /* Hero Section */
+        .hero { 
+            padding: 100px 8%; 
+            background: linear-gradient(rgba(11, 19, 31, 0.6), rgba(11, 19, 31, 0.8)), url('airplane.jpg') no-repeat center center/cover; 
+            text-align: left; 
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero span { background: rgba(2,132,199,0.3); color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: inline-block; width: fit-content; }
+        .hero h1 { font-size: 3.2rem; font-weight: 700; margin: 20px 0; max-width: 700px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .hero p { color: #cbd5e1; font-size: 1.05rem; max-width: 600px; margin-bottom: 40px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
+
+        /* Tracking Box */
+        .tracking-card { background: #ffffff; padding: 15px; border-radius: 12px; display: flex; max-width: 650px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.4); flex-wrap: wrap; gap: 10px; }
+        .tracking-card input { flex: 1; border: none; padding: 12px; font-size: 1rem; outline: none; color: #0f172a; background: transparent; min-width: 200px; }
+        .tracking-card button { background: #2563eb; color: white; border: none; padding: 12px 30px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .tracking-card button:hover { background: #1d4ed8; }
+
+        /* Tracking Result */
+        #result-container { padding: 40px 8%; background: #0b131f; display: none; }
+        .result-box { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 800px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.1); }
+        .result-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+        /* Document and Parcel Shipping Section */
+        .shipping-info { 
+            padding: 90px 8%; 
+            background: #0f172a; 
+            color: #ffffff; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 50px; 
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .shipping-text { flex: 1; min-width: 320px; }
+        .shipping-text .section-tag { color: #38bdf8; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: block; text-align: left; }
+        .shipping-text h2 { font-size: 2.8rem; margin-bottom: 15px; color: #ffffff; font-weight: 700; line-height: 1.2; }
+        .shipping-text p { color: #94a3b8; font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; }
+
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 35px; }
+        .service-item { background: #1e293b; padding: 18px 20px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; color: #f8fafc; border-left: 4px solid #38bdf8; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+        .shipping-img { flex: 1; min-width: 320px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); background: #1e293b; }
+        .shipping-img img { width: 100%; height: 380px; object-fit: cover; display: block; transition: transform 0.5s ease; }
+        .shipping-img img:hover { transform: scale(1.03); }
+
+        /* Features Section */
+        .features { padding: 90px 8%; background: #0b131f; }
+        .section-tag { color: #38bdf8; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; text-align: center; }
+        .section-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 15px; text-align: center; }
+        .section-desc { color: #94a3b8; text-align: center; max-width: 600px; margin: 0 auto 50px auto; font-size: 0.95rem; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .feature-box { background: #1e293b; padding: 40px 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+        .feature-box h3 { font-size: 1.3rem; margin-bottom: 15px; color: #ffffff; }
+        .feature-box p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
+
+        /* Testimonials Section */
+        .testimonials { padding: 90px 8%; background: #f8fafc; color: #0f172a; }
+        .testimonials .section-tag { color: #2563eb; }
+        .testimonials .section-title { color: #0f172a; }
+        .testimonials .section-desc { color: #64748b; }
+
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .testimonial-card { background: #ffffff; padding: 35px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between; }
+        .stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 20px; letter-spacing: 2px; }
+        .testimonial-card p { color: #334155; font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px; font-style: italic; }
+        .client-info { display: flex; align-items: center; gap: 15px; border-top: 1px solid #f1f5f9; padding-top: 20px; }
+        .client-avatar { width: 45px; height: 45px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+        .client-details h4 { font-size: 0.95rem; font-weight: 700; color: #0f172a; }
+        .client-details p { font-size: 0.8rem; color: #64748b; margin: 0; font-style: normal; }
+
+        /* Detailed Footer */
+        footer { background: #070b12; color: #94a3b8; padding: 70px 8% 30px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
+        .footer-col h4 { color: #ffffff; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.88rem; cursor: pointer; }
+        .footer-col ul li a:hover { color: #38bdf8; text-decoration: underline; }
+
+        .region-select { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; padding: 10px 15px; border-radius: 6px; width: 100%; font-size: 0.85rem; outline: none; margin-top: 10px; cursor: pointer; }
+
+        .footer-social-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 25px 0; margin-bottom: 25px; flex-wrap: wrap; gap: 20px; }
+        .social-title { color: #ffffff; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .social-icons { display: flex; gap: 12px; }
+        .social-btn { width: 38px; height: 38px; background: #111c2e; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #cbd5e1; text-decoration: none; font-size: 0.85rem; transition: 0.3s; font-weight: bold; }
+        .social-btn:hover { background: #0284c7; color: #ffffff; border-color: #0284c7; transform: translateY(-2px); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-size: 0.82rem; color: #64748b; }
+        .footer-bottom-left { display: flex; align-items: center; gap: 10px; color: #cbd5e1; }
+        .footer-bottom-left span { background: #0284c7; color: #fff; width: 24px; height: 24px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; }
+        .footer-bottom-links { display: flex; gap: 20px; }
+        .footer-bottom-links a { color: #64748b; text-decoration: none; transition: 0.3s; cursor: pointer; }
+        .footer-bottom-links a:hover { color: #38bdf8; }
+
+        /* Universal Content Modal Overlay */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-card { background: #1e293b; color: #ffffff; padding: 40px; border-radius: 16px; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1); position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .modal-close { position: absolute; top: 20px; right: 20px; background: #0f172a; color: #94a3b8; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .modal-close:hover { background: #ef4444; color: #ffffff; }
+        .modal-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #38bdf8; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .modal-card p, .modal-card ul { color: #cbd5e1; font-size: 0.95rem; line-height: 1.7; margin-bottom: 15px; }
+        .modal-card ul { padding-left: 20px; }
+        .modal-btn { background: #0284c7; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .modal-btn:hover { opacity: 0.9; }
+
+        /* Responsive Mobile Styling for Navbar & Sections */
+        @media (max-width: 768px) {
+            nav { padding: 15px 5%; flex-wrap: wrap; }
+            .menu-toggle { display: block; }
+            .nav-links { display: none; width: 100%; flex-direction: column; background: #0b131f; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 15px; text-align: center; gap: 20px; }
+            .nav-links.active { display: flex; }
+            .hero h1 { font-size: 2.2rem; }
+            .shipping-info { flex-direction: column; text-align: center; }
+            .shipping-text .section-tag { text-align: center; }
+            .services-grid { grid-template-columns: 1fr; }
+            .shipping-img img { height: 250px; }
+        }
+    </style>
 </head>
-
 <body>
-
-<!-- NAVIGATION -->
-
-<nav>
-    <div class="logo-area">
-        <img src="logo1.jpg" alt="Reliance Transit Logo" class="logo-img">
-
-        <div class="logo-text">
-            <h1>RELIANCE TRANSIT</h1>
-            <p>GLOBAL LOGISTICS</p>
-        </div>
-    </div>
-
-    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation">☰</button>
-
-    <ul class="nav-links" id="nav-links-menu">
-        <li><a href="index.html" class="active" onclick="toggleMenu()">Home</a></li>
-
-        <li><a href="#services" onclick="toggleMenu()">Services</a></li>
-
-        <!-- Opens the dedicated tracking page -->
-        <li><a href="tracking.html" onclick="toggleMenu()">Track Shipment</a></li>
-
-        <li><a href="#testimonials" onclick="toggleMenu()">Testimonials</a></li>
-
-        <li>
-            <a href="javascript:void(0)"
-               onclick="openPage('contact'); toggleMenu();"
-               style="color:#38bdf8;">
-                Contact Us
-            </a>
-        </li>
-    </ul>
-</nav>
-
-
-<!-- HERO / HOMEPAGE TRACKING -->
-
-<section class="hero" id="track">
-
-    <span>World-Class Express Delivery</span>
-
-    <h1>Moving Your World Forward, One Shipment at a Time.</h1>
-
-    <p>
-        Experience reliable international shipping, secure package handling
-        and professional logistics solutions. Track your shipment and stay
-        informed throughout its journey.
-    </p>
-
-    <form class="tracking-card" id="homepage-tracking-form">
-
-        <input
-            type="text"
-            id="tracking-input"
-            placeholder="Enter Tracking Number (e.g. RT263850)"
-            autocomplete="off"
-            required
-        >
-
-        <button type="submit">Track Package</button>
-
-    </form>
-
-    <div class="tracking-note">
-        <span style="background:none;color:#cbd5e1;padding:0;text-transform:none;letter-spacing:0;font-size:.8rem;">
-            Secure shipment tracking | Global delivery support
-        </span>
-    </div>
-
-</section>
-
-
-<!-- SHIPPING INFORMATION -->
-
-<section class="shipping-info">
-
-    <div class="shipping-text">
-
-        <span class="section-tag">For All Shippers</span>
-
-        <h2>Document and Parcel Shipping</h2>
-
-        <p>
-            Learn about Reliance Transit and our international express
-            shipping solutions. We provide professional logistics support
-            for documents, parcels and business shipments.
-        </p>
-
-        <div class="services-grid">
-
-            <div class="service-item">Next Possible Business Day</div>
-
-            <div class="service-item">Tailored Business Solutions</div>
-
-            <div class="service-item">Flexible Import/Export Options</div>
-
-            <div class="service-item">Wide Variety of Optional Services</div>
-
-        </div>
-
-        <button class="modal-btn" onclick="openPage('about')">
-            Explore Our Services
-        </button>
-
-    </div>
-
-    <div class="shipping-img">
-
-        <img
-            src="parcel.png"
-            alt="Document and Parcel Shipping"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'"
-        >
-
-    </div>
-
-</section>
-
-
-<!-- FEATURES -->
-
-<section class="features" id="services">
-
-    <span class="section-tag" style="text-align:center;">
-        Excellence in Motion
-    </span>
-
-    <h2 class="section-title">Why Choose Reliance Transit?</h2>
-
-    <p class="section-desc">
-        We combine global connections, professional handling and
-        dependable logistics solutions to support your shipping needs.
-    </p>
-
-    <div class="feature-grid">
-
-        <div class="feature-box">
-            <h3>Express Air Freight</h3>
-            <p>
-                International shipping options designed to move your
-                important parcels across borders efficiently.
-            </p>
-        </div>
-
-        <div class="feature-box">
-            <h3>Secure Handling</h3>
-            <p>
-                Careful shipment management and security measures
-                designed to protect your packages throughout transit.
-            </p>
-        </div>
-
-        <div class="feature-box">
-            <h3>Shipment Tracking</h3>
-            <p>
-                Access shipment information, location updates and
-                tracking milestones through our customer tracking portal.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- TESTIMONIALS -->
-
-<section class="testimonials" id="testimonials">
-
-    <span class="section-tag">Client Testimonials</span>
-
-    <h2 class="section-title">
-        Trusted by Individuals & Global Businesses
-    </h2>
-
-    <p class="section-desc">
-        See what customers have to say about their shipping experiences.
-    </p>
-
-    <div class="testimonial-grid">
-
-        <div class="testimonial-card">
-
-            <div>
-                <div class="stars">★★★★★</div>
-
-                <p>
-                    "Reliance Transit delivered my urgent documents
-                    across international borders seamlessly. The
-                    shipment updates gave me peace of mind!"
-                </p>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo-area">
+            <img src="logo1.jpg" alt="Reliance Transit Logo" class="logo-img">
+            <div class="logo-text">
+                <h1>RELIANCE TRANSIT</h1>
+                <p>GLOBAL LOGISTICS</p>
             </div>
+        </div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links" id="nav-links-menu">
+            <li><a href="index.html" class="active" onclick="toggleMenu()">Home</a></li>
+            <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+            <li><a href="tracking.html" onclick="toggleMenu()">Track Shipment</a></li>
+            <li><a href="#testimonials" onclick="toggleMenu()">Testimonials</a></li>
+            <li><a href="javascript:void(0)" onclick="openPage('contact'); toggleMenu();" style="color: #38bdf8;">Contact Us</a></li>
+        </ul>
+    </nav>
 
-            <div class="client-info">
+    <!-- Hero Section -->
+    <section class="hero" id="track">
+        <span>World-Class Express Delivery</span>
 
-                <img
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
-                    alt="Client"
-                    class="client-photo"
-                >
+        <form class="tracking-card" id="homepage-tracking-form">
+            <input type="text" id="tracking-input" placeholder="Enter Tracking Number (e.g. RT263850)" required>
+            <button type="submit">Track Package</button>
+        </form>
+    </section>
 
-                <div class="client-details">
-                    <h4>Jonathan Davis</h4>
-                    <p>Verified Client, London</p>
+    <!-- Tracking Results -->
+    <div id="result-container">
+        <div class="result-box" id="result-content"></div>
+    </div>
+
+    <!-- Document and Parcel Shipping Section -->
+    <section class="shipping-info">
+        <div class="shipping-text">
+            <span class="section-tag">For All Shippers</span>
+            <h2>Document and Parcel Shipping</h2>
+            <p>Learn about Reliance Transit – the undisputed leader in your international express shipping needs.</p>
+
+            <div class="services-grid">
+                <div class="service-item">Next Possible Business Day</div>
+                <div class="service-item">Tailored Business Solutions</div>
+                <div class="service-item">Flexible Import/Export Options</div>
+                <div class="service-item">Wide Variety of Optional Services</div>
+            </div>
+            <button class="modal-btn" onclick="openPage('about')">Explore Our Services</button>
+        </div>
+        <div class="shipping-img">
+            <img src="parcel.png" alt="Document and Parcel Shipping" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="services">
+        <span class="section-tag">Excellence in Motion</span>
+        <h2 class="section-title">Why Choose Reliance Transit?</h2>
+        <p class="section-desc">We combine high-speed global connections with absolute safety guarantees.</p>
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>Express Air Freight</h3>
+                <p>Lightning-fast international shipping options designed to get your critical parcels across borders in record time.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Secure Handling</h3>
+                <p>End-to-end encryption and physical security measures ensuring sensitive or valuable packages are protected.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Real-Time Milestone Tracking</h3>
+                <p>Monitor every single scan event, location change, and customs update live through our customer tracking portal.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <span class="section-tag">Client Testimonials</span>
+        <h2 class="section-title">Trusted by Individuals & Global Businesses</h2>
+        <p class="section-desc">See what our customers have to say about our speed, care, and dependable service.</p>
+
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p>"Reliance Transit delivered my urgent documents across international borders seamlessly. The live milestone updates gave me complete peace of mind!"</p>
                 </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="testimonial-card">
-
-            <div>
-                <div class="stars">★★★★★</div>
-
-                <p>
-                    "Exceptional customer service and careful handling.
-                    My fragile electronics arrived in excellent condition."
-                </p>
-            </div>
-
-            <div class="client-info">
-
-                <img
-                    src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80"
-                    alt="Client"
-                    class="client-photo"
-                >
-
-                <div class="client-details">
-                    <h4>Sarah Miller</h4>
-                    <p>E-Commerce Merchant</p>
+                <div class="client-info">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Jonathan Davis" class="client-photo">
+                    <div class="client-details">
+                        <h4>Jonathan Davis</h4>
+                        <p>Verified Client, London</p>
+                    </div>
                 </div>
-
             </div>
-
-        </div>
-
-
-        <div class="testimonial-card">
-
-            <div>
-                <div class="stars">★★★★★</div>
-
-                <p>
-                    "The tracking system makes it easy to access
-                    shipment information and follow delivery progress."
-                </p>
-            </div>
-
-            <div class="client-info">
-
-                <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
-                    alt="Client"
-                    class="client-photo"
-                >
-
-                <div class="client-details">
-                    <h4>Marcus Vance</h4>
-                    <p>Operations Director</p>
+            <div class="testimonial-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p>"Exceptional customer service and extremely careful handling. My fragile electronics arrived in pristine condition right on schedule."</p>
                 </div>
-
+                <div class="client-info">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" alt="Sarah Miller" class="client-photo">
+                    <div class="client-details">
+                        <h4>Sarah Miller</h4>
+                        <p>E-Commerce Merchant</p>
+                    </div>
+                </div>
             </div>
-
+            <div class="testimonial-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p>"The easiest tracking system I've used. No hidden delays, transparent customs updates, and professional couriers."</p>
+                </div>
+                <div class="client-info">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marcus Vance" class="client-photo">
+                    <div class="client-details">
+                        <h4>Marcus Vance</h4>
+                        <p>Operations Director</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
+    <!-- Detailed Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Our Company</h4>
+                <ul>
+                    <li><a onclick="openPage('about')">About Reliance Transit</a></li>
+                    <li><a onclick="openPage('careers')">Careers</a></li>
+                    <li><a onclick="openPage('contracting')">Transportation Contracting Opportunities</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>More From Reliance</h4>
+                <ul>
+                    <li><a onclick="openPage('compatible')">Compatible Logistics</a></li>
+                    <li><a href="#services">Global Logistics</a></li>
+                    <li><a onclick="openPage('responsibility')">Corporate Responsibility</a></li>
+                    <li><a onclick="openPage('contact')">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Policy Center</h4>
+                <ul>
+                    <li><a onclick="openPage('terms')">Terms of Use</a></li>
+                    <li><a onclick="openPage('privacy')">Privacy & Security</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Global Region</h4>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 5px;">🌐 United States / Global</p>
+                <select class="region-select" onchange="alert('Language preference updated to ' + this.options[this.selectedIndex].text)">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                </select>
+            </div>
+        </div>
+        <div class="footer-social-row">
+            <div class="social-title">Follow Reliance Transit</div>
+            <div class="social-icons">
+                <a href="https://facebook.com" target="_blank" class="social-btn">f</a>
+                <a href="https://x.com" target="_blank" class="social-btn">X</a>
+                <a href="https://linkedin.com" target="_blank" class="social-btn">in</a>
+                <a href="https://youtube.com" target="_blank" class="social-btn">yt</a>
+                <a href="https://pinterest.com" target="_blank" class="social-btn">pin</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-left">
+                <span>RT</span> Reliance Transit Worldwide
+            </div>
+            <div>© 1995-2026 Reliance Transit. All rights reserved.</div>
+            <div class="footer-bottom-links">
+                <a onclick="openPage('sitemap')">Site Map</a>
+                <a onclick="openPage('cookie')">Cookie Consent</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Modal Container -->
+    <div class="modal-overlay" id="info-modal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modal-body-content"></div>
+        </div>
     </div>
 
-</section>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-    <div class="footer-grid">
-
-        <div class="footer-col">
-
-            <h4>Our Company</h4>
-
-            <ul>
-                <li><a onclick="openPage('about')">About Reliance Transit</a></li>
-                <li><a onclick="openPage('careers')">Careers</a></li>
-                <li><a onclick="openPage('contracting')">Transportation Contracting Opportunities</a></li>
-            </ul>
-
-        </div>
-
-
-        <div class="footer-col">
-
-            <h4>More From Reliance</h4>
-
-            <ul>
-                <li><a onclick="openPage('compatible')">Compatible Logistics</a></li>
-                <li><a href="#services">Global Logistics</a></li>
-                <li><a onclick="openPage('responsibility')">Corporate Responsibility</a></li>
-                <li><a onclick="openPage('contact')">Contact Us</a></li>
-            </ul>
-
-        </div>
-
-
-        <div class="footer-col">
-
-            <h4>Policy Center</h4>
-
-            <ul>
-                <li><a onclick="openPage('terms')">Terms of Use</a></li>
-                <li><a onclick="openPage('privacy')">Privacy & Security</a></li>
-            </ul>
-
-        </div>
-
-
-        <div class="footer-col">
-
-            <h4>Global Region</h4>
-
-            <p style="font-size:.85rem;color:#94a3b8;margin-bottom:5px;">
-                🌐 United States / Global
-            </p>
-
-            <select class="region-select"
-                onchange="alert('Language preference updated to ' + this.options[this.selectedIndex].text)">
-
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-social-row">
-
-        <div class="social-title">Follow Reliance Transit</div>
-
-        <div class="social-icons">
-
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn">f</a>
-
-            <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-btn">X</a>
-
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn">in</a>
-
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn">yt</a>
-
-            <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" class="social-btn">pin</a>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        <div class="footer-bottom-left">
-            <span>RT</span>
-            Reliance Transit Worldwide
-        </div>
-
-        <div>© 1995-2026 Reliance Transit. All rights reserved.</div>
-
-        <div class="footer-bottom-links">
-            <a onclick="openPage('sitemap')">Site Map</a>
-            <a onclick="openPage('cookie')">Cookie Consent</a>
-        </div>
-
-    </div>
-
-</footer>
-
-
-<!-- INFORMATION MODAL -->
-
-<div class="modal-overlay" id="info-modal">
-
-    <div class="modal-card">
-
-        <button class="modal-close" onclick="closeModal()">&times;</button>
-
-        <div id="modal-body-content"></div>
-
-    </div>
-
-</div>
-
-
-<!-- FIREBASE SETUP -->
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyBTBGEI8d_f8Ti4TI7hW9ASC4PEdf5la4A",
-    authDomain: "reliance-transit.firebaseapp.com",
-    projectId: "reliance-transit",
-    storageBucket: "reliance-transit.firebasestorage.app",
-    messagingSenderId: "1074202809376",
-    appId: "1:1074202809376:web:19cfad7b2a4fb8a4245845",
-    measurementId: "G-2Y0TD1DV59"
-};
-
-try {
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    window.db = db;
-
-} catch(error) {
-
-    console.error("Firebase initialization error:", error);
-
-}
-
-</script>
-
-
-<!-- WEBSITE FUNCTIONS -->
-
-<script>
-
-// MOBILE MENU
-
-function toggleMenu() {
-
-    const menu = document.getElementById('nav-links-menu');
-
-    menu.classList.toggle('active');
-
-}
-
-
-// HOMEPAGE TRACKING REDIRECT
-
-document.getElementById('homepage-tracking-form')
-.addEventListener('submit', function(event) {
-
-    event.preventDefault();
-
-    const trackingNumber = document
-        .getElementById('tracking-input')
-        .value.trim();
-
-    if (!trackingNumber) {
-
-        alert("Please enter your tracking number.");
-
-        return;
-
-    }
-
-    // Open tracking page with the entered tracking number.
-
-    window.location.href =
-        "tracking.html?tracking=" + encodeURIComponent(trackingNumber);
-
-});
-
-
-// OPEN INFORMATION PAGES
-
-function openPage(pageKey) {
-
-    const modal = document.getElementById('info-modal');
-
-    const body = document.getElementById('modal-body-content');
-
-    const pages = {
-
-        'about': `
-            <h3>About Reliance Transit</h3>
-
-            <p>
-            Reliance Transit provides international logistics,
-            supply chain and express courier services.
-            We specialize in air cargo, customs brokerage
-            and door-to-door parcel delivery.
-            </p>
-
-            <p>
-            Our goal is to provide dependable shipping
-            solutions and shipment visibility.
-            </p>
-
-            <button class="modal-btn" onclick="closeModal()">Close Window</button>
-        `,
-
-        'careers': `
-            <h3>Join Our Global Team</h3>
-
-            <p>
-            Explore career opportunities within our logistics
-            and transportation network.
-            </p>
-
-            <ul>
-                <li>Global Logistics Dispatcher</li>
-                <li>Air Cargo Freight Coordinator</li>
-                <li>Customs Compliance Specialist</li>
-            </ul>
-
-            <p>
-            Contact our recruitment team for further information.
-            </p>
-
-            <button class="modal-btn" onclick="closeModal()">Close</button>
-        `,
-
-        'contracting': `
-            <h3>Contracting Opportunities</h3>
-
-            <p>
-            We work with independent operators, freight carriers
-            and regional transportation providers.
-            </p>
-
-            <ul>
-                <li>Freight transportation partnerships</li>
-                <li>Regional delivery operations</li>
-                <li>Logistics coordination</li>
-            </ul>
-
-            <button class="modal-btn" onclick="closeModal()">Close</button>
-        `,
-
-        'compatible': `
-            <h3>Compatible Logistics Integration</h3>
-
-            <p>
-            Our logistics solutions are designed to support
-            e-commerce businesses and shipping operations.
-            </p>
-
-            <button class="modal-btn" onclick="closeModal()">Close</button>
-        `,
-
-        'responsibility': `
-            <h3>Corporate Responsibility</h3>
-
-            <p>
-            We recognize the importance of responsible
-            transportation, efficient operations and
-            environmentally conscious logistics.
-            </p>
-
-            <button class="modal-btn" onclick="closeModal()">Close</button>
-        `,
-
-        'contact': `
-            <h3>Contact Reliance Transit Support</h3>
-
-            <p>
-            Need assistance with your package or shipping
-            information? Contact our customer support team.
-            </p>
-
-            <p>
-            <strong>Corporate Headquarters:</strong><br>
-            8295 Tournament Dr, Suite 150<br>
-            Memphis, TN 38125, United States
-            </p>
-
-            <p>
-            <strong>Hotline:</strong>
-            +1 (800) 555-TRANSIT
-            </p>
-
-            <p>
-            <strong>Support Email:</strong><br>
-            <span style="color:#38bdf8;">
-            logistics@reliancetransit.org
-            </span>
-            </p>
-
-            <p>
-            <strong>Live Customer Support</strong><br>
-            Speak with our support team directly through live chat.
-            </p>
-
-            <button class="chat-btn" onclick="startLiveChat()">
-                <span>●</span> Start Live Chat
-            </button>
-
-            <br>
-
-            <button class="modal-btn" onclick="closeModal()">Close</button>
-        `,
-
-        'terms': `
-            <h3>Terms of Use</h3>
-
-            <p>
-            By using the Reliance Transit website and tracking
-            system, you agree to comply with applicable
-            shipping guidelines, transportation conditions
-            and customs declaration requirements.
-            </p>
-
-            <p>
-            Shipment declarations should accurately describe
-            package contents, weight and valuation.
-            </p>
-
-            <button class="modal-btn" onclick="closeModal()">Close</button>
-        `,
-
-        'privacy': `
-            <h3>Privacy & Security Policy</h3>
-
-            <p>
-            We value the privacy of our customers.
-            Shipment information should only be used
-            for legitimate shipping and delivery purposes.
-            </p>
-
-            <p>
-            Personal information should be handled
-            responsibly and protected against unauthorized access.
-            </p>
-
-            <button class="modal-btn" onclick="closeModal()">Close</button>
-        `,
-
-        'sitemap': `
-            <h3>Site Map</h3>
-
-            <ul>
-                <li><a href="index.html" style="color:#38bdf8;">Home Page</a></li>
-
-                <li><a href="tracking.html" style="color:#38bdf8;">Track Shipment</a></li>
-
-                <li><a href="#services" onclick="closeModal()" style="color:#38bdf8;">Services</a></li>
-
-                <li><a href="#testimonials" onclick="closeModal()" style="color:#38bdf8;">Testimonials</a></li>
-
-                <li><a href="admin.html" style="color:#38bdf8;">Admin Portal</a></li>
-            </ul>
-
-            <button class="modal-btn" onclick="closeModal()">Close</button>
-        `,
-
-        'cookie': `
-            <h3>Cookie Preferences & Privacy Consent</h3>
-
-            <p>
-            Essential browser storage may be used to
-            support website functionality and improve
-            the customer experience.
-            </p>
-
-            <button class="modal-btn"
-                onclick="alert('Cookie preferences saved.');closeModal();">
-                Accept
-            </button>
-        `
-
-    };
-
-    body.innerHTML = pages[pageKey] || '<p>Content coming soon.</p>';
-
-    modal.style.display = 'flex';
-
-}
-
-
-// CLOSE MODAL
-
-function closeModal() {
-
-    document.getElementById('info-modal').style.display = 'none';
-
-}
-
-
-// CONTACT LIVE CHAT
-
-function startLiveChat() {
-
-    if (window.Tawk_API && typeof window.Tawk_API.maximize === 'function') {
-
-        window.Tawk_API.maximize();
-
-    } else {
-
-        alert("Live chat is loading. Please wait a moment and try again.");
-
-    }
-
-}
-
-
-// CLOSE MODAL WHEN CLICKING OUTSIDE
-
-window.addEventListener('click', function(event) {
-
-    const modal = document.getElementById('info-modal');
-
-    if (event.target === modal) {
-
-        closeModal();
-
-    }
-
-});
-
-
-// ESCAPE KEY CLOSES MODAL
-
-document.addEventListener('keydown', function(event) {
-
-    if (event.key === 'Escape') {
-
-        closeModal();
-
-    }
-
-});
-
-</script>
-
-
-<!-- TAWK.TO LIVE CHAT -->
-
-<script type="text/javascript">
-
-var Tawk_API = window.Tawk_API || {};
-
-var Tawk_LoadStart = new Date();
-
-(function() {
-
-    var s1 = document.createElement("script");
-
-    var s0 = document.getElementsByTagName("script")[0];
-
-    s1.async = true;
-
-    s1.src = 'https://embed.tawk.to/6af43f0d7ebae53c43a4b23e/1k751cjvr';
-
-    s1.charset = 'UTF-8';
-
-    s1.setAttribute('crossorigin', '*');
-
-    s0.parentNode.insertBefore(s1, s0);
-
-})();
-
-</script>
-
+    <!-- Firebase Firestore SDK Setup -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyBTBGEI8d_f8Ti4TI7hW9ASC4PEdf5la4A",
+            authDomain: "reliance-transit.firebaseapp.com",
+            projectId: "reliance-transit",
+            storageBucket: "reliance-transit.firebasestorage.app",
+            messagingSenderId: "1074202809376",
+            appId: "1:1074202809376:web:19cfad7b2a4fb8a4245845",
+            measurementId: "G-2Y0TD1DV59"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        window.db = db;
+        window.doc = doc;
+        window.getDoc = getDoc;
+    </script>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('nav-links-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Send homepage tracking searches to the dedicated tracking page.
+        document.getElementById('homepage-tracking-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const trackingNumber = document.getElementById('tracking-input').value.trim();
+
+            if (!trackingNumber) {
+                alert("Please enter a tracking number.");
+                return;
+            }
+
+            window.location.href = "tracking.html?tracking=" + encodeURIComponent(trackingNumber);
+        });
+
+        // Open the existing Tawk.to live chat from the Contact Us modal.
+        function startLiveChat() {
+            if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
+                window.Tawk_API.maximize();
+            } else {
+                alert("Live chat is loading. Please wait a moment and try again.");
+            }
+        }
+
+        // Interactive Footer Page Modals
+        function openPage(pageKey) {
+            const modal = document.getElementById('info-modal');
+            const body = document.getElementById('modal-body-content');
+            const pages = {
+                'about': `
+                    <h3>About Reliance Transit</h3>
+                    <p>Established in 1995, Reliance Transit has grown into a premier global supply chain and express courier provider. Serving over 220 countries and territories, we specialize in high-priority air cargo, customs brokerage, and door-to-door express parcel delivery.</p>
+                    <p>Our global infrastructure guarantees seamless visibility, rapid transit times, and maximum security for every shipment.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close Window</button>
+                `,
+                'careers': `
+                    <h3>Join Our Global Team</h3>
+                    <p>Reliance Transit is constantly seeking talented professionals to join our worldwide logistics network.</p>
+                    <ul>
+                        <li><strong>Global Logistics Dispatcher</strong> - Memphis Hub</li>
+                        <li><strong>Air Cargo Freight Coordinator</strong> - London Heathrow</li>
+                        <li><strong>Customs Compliance Specialist</strong> - Regional Operations</li>
+                    </ul>
+                    <p>Send your resume directly to <strong style="color: #38bdf8;">logistics@reliancetransit.org</strong> to apply.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'contracting': `
+                    <h3>Contracting Opportunities</h3>
+                    <p>We partner with independent owner-operators, freight carriers, and regional fleet owners worldwide to expand our middle-mile and last-mile transit networks.</p>
+                    <p>Benefits of contracting with Reliance Transit:</p>
+                    <ul>
+                        <li>Guaranteed consistent freight volume</li>
+                        <li>Competitive bi-weekly payout structures</li>
+                        <li>Dedicated regional dispatch support 24/7</li>
+                    </ul>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'compatible': `
+                    <h3>Compatible Logistics Integration</h3>
+                    <p>Our advanced API allows e-commerce platforms, Shopify merchants, and enterprise ERP systems to automatically generate waybills, print shipping labels, and relay real-time tracking data directly to buyers.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'responsibility': `
+                    <h3>Corporate Responsibility & Green Transit</h3>
+                    <p>Reliance Transit is committed to achieving net-zero carbon emissions across our international air and ground transportation fleet by 2040.</p>
+                    <p>We invest heavily in sustainable aviation fuel (SAF), electric last-mile delivery vans, and eco-friendly packaging materials.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'contact': `
+                    <h3>Contact Reliance Transit Support</h3>
+                    <p>Need assistance with your package or corporate account? Our support team is available 24 hours a day, 7 days a week.</p>
+                    <p><strong>Corporate Headquarters:</strong><br>8295 Tournament Dr, Suite 150<br>Memphis, TN 38125, United States</p>
+                    <p><strong>Hotline:</strong> +1 (800) 555-TRANSIT</p>
+                    <p><strong>Support Email:</strong> <span style="color: #38bdf8;">logistics@reliancetransit.org</span></p>
+                    <button class="modal-btn" onclick="startLiveChat()" style="background:#16a34a;">Start Live Chat</button>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'terms': `
+                    <h3>Terms of Use</h3>
+                    <p>By utilizing the Reliance Transit website and tracking system, you agree to comply with our international transportation guidelines, liability limits under the Warsaw/Montreal Convention, and customs declarations protocols.</p>
+                    <p>All waybill declarations must accurately represent package contents, weight, and valuation.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'privacy': `
+                    <h3>Privacy & Security Policy</h3>
+                    <p>Your data security is paramount. Reliance Transit complies with GDPR, CCPA, and international data protection standards. Sender and receiver contact info is encrypted and strictly used for shipping and delivery verification.</p>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'sitemap': `
+                    <h3>Site Map</h3>
+                    <ul>
+                        <li><a href="index.html" style="color: #38bdf8;">Home Page & Tracking</a></li>
+                        <li><a href="#services" onclick="closeModal()" style="color: #38bdf8;">Services Overview</a></li>
+                        <li><a href="#testimonials" onclick="closeModal()" style="color: #38bdf8;">Client Testimonials</a></li>
+                        <li><a href="admin.html" style="color: #38bdf8;">Admin Waybill Portal</a></li>
+                    </ul>
+                    <button class="modal-btn" onclick="closeModal()">Close</button>
+                `,
+                'cookie': `
+                    <h3>Cookie Preferences & Privacy Consent</h3>
+                    <p>We use essential cookies to maintain user tracking sessions and improve site performance. Non-essential analytical cookies are strictly optional.</p>
+                    <button class="modal-btn" onclick="alert('Cookie preferences saved successfully!'); closeModal();">Accept All Cookies</button>
+                `
+            };
+            body.innerHTML = pages[pageKey] || '<p>Content coming soon.</p>';
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('info-modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('info-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/6af43f0d7ebae53c43a4b23e/1k751cjvr';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
 </body>
 </html>
