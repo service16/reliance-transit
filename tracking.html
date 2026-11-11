@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,9 +81,80 @@
             color: #64748b;
         }
 
-        @media(max-width: 600px) {
+        /* Mobile shaking fix only */
+        @media (max-width: 600px) {
+            html {
+                overflow-x: hidden;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            body {
+                overflow-x: hidden;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+
+            .container {
+                min-width: 0;
+                max-width: 100%;
+            }
+
+            .tracking-card,
+            .result-card {
+                min-width: 0;
+                max-width: 100%;
+            }
+
+            .input-group {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                min-width: 0;
+                gap: 10px;
+            }
+
+            .input-group input {
+                flex: 1 1 100%;
+                width: 100%;
+                min-width: 0;
+                max-width: 100%;
+                font-size: 16px;
+            }
+
+            .input-group button {
+                width: 100%;
+                max-width: 100%;
+                min-height: 44px;
+                flex: 1 1 100%;
+                touch-action: manipulation;
+            }
+
+            .result-grid,
             .shipment-extra-details {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
+                min-width: 0;
+            }
+
+            .result-grid p,
+            .result-grid span,
+            .shipment-extra-details p,
+            .history-item {
+                min-width: 0;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+
+            .tracking-history,
+            .shipment-extra {
+                min-width: 0;
+                max-width: 100%;
             }
         }
     </style>
