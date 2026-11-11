@@ -1,5 +1,4 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-
 import {
     getFirestore,
     collection,
@@ -11,26 +10,22 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBTBGEI8d_f8Ti4TI7hW9ASC4PEdf5la4A",
-    authDomain: "reliance-transit.firebaseapp.com",
-    projectId: "reliance-transit",
-    storageBucket: "reliance-transit.firebasestorage.app",
-    messagingSenderId: "1074202809376",
-    appId: "1:1074202809376:web:19cfad7b2a4fb8a4245845",
-    measurementId: "G-2Y0TD1DV59"
+    projectId: "reliance-transit"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-// Get the first available value from possible field names.
-function getValue(data, fields, fallback = "N/A") {
+// Get a value from whichever matching field exists.
+function getField(data, fields, fallback = "N/A") {
     for (const field of fields) {
-        const value = data?.[field];
-
-        if (value !== undefined && value !== null && value !== "") {
-            return value;
+        if (
+            data[field] !== undefined &&
+            data[field] !== null &&
+            data[field] !== ""
+        ) {
+            return data[field];
         }
     }
 
@@ -38,13 +33,13 @@ function getValue(data, fields, fallback = "N/A") {
 }
 
 
-// Convert Firestore timestamps and date values into readable dates.
+// Format Firestore timestamps and ordinary dates.
 function formatDate(value) {
     if (!value) return "Date not provided";
 
     let date;
 
-    if (value?.toDate && typeof value.toDate === "function") {
+    if (value && typeof value.toDate === "function") {
         date = value.toDate();
     } else if (typeof value === "object" && value.seconds) {
         date = new Date(value.seconds * 1000);
@@ -52,124 +47,78 @@ function formatDate(value) {
         date = new Date(value);
     }
 
-    if (Number.isNaN(date.getTime())) {
+    if (isNaN(date.getTime())) {
         return String(value);
     }
 
-    return date.toLocaleString(undefined, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-    });
+    return date.toLocaleString();
 }
 
 
-// Safely display text without interpreting it as HTML.
-function setText(id, value) {
-    const element = document.getElementById(id);
-
-    if (element) {
-        element.textContent = value ?? "N/A";
-    }
-}
-
-
-// Find the shipment in Firestore.
-async function findShipment(trackingNumber) {
-
-    // Method 1: Search by document ID.
-    const directRef = doc(db, "shipments", trackingNumber);
-    const directSnapshot = await getDoc(directRef);
-
-    if (directSnapshot.exists()) {
-        return {
-            id: directSnapshot.id,
-            ...directSnapshot.data()
-        };
-    }
-
-    // Method 2: Search by trackingNumber field.
-    const trackingQuery = query(
-        collection(db, "shipments"),
-        where("trackingNumber", "==", trackingNumber)
+// Convert event date to a timestamp for sorting.
+function getDateValue(event) {
+    const value = getField(
+        event,
+        ["date", "timestamp", "createdAt", "updatedAt", "time", "created_at"],
+        null
     );
 
-    const trackingResults = await getDocs(trackingQuery);
+    if (!value) return 0;
 
-    if (!trackingResults.empty) {
-        const result = trackingResults.docs[0];
-
-        return {
-            id: result.id,
-            ...result.data()
-        };
+    if (value && typeof value.toDate === "function") {
+        return value.toDate().getTime();
     }
 
-    // Method 3: Search by waybill field.
-    const waybillQuery = query(
-        collection(db, "shipments"),
-        where("waybill", "==", trackingNumber)
-    );
-
-    const waybillResults = await getDocs(waybillQuery);
-
-    if (!waybillResults.empty) {
-        const result = waybillResults.docs[0];
-
-        return {
-            id: result.id,
-            ...result.data()
-        };
+    if (typeof value === "object" && value.seconds) {
+        return value.seconds * 1000;
     }
 
-    return null;
+    const parsed = new Date(value).getTime();
+
+    return isNaN(parsed) ? 0 : parsed;
 }
 
 
-// Display additional package information.
+// Display additional package details.
 function displayPackageDetails(data) {
+    const container = document.getElementById("shipment-extra-details");
 
-    const container = document.getElementById("extra-details");
-    container.replaceChildren();
+    if (!container) return;
+
+    container.innerHTML = "";
 
     const details = [
-        ["Sender Name", ["sender_name", "senderName", "sender"]],
-        ["Sender Email", ["sender_email", "senderEmail"]],
+        ["Sender Name", ["sender_name", "senderName"]],
+        ["Sender Country", ["sender_country", "senderCountry"]],
         ["Sender Phone", ["sender_phone", "senderPhone"]],
-        ["Receiver Name", ["receiver_name", "receiverName", "recipient"]],
-        ["Receiver Email", ["receiver_email", "receiverEmail"]],
+        ["Receiver Name", ["receiver_name", "receiverName"]],
+        ["Receiver Country", ["receiver_country", "receiverCountry"]],
         ["Receiver Phone", ["receiver_phone", "receiverPhone"]],
         ["Package Description", ["package_description", "packageDescription", "description"]],
         ["Package Type", ["package_type", "packageType"]],
-        ["Weight", ["weight", "packageWeight"]],
-        ["Shipping Method", ["shipping_method", "shippingMethod", "serviceType"]],
-        ["Payment Status", ["paymentStatus", "payment_status"]],
-        ["Last Updated", ["updatedAt", "lastUpdated", "updated_at"]]
+        ["Package Weight", ["weight", "packageWeight"]],
+        ["Shipping Method", ["shipping_method", "shippingMethod"]],
+        ["Payment Status", ["payment_status", "paymentStatus"]]
     ];
 
     details.forEach(([label, fields]) => {
-
-        const value = getValue(data, fields, null);
+        const value = getField(data, fields, null);
 
         if (value === null) return;
 
-        const item = document.createElement("div");
-        item.className = "detail-item";
+        const paragraph = document.createElement("p");
 
-        const heading = document.createElement("strong");
-        heading.textContent = label;
+        const strong = document.createElement("strong");
+        strong.textContent = label + ":";
 
-        const content = document.createElement("div");
-        content.textContent = label === "Last Updated"
-            ? formatDate(value)
-            : String(value);
+        const span = document.createElement("span");
+        span.textContent = " " + String(value);
 
-        item.appendChild(heading);
-        item.appendChild(content);
+        paragraph.appendChild(strong);
+        paragraph.appendChild(document.createElement("br"));
+        paragraph.appendChild(span);
 
-        container.appendChild(item);
+        container.appendChild(paragraph);
     });
 
     if (!container.children.length) {
@@ -181,10 +130,9 @@ function displayPackageDetails(data) {
 }
 
 
-// Find the saved tracking history array.
-function getTrackingHistory(data) {
-
-    const possibleFields = [
+// Read tracking history saved inside the shipment document.
+function getShipmentHistory(data) {
+    const historyFields = [
         "history",
         "trackingHistory",
         "tracking_history",
@@ -196,8 +144,7 @@ function getTrackingHistory(data) {
         "status_history"
     ];
 
-    for (const field of possibleFields) {
-
+    for (const field of historyFields) {
         if (Array.isArray(data[field])) {
             return data[field];
         }
@@ -207,78 +154,66 @@ function getTrackingHistory(data) {
 }
 
 
-// Display shipment history as a chronological timeline.
+// Display all saved tracking events.
 function displayTrackingHistory(data) {
+    const container = document.getElementById("tracking-history-list");
 
-    const container = document.getElementById("tracking-history");
-    container.replaceChildren();
+    if (!container) return;
 
-    const history = getTrackingHistory(data);
+    container.innerHTML = "";
+
+    const history = getShipmentHistory(data);
 
     if (!history.length) {
-
         const message = document.createElement("div");
         message.className = "history-empty";
-
         message.textContent =
-            "No previous tracking history has been recorded for this shipment. The current shipment status is shown above.";
+            "No previous tracking updates have been saved for this shipment yet.";
 
         container.appendChild(message);
         return;
     }
 
-    // Sort events from oldest to newest.
-    const sortedHistory = [...history].sort((a, b) => {
+    // Latest tracking update appears first.
+    const sortedHistory = [...history].sort(
+        (a, b) => getDateValue(b) - getDateValue(a)
+    );
 
-        const dateA = getEventDate(a);
-        const dateB = getEventDate(b);
-
-        return dateA - dateB;
-    });
-
-    const timeline = document.createElement("div");
-    timeline.className = "timeline";
-
-    sortedHistory.forEach((event) => {
-
+    sortedHistory.forEach(event => {
         const item = document.createElement("div");
-        item.className = "timeline-item";
-
-        const dot = document.createElement("div");
-        dot.className = "timeline-dot";
+        item.className = "history-item";
 
         const status = document.createElement("div");
-        status.className = "timeline-status";
-        status.textContent = getValue(
+        status.className = "history-status";
+        status.textContent = getField(
             event,
             ["status", "currentStatus", "title", "event"],
             "Shipment Update"
         );
 
         const location = document.createElement("div");
-        location.className = "timeline-location";
+        location.className = "history-location";
 
-        const city = getValue(
+        const eventLocation = getField(
             event,
             ["location", "city", "currentLocation", "current_city_country"],
             ""
         );
 
-        const facility = getValue(
+        const facility = getField(
             event,
             ["facility", "current_facility", "hub"],
             ""
         );
 
-        location.textContent = [city, facility]
+        location.textContent = [eventLocation, facility]
             .filter(value => value && value !== "N/A")
             .join(" - ") || "Location not provided";
 
         const date = document.createElement("div");
-        date.className = "timeline-date";
-
+        date.className = "history-date";
         date.textContent = formatDate(
-            getValue(
+            getField(
                 event,
                 ["date", "timestamp", "createdAt", "updatedAt", "time", "created_at"],
                 null
@@ -286,15 +221,13 @@ function displayTrackingHistory(data) {
         );
 
         const description = document.createElement("div");
-        description.className = "timeline-description";
-
-        description.textContent = getValue(
+        description.className = "history-description";
+        description.textContent = getField(
             event,
             ["description", "details", "message", "remarks", "note"],
             ""
         );
 
-        item.appendChild(dot);
         item.appendChild(status);
         item.appendChild(location);
         item.appendChild(date);
@@ -303,193 +236,104 @@ function displayTrackingHistory(data) {
             item.appendChild(description);
         }
 
-        timeline.appendChild(item);
+        container.appendChild(item);
     });
-
-    container.appendChild(timeline);
 }
 
 
-// Convert an event date into a sortable timestamp.
-function getEventDate(event) {
-
-    const value = getValue(
-        event,
-        ["date", "timestamp", "createdAt", "updatedAt", "time", "created_at"],
-        null
-    );
-
-    if (!value) return 0;
-
-    if (value?.toDate && typeof value.toDate === "function") {
-        return value.toDate().getTime();
-    }
-
-    if (typeof value === "object" && value.seconds) {
-        return value.seconds * 1000;
-    }
-
-    const date = new Date(value).getTime();
-
-    return Number.isNaN(date) ? 0 : date;
-}
-
-
-// Show the shipment summary.
-function displayShipment(data, searchedNumber) {
-
-    setText("res-track", getValue(
-        data,
-        ["trackingNumber", "waybill"],
-        searchedNumber
-    ));
-
-    setText("res-status", getValue(
-        data,
-        ["status", "currentStatus"],
-        "N/A"
-    ));
-
-    const currentLocation = getValue(
-        data,
-        ["current_city_country", "currentLocation"],
-        "N/A"
-    );
-
-    setText("res-location", currentLocation);
-
-    setText("res-facility", getValue(
-        data,
-        ["current_facility", "currentFacility"],
-        "N/A"
-    ));
-
-    setText("res-origin", getValue(
-        data,
-        ["sender_country", "originHub", "origin"],
-        "N/A"
-    ));
-
-    setText("res-destination", getValue(
-        data,
-        ["receiver_country", "destinationHub", "destination"],
-        "N/A"
-    ));
-
-    setText("res-delivery", getValue(
-        data,
-        ["estimatedDelivery", "estimated_delivery", "deliveryDate"],
-        "Not yet provided"
-    ));
-
-    setText("res-stage", getValue(
-        data,
-        ["stage", "shipmentStage"],
-        "N/A"
-    ));
-
-    displayPackageDetails(data);
-    displayTrackingHistory(data);
-
-    document.getElementById("result-container").style.display = "block";
-    document.getElementById("not-found-container").style.display = "none";
-}
-
-
-// Show a message on the tracking page.
-function showMessage(message, type) {
-
-    const element = document.getElementById("tracking-message");
-
-    element.textContent = message;
-    element.className = "tracking-message " + type;
-    element.style.display = "block";
-}
-
-
-// Main tracking function.
+// Your original tracking function, with the history and details added.
 window.fetchShipmentDetails = async function() {
-
-    const trackingInput = document
-        .getElementById("search-code")
-        .value
-        .trim();
-
-    const resultContainer = document.getElementById("result-container");
-    const notFoundContainer = document.getElementById("not-found-container");
-    const button = document.getElementById("track-button");
+    const trackingInput = document.getElementById('search-code').value.trim();
+    const resultContainer = document.getElementById('result-container');
+    const notFoundContainer = document.getElementById('not-found-container');
 
     if (!trackingInput) {
         alert("Please enter a valid tracking number.");
         return;
     }
 
-    resultContainer.style.display = "none";
-    notFoundContainer.style.display = "none";
-
-    showMessage("Searching for your shipment...", "tracking-loading");
-
-    button.disabled = true;
-    button.textContent = "Searching...";
-
     try {
+        let data = null;
 
-        const shipment = await findShipment(trackingInput);
+        // Method 1: Check if the tracking input is the direct Document ID.
+        const docRef = doc(db, "shipments", trackingInput);
+        const docSnap = await getDoc(docRef);
 
-        if (shipment) {
+        if (docSnap.exists()) {
+            data = docSnap.data();
+        } else {
+            // Method 2: Query by trackingNumber or waybill.
+            const q1 = query(
+                collection(db, "shipments"),
+                where("trackingNumber", "==", trackingInput)
+            );
 
-            displayShipment(shipment, trackingInput);
+            let querySnapshot = await getDocs(q1);
 
-            document.getElementById("tracking-message").style.display = "none";
+            if (querySnapshot.empty) {
+                const q2 = query(
+                    collection(db, "shipments"),
+                    where("waybill", "==", trackingInput)
+                );
+
+                querySnapshot = await getDocs(q2);
+            }
+
+            if (!querySnapshot.empty) {
+                data = querySnapshot.docs[0].data();
+            }
+        }
+
+        if (data) {
+            // Original shipment summary.
+            document.getElementById('res-track').innerText = trackingInput;
+
+            document.getElementById('res-status').innerText =
+                data.status || data.currentStatus || "N/A";
+
+            document.getElementById('res-location').innerText =
+                `${data.current_city_country || data.currentLocation || "N/A"} - Facility: ${data.current_facility || "N/A"}`;
+
+            document.getElementById('res-origin').innerText =
+                data.sender_country || data.originHub || "N/A";
+
+            document.getElementById('res-destination').innerText =
+                data.receiver_country || data.destinationHub || "N/A";
+
+            document.getElementById('res-delivery').innerText =
+                "Standard Transit (Stage " + (data.stage || "1") + ")";
+
+            // Added: display all available package details.
+            displayPackageDetails(data);
+
+            // Added: display saved shipment tracking history.
+            displayTrackingHistory(data);
+
+            if (resultContainer) resultContainer.style.display = 'block';
+            if (notFoundContainer) notFoundContainer.style.display = 'none';
 
         } else {
-
-            resultContainer.style.display = "none";
-            notFoundContainer.style.display = "block";
-
-            document.getElementById("tracking-message").style.display = "none";
+            if (resultContainer) resultContainer.style.display = 'none';
+            if (notFoundContainer) notFoundContainer.style.display = 'block';
         }
 
     } catch (error) {
-
         console.error("Firestore Error:", error);
-
-        showMessage(
-            "Unable to retrieve shipment information. Please try again.",
-            "tracking-error"
-        );
-
-    } finally {
-
-        button.disabled = false;
-        button.textContent = "Track Package";
+        alert("Failed to fetch shipment details from the cloud.");
     }
 };
 
 
-// Form submission.
-document.getElementById("tracking-form").addEventListener("submit", function(event) {
-
-    event.preventDefault();
-
-    window.fetchShipmentDetails();
-});
-
-
-// Automatically search when opened from the homepage.
+// Automatically track when the page receives a tracking number.
 window.addEventListener("DOMContentLoaded", function() {
-
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Supports the homepage's ?tracking= format and the older ?id= format.
     const shipmentId =
         urlParams.get("tracking") ||
         urlParams.get("id");
 
     if (shipmentId) {
-
         document.getElementById("search-code").value = shipmentId;
-
         window.fetchShipmentDetails();
     }
 });
