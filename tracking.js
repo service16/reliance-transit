@@ -87,19 +87,16 @@ function displayPackageDetails(data) {
 
     container.innerHTML = "";
 
-    const details = [
-        ["Sender Name", ["sender_name", "senderName"]],
-        ["Sender Country", ["sender_country", "senderCountry"]],
-        ["Sender Phone", ["sender_phone", "senderPhone"]],
-        ["Receiver Name", ["receiver_name", "receiverName"]],
-        ["Receiver Country", ["receiver_country", "receiverCountry"]],
-        ["Receiver Phone", ["receiver_phone", "receiverPhone"]],
-        ["Package Description", ["package_description", "packageDescription", "description"]],
-        ["Package Type", ["package_type", "packageType"]],
-        ["Package Weight", ["weight", "packageWeight"]],
-        ["Shipping Method", ["shipping_method", "shippingMethod"]],
-        ["Payment Status", ["payment_status", "paymentStatus"]]
-    ];
+   const details = [
+    ["Sender Name", ["sender", "sender_name", "senderName"]],
+    ["Sender Country", ["sender_country", "senderCountry"]],
+    ["Receiver Name", ["receiver", "receiver_name", "receiverName"]],
+    ["Receiver Email", ["client_email", "receiver_email", "receiverEmail"]],
+    ["Receiver Country", ["receiver_country", "receiverCountry"]],
+    ["Delivery Address", ["house_address", "delivery_address", "address"]],
+    ["Package Description", ["package_description", "packageDescription", "description"]],
+    ["Package Weight", ["weight", "packageWeight"]]
+];
 
     details.forEach(([label, fields]) => {
         const value = getField(data, fields, null);
