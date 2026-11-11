@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,109 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reliance Transit | Global Logistics & Express Delivery</title>
 
+    <!-- Faster resource loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="image" href="airplane.jpg" fetchpriority="high">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #0b131f; color: #ffffff; overflow-x: hidden; }
 
-        body {
-            background: #0b131f;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
+        /* Navbar */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0b131f; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 42px; width: auto; object-fit: contain; border-radius: 6px; }
+        .logo-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; }
+        .logo-text p { font-size: 0.75rem; color: #94a3b8; letter-spacing: 1px; }
 
-        /* NAVIGATION */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            background: #0b131f;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; }
+        .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-img {
-            height: 42px;
-            width: auto;
-            object-fit: contain;
-            border-radius: 6px;
-        }
-
-        .logo-text h1 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .logo-text p {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #ffffff;
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
-
-        /* HERO SECTION */
+        /* Hero Section */
         .hero {
-            padding: clamp(72px, 10vw, 120px) 8%;
-            background-color: #101d30;
-            background-image:
-                linear-gradient(
-                    90deg,
-                    rgba(7, 15, 28, 0.88) 0%,
-                    rgba(7, 15, 28, 0.68) 48%,
-                    rgba(7, 15, 28, 0.35) 100%
-                ),
-                url("airplane.jpg");
+            padding: clamp(70px, 9vw, 120px) 8%;
+            background-color: #0b131f;
+            background-image: linear-gradient(110deg, rgba(7, 15, 28, 0.78), rgba(7, 15, 28, 0.38)), url('airplane.jpg');
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
             text-align: left;
-            min-height: 72vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -116,107 +44,26 @@
             isolation: isolate;
         }
 
-        .hero span {
-            background: rgba(2,132,199,0.3);
-            color: #38bdf8;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            width: fit-content;
-        }
+        .hero h1 { font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 700; margin: 22px 0 14px; max-width: 720px; line-height: 1.12; text-shadow: 0 3px 16px rgba(0,0,0,0.55); }
+        .hero p { color: #e2e8f0; font-size: 1.05rem; max-width: 610px; margin-bottom: 30px; line-height: 1.7; text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
+        .hero span { background: rgba(2,132,199,0.3); color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: inline-block; width: fit-content; }
 
-        .hero h1 {
-            color: #ffffff;
-            font-size: clamp(2.2rem, 5vw, 3.6rem);
-            font-weight: 700;
-            margin: 20px 0 14px;
-            max-width: 760px;
-            line-height: 1.12;
-            letter-spacing: -1px;
-            text-shadow: 0 3px 18px rgba(0,0,0,0.45);
-        }
+        /* Tracking Box */
+        .tracking-card { background: #ffffff; padding: 15px; border-radius: 12px; display: flex; max-width: 650px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.4); flex-wrap: wrap; gap: 10px; }
+        .tracking-card input { flex: 1; border: none; padding: 12px; font-size: 1rem; outline: none; color: #0f172a; background: transparent; min-width: 200px; }
+        .tracking-card button { background: #2563eb; color: white; border: none; padding: 12px 30px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s; min-height: 48px; }
+        .tracking-card button:hover { background: #1d4ed8; transform: translateY(-1px); }
+        .tracking-card input:focus { outline: 2px solid rgba(37, 99, 235, 0.25); outline-offset: 2px; }
 
-        .hero p {
-            color: #e2e8f0;
-            font-size: clamp(0.95rem, 1.5vw, 1.08rem);
-            line-height: 1.7;
-            max-width: 620px;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
+        .feature-box, .service-item, .testimonial-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .feature-box:hover, .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.12); }
 
-        /* TRACKING BOX */
-        .tracking-card {
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 14px;
-            display: flex;
-            max-width: 680px;
-            width: 100%;
-            box-shadow: 0 18px 45px rgba(0,0,0,0.32);
-            flex-wrap: wrap;
-            gap: 10px;
-            border: 1px solid rgba(255,255,255,0.35);
-        }
+        /* Tracking Result */
+        #result-container { padding: 40px 8%; background: #0b131f; display: none; }
+        .result-box { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 800px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.1); }
+        .result-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; align-items: center; }
 
-        .tracking-card input {
-            flex: 1;
-            border: none;
-            padding: 12px;
-            font-size: 1rem;
-            outline: none;
-            color: #0f172a;
-            background: transparent;
-            min-width: 200px;
-        }
-
-        .tracking-card button {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .tracking-card button:hover {
-            background: #1d4ed8;
-        }
-
-        /* TRACKING RESULT */
-        #result-container {
-            padding: 40px 8%;
-            background: #0b131f;
-            display: none;
-        }
-
-        .result-box {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 800px;
-            margin: 0 auto;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-
-        /* SHIPPING SECTION */
+        /* Document and Parcel Shipping Section */
         .shipping-info {
             padding: 90px 8%;
             background: #0f172a;
@@ -229,580 +76,99 @@
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        .shipping-text {
-            flex: 1;
-            min-width: 320px;
-        }
+        .shipping-text { flex: 1; min-width: 320px; }
+        .shipping-text .section-tag { color: #38bdf8; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: block; text-align: left; }
+        .shipping-text h2 { font-size: 2.8rem; margin-bottom: 15px; color: #ffffff; font-weight: 700; line-height: 1.2; }
+        .shipping-text p { color: #94a3b8; font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; }
 
-        .shipping-text .section-tag {
-            color: #38bdf8;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            display: block;
-            text-align: left;
-        }
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 35px; }
+        .service-item { background: #1e293b; padding: 18px 20px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; color: #f8fafc; border-left: 4px solid #38bdf8; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
 
-        .shipping-text h2 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-            font-weight: 700;
-            line-height: 1.2;
-        }
+        .shipping-img { flex: 1; min-width: 320px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); background: #1e293b; }
+        .shipping-img img { width: 100%; height: 380px; object-fit: cover; display: block; transition: transform 0.5s ease; }
+        .shipping-img img:hover { transform: scale(1.03); }
 
-        .shipping-text p {
-            color: #94a3b8;
-            font-size: 1.05rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
+        /* Features Section */
+        .features { padding: 90px 8%; background: #0b131f; }
+        .section-tag { color: #38bdf8; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; text-align: center; }
+        .section-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 15px; text-align: center; }
+        .section-desc { color: #94a3b8; text-align: center; max-width: 600px; margin: 0 auto 50px auto; font-size: 0.95rem; }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 35px;
-        }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .feature-box { background: #1e293b; padding: 40px 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+        .feature-box h3 { font-size: 1.3rem; margin-bottom: 15px; color: #ffffff; }
+        .feature-box p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
 
-        .service-item {
-            background: #1e293b;
-            padding: 18px 20px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #f8fafc;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+        /* Testimonials Section */
+        .testimonials { padding: 90px 8%; background: #f8fafc; color: #0f172a; }
+        .testimonials .section-tag { color: #2563eb; }
+        .testimonials .section-title { color: #0f172a; }
+        .testimonials .section-desc { color: #64748b; }
 
-        .shipping-img {
-            flex: 1;
-            min-width: 320px;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-            background: #1e293b;
-        }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .testimonial-card { background: #ffffff; padding: 35px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between; }
+        .stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 20px; letter-spacing: 2px; }
+        .testimonial-card p { color: #334155; font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px; font-style: italic; }
+        .client-info { display: flex; align-items: center; gap: 15px; border-top: 1px solid #f1f5f9; padding-top: 20px; }
+        .client-avatar { width: 45px; height: 45px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+        .client-details h4 { font-size: 0.95rem; font-weight: 700; color: #0f172a; }
+        .client-details p { font-size: 0.8rem; color: #64748b; margin: 0; font-style: normal; }
 
-        .shipping-img img {
-            width: 100%;
-            height: 380px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
+        /* Detailed Footer */
+        footer { background: #070b12; color: #94a3b8; padding: 70px 8% 30px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
+        .footer-col h4 { color: #ffffff; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.88rem; cursor: pointer; }
+        .footer-col ul li a:hover { color: #38bdf8; text-decoration: underline; }
 
-        .shipping-img img:hover {
-            transform: scale(1.03);
-        }
+        .region-select { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; padding: 10px 15px; border-radius: 6px; width: 100%; font-size: 0.85rem; outline: none; margin-top: 10px; cursor: pointer; }
 
-        /* FEATURES */
-        .features {
-            padding: 90px 8%;
-            background: #0b131f;
-        }
+        .footer-social-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 25px 0; margin-bottom: 25px; flex-wrap: wrap; gap: 20px; }
+        .social-title { color: #ffffff; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .social-icons { display: flex; gap: 12px; }
+        .social-btn { width: 38px; height: 38px; background: #111c2e; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #cbd5e1; text-decoration: none; font-size: 0.85rem; transition: 0.3s; font-weight: bold; }
+        .social-btn:hover { background: #0284c7; color: #ffffff; border-color: #0284c7; transform: translateY(-2px); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-size: 0.82rem; color: #64748b; }
+        .footer-bottom-left { display: flex; align-items: center; gap: 10px; color: #cbd5e1; }
+        .footer-bottom-left span { background: #0284c7; color: #fff; width: 24px; height: 24px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; }
+        .footer-bottom-links { display: flex; gap: 20px; }
+        .footer-bottom-links a { color: #64748b; text-decoration: none; transition: 0.3s; cursor: pointer; }
+        .footer-bottom-links a:hover { color: #38bdf8; }
 
-        .section-tag {
-            color: #38bdf8;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            display: block;
-            text-align: center;
-        }
+        /* Universal Content Modal Overlay */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-card { background: #1e293b; color: #ffffff; padding: 40px; border-radius: 16px; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1); position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .modal-close { position: absolute; top: 20px; right: 20px; background: #0f172a; color: #94a3b8; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .modal-close:hover { background: #ef4444; color: #ffffff; }
+        .modal-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #38bdf8; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .modal-card p, .modal-card ul { color: #cbd5e1; font-size: 0.95rem; line-height: 1.7; margin-bottom: 15px; }
+        .modal-card ul { padding-left: 20px; }
+        .modal-btn { background: #0284c7; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .modal-btn:hover { opacity: 0.9; }
 
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .section-desc {
-            color: #94a3b8;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 50px auto;
-            font-size: 0.95rem;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-box {
-            background: #1e293b;
-            padding: 40px 30px;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.25s ease, border-color 0.25s ease;
-        }
-
-        .feature-box:hover {
-            transform: translateY(-5px);
-            border-color: rgba(56,189,248,0.4);
-        }
-
-        .feature-box h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .feature-box p {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* TESTIMONIALS */
-        .testimonials {
-            padding: 90px 8%;
-            background: #f8fafc;
-            color: #0f172a;
-        }
-
-        .testimonials .section-tag {
-            color: #2563eb;
-        }
-
-        .testimonials .section-title {
-            color: #0f172a;
-        }
-
-        .testimonials .section-desc {
-            color: #64748b;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .testimonial-card {
-            background: #ffffff;
-            padding: 35px;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .stars {
-            color: #f59e0b;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .testimonial-card p {
-            color: #334155;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            font-style: italic;
-        }
-
-        .client-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 20px;
-        }
-
-        .client-photo {
-            width: 45px;
-            height: 45px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .client-details h4 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        .client-details p {
-            font-size: 0.8rem;
-            color: #64748b;
-            margin: 0;
-            font-style: normal;
-        }
-
-        /* FOOTER */
-        footer {
-            background: #070b12;
-            color: #94a3b8;
-            padding: 70px 8% 30px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            font-size: 0.9rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .footer-col h4 {
-            color: #ffffff;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .footer-col ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .footer-col ul li a {
-            color: #94a3b8;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 0.88rem;
-            cursor: pointer;
-        }
-
-        .footer-col ul li a:hover {
-            color: #38bdf8;
-            text-decoration: underline;
-        }
-
-        .region-select {
-            background: #0f172a;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #ffffff;
-            padding: 10px 15px;
-            border-radius: 6px;
-            width: 100%;
-            font-size: 0.85rem;
-            outline: none;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-
-        .footer-social-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            padding: 25px 0;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .social-title {
-            color: #ffffff;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .social-btn {
-            width: 38px;
-            height: 38px;
-            background: #111c2e;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-
-        .social-btn:hover {
-            background: #0284c7;
-            color: #ffffff;
-            border-color: #0284c7;
-            transform: translateY(-2px);
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            font-size: 0.82rem;
-            color: #64748b;
-        }
-
-        .footer-bottom-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #cbd5e1;
-        }
-
-        .footer-bottom-left span {
-            background: #0284c7;
-            color: #fff;
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-
-        .footer-bottom-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-bottom-links a {
-            color: #64748b;
-            text-decoration: none;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .footer-bottom-links a:hover {
-            color: #38bdf8;
-        }
-
-        /* MODALS */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-card {
-            background: #1e293b;
-            color: #ffffff;
-            padding: 40px;
-            border-radius: 16px;
-            max-width: 650px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #0f172a;
-            color: #94a3b8;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
-
-        .modal-close:hover {
-            background: #ef4444;
-            color: #ffffff;
-        }
-
-        .modal-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #38bdf8;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
-        }
-
-        .modal-card p,
-        .modal-card ul {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 15px;
-        }
-
-        .modal-card ul {
-            padding-left: 20px;
-        }
-
-        .modal-btn {
-            background: #0284c7;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: 0.3s;
-        }
-
-        .modal-btn:hover {
-            opacity: 0.9;
-        }
-
-        /* MOBILE RESPONSIVENESS */
+        /* Responsive Mobile Styling for Navbar & Sections */
         @media (max-width: 768px) {
-            nav {
-                padding: 15px 5%;
-                flex-wrap: wrap;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                background: #0b131f;
-                padding: 20px 0;
-                border-top: 1px solid rgba(255,255,255,0.1);
-                margin-top: 15px;
-                text-align: center;
-                gap: 20px;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .hero {
-                min-height: 65vh;
-                padding: 75px 5%;
-                background-position: center;
-            }
-
-            .hero h1 {
-                font-size: clamp(2rem, 8vw, 2.7rem);
-            }
-
-            .tracking-card {
-                flex-direction: column;
-            }
-
-            .tracking-card input {
-                width: 100%;
-                min-width: 0;
-            }
-
-            .tracking-card button {
-                width: 100%;
-                min-height: 48px;
-            }
-
-            .shipping-info {
-                flex-direction: column;
-                text-align: center;
-                padding: 65px 5%;
-            }
-
-            .shipping-text {
-                min-width: 0;
-                width: 100%;
-            }
-
-            .shipping-text h2 {
-                font-size: 2rem;
-            }
-
-            .shipping-text .section-tag {
-                text-align: center;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .shipping-img {
-                min-width: 0;
-                width: 100%;
-            }
-
-            .shipping-img img {
-                height: 250px;
-            }
-
-            .features,
-            .testimonials {
-                padding: 65px 5%;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .modal-card {
-                padding: 30px 22px;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                scroll-behavior: auto !important;
-                transition-duration: 0.01ms !important;
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-            }
+            nav { padding: 15px 5%; flex-wrap: wrap; }
+            .hero { min-height: 68vh; padding: 75px 5%; background-position: 58% center; }
+            .hero p { font-size: 0.98rem; }
+            .tracking-card { max-width: 100%; }
+            .tracking-card input { min-width: 0; width: 100%; }
+            .tracking-card button { width: 100%; }
+            .menu-toggle { display: block; }
+            .nav-links { display: none; width: 100%; flex-direction: column; background: #0b131f; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 15px; text-align: center; gap: 20px; }
+            .nav-links.active { display: flex; }
+            .hero h1 { font-size: 2.2rem; }
+            .shipping-info { flex-direction: column; text-align: center; }
+            .shipping-text .section-tag { text-align: center; }
+            .services-grid { grid-template-columns: 1fr; }
+            .shipping-img img { height: 250px; }
         }
     </style>
 </head>
 
 <body>
-
-    <!-- NAVIGATION -->
+    <!-- Navbar -->
     <nav>
         <div class="logo-area">
             <img src="logo1.jpg" alt="Reliance Transit Logo" class="logo-img">
@@ -812,7 +178,7 @@
             </div>
         </div>
 
-        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation menu">☰</button>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
         <ul class="nav-links" id="nav-links-menu">
             <li><a href="index.html" class="active" onclick="toggleMenu()">Home</a></li>
@@ -823,44 +189,29 @@
         </ul>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- Hero Section -->
     <section class="hero" id="track">
         <span>World-Class Express Delivery</span>
-
-        <h1>Moving Your World Forward, One Shipment at a Time.</h1>
-
-        <p>
-            Reliable international shipping, secure parcel handling and convenient
-            shipment tracking. Wherever your package needs to go, Reliance Transit
-            helps move it forward.
-        </p>
+        <h1>Global Shipping. Delivered with Confidence.</h1>
+        <p>Move your documents and parcels across borders with dependable international logistics and shipment tracking.</p>
 
         <form class="tracking-card" id="homepage-tracking-form">
-            <input
-                type="text"
-                id="tracking-input"
-                placeholder="Enter Tracking Number (e.g. RT263850)"
-                autocomplete="off"
-                required
-            >
+            <input type="text" id="tracking-input" placeholder="Enter Tracking Number (e.g. RT263850)" required>
             <button type="submit">Track Package</button>
         </form>
     </section>
 
-    <!-- TRACKING RESULTS -->
+    <!-- Tracking Results -->
     <div id="result-container">
         <div class="result-box" id="result-content"></div>
     </div>
 
-    <!-- DOCUMENT AND PARCEL SHIPPING -->
+    <!-- Document and Parcel Shipping Section -->
     <section class="shipping-info">
         <div class="shipping-text">
             <span class="section-tag">For All Shippers</span>
             <h2>Document and Parcel Shipping</h2>
-            <p>
-                Learn about Reliance Transit – the undisputed leader in your
-                international express shipping needs.
-            </p>
+            <p>Learn about Reliance Transit – the undisputed leader in your international express shipping needs.</p>
 
             <div class="services-grid">
                 <div class="service-item">Next Possible Business Day</div>
@@ -869,84 +220,53 @@
                 <div class="service-item">Wide Variety of Optional Services</div>
             </div>
 
-            <button class="modal-btn" onclick="openPage('about')">
-                Explore Our Services
-            </button>
+            <button class="modal-btn" onclick="openPage('about')">Explore Our Services</button>
         </div>
 
         <div class="shipping-img">
-            <img
-                src="parcel.png"
-                alt="Document and Parcel Shipping"
-                loading="lazy"
-                decoding="async"
-                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80';"
-            >
+            <img src="parcel.png" alt="Document and Parcel Shipping" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'">
         </div>
     </section>
 
-    <!-- FEATURES SECTION -->
+    <!-- Features Section -->
     <section class="features" id="services">
         <span class="section-tag">Excellence in Motion</span>
         <h2 class="section-title">Why Choose Reliance Transit?</h2>
-        <p class="section-desc">
-            We combine high-speed global connections with absolute safety guarantees.
-        </p>
+        <p class="section-desc">We combine high-speed global connections with absolute safety guarantees.</p>
 
         <div class="feature-grid">
             <div class="feature-box">
                 <h3>Express Air Freight</h3>
-                <p>
-                    Lightning-fast international shipping options designed to get
-                    your critical parcels across borders in record time.
-                </p>
+                <p>Lightning-fast international shipping options designed to get your critical parcels across borders in record time.</p>
             </div>
 
             <div class="feature-box">
                 <h3>Secure Handling</h3>
-                <p>
-                    End-to-end encryption and physical security measures ensuring
-                    sensitive or valuable packages are protected.
-                </p>
+                <p>End-to-end encryption and physical security measures ensuring sensitive or valuable packages are protected.</p>
             </div>
 
             <div class="feature-box">
                 <h3>Real-Time Milestone Tracking</h3>
-                <p>
-                    Monitor every single scan event, location change, and customs
-                    update live through our customer tracking portal.
-                </p>
+                <p>Monitor every single scan event, location change, and customs update live through our customer tracking portal.</p>
             </div>
         </div>
     </section>
 
-    <!-- TESTIMONIALS -->
+    <!-- Client Testimonials Section -->
     <section class="testimonials" id="testimonials">
         <span class="section-tag">Client Testimonials</span>
         <h2 class="section-title">Trusted by Individuals & Global Businesses</h2>
-        <p class="section-desc">
-            See what our customers have to say about our speed, care, and dependable service.
-        </p>
+        <p class="section-desc">See what our customers have to say about our speed, care, and dependable service.</p>
 
         <div class="testimonial-grid">
             <div class="testimonial-card">
                 <div>
                     <div class="stars">★★★★★</div>
-                    <p>
-                        "Reliance Transit delivered my urgent documents across
-                        international borders seamlessly. The live milestone
-                        updates gave me complete peace of mind!"
-                    </p>
+                    <p>"Reliance Transit delivered my urgent documents across international borders seamlessly. The live milestone updates gave me complete peace of mind!"</p>
                 </div>
 
                 <div class="client-info">
-                    <img
-                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
-                        alt="Jonathan Davis"
-                        class="client-photo"
-                        loading="lazy"
-                        decoding="async"
-                    >
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Jonathan Davis" class="client-photo">
                     <div class="client-details">
                         <h4>Jonathan Davis</h4>
                         <p>Verified Client, London</p>
@@ -957,20 +277,11 @@
             <div class="testimonial-card">
                 <div>
                     <div class="stars">★★★★★</div>
-                    <p>
-                        "Exceptional customer service and extremely careful handling.
-                        My fragile electronics arrived in pristine condition right on schedule."
-                    </p>
+                    <p>"Exceptional customer service and extremely careful handling. My fragile electronics arrived in pristine condition right on schedule."</p>
                 </div>
 
                 <div class="client-info">
-                    <img
-                        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80"
-                        alt="Sarah Miller"
-                        class="client-photo"
-                        loading="lazy"
-                        decoding="async"
-                    >
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" alt="Sarah Miller" class="client-photo">
                     <div class="client-details">
                         <h4>Sarah Miller</h4>
                         <p>E-Commerce Merchant</p>
@@ -981,20 +292,11 @@
             <div class="testimonial-card">
                 <div>
                     <div class="stars">★★★★★</div>
-                    <p>
-                        "The easiest tracking system I've used. No hidden delays,
-                        transparent customs updates, and professional couriers."
-                    </p>
+                    <p>"The easiest tracking system I've used. No hidden delays, transparent customs updates, and professional couriers."</p>
                 </div>
 
                 <div class="client-info">
-                    <img
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
-                        alt="Marcus Vance"
-                        class="client-photo"
-                        loading="lazy"
-                        decoding="async"
-                    >
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marcus Vance" class="client-photo">
                     <div class="client-details">
                         <h4>Marcus Vance</h4>
                         <p>Operations Director</p>
@@ -1004,7 +306,7 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- Detailed Footer -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
@@ -1036,14 +338,8 @@
 
             <div class="footer-col">
                 <h4>Global Region</h4>
-                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 5px;">
-                    🌐 United States / Global
-                </p>
-
-                <select
-                    class="region-select"
-                    onchange="alert('Language preference updated to ' + this.options[this.selectedIndex].text)"
-                >
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 5px;">🌐 United States / Global</p>
+                <select class="region-select" onchange="alert('Language preference updated to ' + this.options[this.selectedIndex].text)">
                     <option value="en">English</option>
                     <option value="es">Español</option>
                     <option value="fr">Français</option>
@@ -1054,13 +350,12 @@
 
         <div class="footer-social-row">
             <div class="social-title">Follow Reliance Transit</div>
-
             <div class="social-icons">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn">f</a>
-                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-btn">X</a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn">in</a>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn">yt</a>
-                <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" class="social-btn">pin</a>
+                <a href="https://facebook.com" target="_blank" class="social-btn">f</a>
+                <a href="https://x.com" target="_blank" class="social-btn">X</a>
+                <a href="https://linkedin.com" target="_blank" class="social-btn">in</a>
+                <a href="https://youtube.com" target="_blank" class="social-btn">yt</a>
+                <a href="https://pinterest.com" target="_blank" class="social-btn">pin</a>
             </div>
         </div>
 
@@ -1078,24 +373,18 @@
         </div>
     </footer>
 
-    <!-- INFORMATION MODAL -->
+    <!-- Interactive Modal Container -->
     <div class="modal-overlay" id="info-modal">
         <div class="modal-card">
-            <button class="modal-close" onclick="closeModal()" aria-label="Close modal">
-                &times;
-            </button>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
             <div id="modal-body-content"></div>
         </div>
     </div>
 
-    <!-- FIREBASE FIRESTORE SDK -->
+    <!-- Firebase Firestore SDK Setup -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import {
-            getFirestore,
-            doc,
-            getDoc
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBTBGEI8d_f8Ti4TI7hW9ASC4PEdf5la4A",
@@ -1115,15 +404,14 @@
         window.getDoc = getDoc;
     </script>
 
-    <!-- HOMEPAGE JAVASCRIPT -->
     <script>
-        // MOBILE MENU
+        // Mobile menu toggle
         function toggleMenu() {
             const menu = document.getElementById('nav-links-menu');
             menu.classList.toggle('active');
         }
 
-        // HOMEPAGE TRACKING
+        // Send homepage tracking searches to the dedicated tracking page.
         document.getElementById('homepage-tracking-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -1137,19 +425,16 @@
             window.location.href = "tracking.html?tracking=" + encodeURIComponent(trackingNumber);
         });
 
-        // TAWK.TO LIVE CHAT
+        // Open the existing Tawk.to live chat from the Contact Us modal.
         function startLiveChat() {
-            if (
-                window.Tawk_API &&
-                typeof window.Tawk_API.maximize === "function"
-            ) {
+            if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
                 window.Tawk_API.maximize();
             } else {
                 alert("Live chat is loading. Please wait a moment and try again.");
             }
         }
 
-        // INFORMATION MODALS
+        // Interactive Footer Page Modals
         function openPage(pageKey) {
             const modal = document.getElementById('info-modal');
             const body = document.getElementById('modal-body-content');
@@ -1257,10 +542,9 @@
         };
     </script>
 
-    <!-- TAWK.TO CHAT -->
+    <!--Start of Tawk.to Script-->
     <script type="text/javascript">
-        var Tawk_API = Tawk_API || {};
-        var Tawk_LoadStart = new Date();
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
 
         (function() {
             var s1 = document.createElement("script");
@@ -1274,6 +558,7 @@
             s0.parentNode.insertBefore(s1, s0);
         })();
     </script>
+    <!--End of Tawk.to Script-->
 
 </body>
 </html>
